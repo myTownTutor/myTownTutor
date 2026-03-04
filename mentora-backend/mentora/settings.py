@@ -223,6 +223,9 @@ EMAIL_HOST_USER = os.getenv('MAIL_USERNAME', '')
 EMAIL_HOST_PASSWORD = os.getenv('MAIL_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.getenv('MAIL_DEFAULT_SENDER', 'noreply@mentora.com')
 
+# Brevo HTTP API key (used instead of SMTP to bypass port 587 blocks)
+BREVO_API_KEY = os.getenv('BREVO_API_KEY', '')
+
 # Razorpay
 RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID', 'rzp_test_dummy')
 RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET', 'secret_dummy')

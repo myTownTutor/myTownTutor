@@ -50,23 +50,49 @@ def _generate_otp():
 
 
 def _send_otp_email(email, otp, first_name):
-    """Send OTP verification email via Gmail SMTP."""
-    subject = 'Verify your MyTownTutor account'
-    message = (
-        f'Hi {first_name},\n\n'
-        f'Your verification code for MyTownTutor is:\n\n'
-        f'  {otp}\n\n'
-        f'This code expires in 10 minutes.\n\n'
-        f'If you did not sign up, please ignore this email.\n\n'
-        f'— The MyTownTutor Team'
+    """Send OTP verification email via Brevo HTTP API (port 443)."""
+    import requests as http_requests
+    api_key = django_settings.BREVO_API_KEY
+    if not api_key:
+        # Fallback to Django email backend (console in dev)
+        from django.core.mail import send_mail
+        send_mail(
+            subject='Verify your MyTownTutor account',
+            message=(
+                f'Hi {first_name},\n\n'
+                f'Your verification code is: {otp}\n\n'
+                f'This code expires in 10 minutes.\n\n'
+                f'— The MyTownTutor Team'
+            ),
+            from_email=django_settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
+            fail_silently=False,
+        )
+        return
+
+    response = http_requests.post(
+        'https://api.brevo.com/v3/smtp/email',
+        headers={
+            'api-key': api_key,
+            'Content-Type': 'application/json',
+        },
+        json={
+            'sender': {'name': 'MyTownTutor', 'email': 'noreply@mytowntutor.com'},
+            'to': [{'email': email}],
+            'subject': 'Verify your MyTownTutor account',
+            'textContent': (
+                f'Hi {first_name},\n\n'
+                f'Your verification code for MyTownTutor is:\n\n'
+                f'  {otp}\n\n'
+                f'This code expires in 10 minutes.\n\n'
+                f'If you did not sign up, please ignore this email.\n\n'
+                f'— The MyTownTutor Team'
+            ),
+        },
+        timeout=10,
     )
-    send_mail(
-        subject=subject,
-        message=message,
-        from_email=django_settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[email],
-        fail_silently=False,
-    )
+    if response.status_code not in (200, 201):
+        raise Exception(f'Brevo API error {response.status_code}: {response.text}')
 
 
 class RegisterView(APIView):
