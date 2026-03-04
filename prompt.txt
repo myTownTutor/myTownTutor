@@ -1,0 +1,87 @@
+I want you to help me build a mentorship platform web application. Please provide complete code and step-by-step instructions.
+## PROJECT OVERVIEW
+A three-role platform (Super Admin, Mentor, Student) where:
+- Mentors pay a fee and get approved by Super Admin before their profile goes live
+- Students can sign up instantly and browse mentor profiles
+- Students can contact mentors (basic contact functionality) through their instagram or facebook link
+
+
+## TECH STACK
+- **Backend**: Python and flask
+- **Frontend**: React (functional components with hooks)
+- **Styling**:  CSS(Bootstrap)
+- **Database**: SQLite (for development) - can switch to PostgreSQL later
+- **Payment**: razorpay upi integration for mentor payments
+
+## CORE FEATURES TO IMPLEMENT
+
+### 1. USER AUTHENTICATION & ROLES
+- User registration with role selection (Mentor or Student)
+- Login/logout functionality
+- JWT authentication for React frontend
+- Three roles: Super Admin, Mentor, Student
+- User profile model with common fields (name, email, etc.)
+
+### 2. MENTOR FLOW
+- Mentor signup with payment (UPI)
+- After payment → status = "pending_approval"
+- Mentor profile form (bio, expertise, experience, hourly rate, profile photo)
+- Can't be visible to students until approved
+- Can edit profile while pending
+
+### 3. SUPER ADMIN FLOW
+- Dedicated admin dashboard
+- View list of pending mentor approvals
+- Approve/reject mentors (with optional reason for rejection)
+- Full CRUD on all users (edit, delete, suspend)
+- View all payments/transactions
+
+### 4. STUDENT FLOW
+- Instant signup (no approval needed)
+- Browse/search all approved mentors
+- View mentor profile details
+- Contact mentor (simple contact form that sends email to mentor)
+
+### 5. DATABASE MODELS NEEDED
+- User (extend Django's AbstractUser)
+- MentorProfile (linked to User)
+- StudentProfile (linked to User)
+- Payment (track mentor payments)
+- ContactMessage (student to mentor messages)
+
+## WHAT I NEED FROM YOU
+
+Please provide:
+
+1. **Complete Django project structure** with all files and code
+2. **React components** for all pages
+3. **CSS styles** for a clean, professional design
+4. **Setup instructions** from scratch
+5. **API endpoints** documentation
+6. **UPI** code for payment processing
+
+## SPECIFIC PAGES NEEDED
+
+### Frontend Pages:
+- Home/Landing page
+- Signup page (with role selection)
+- Login page
+- Student Dashboard
+- Mentor Dashboard (shows approval status)
+- Mentor Profile Setup/Edit page
+- Browse Mentors page (with search/filter)
+- Mentor Profile View page
+- Contact Mentor page (form)
+- Admin Dashboard (Super Admin only)
+- Payment page (Stripe checkout)
+- about page mission
+
+
+### Design Preferences:
+- Clean, modern, professional like linkedin, facebook and indeed
+- Responsive (mobile-friendly)
+- Use CSS Flexbox/Grid
+- Light color scheme with accent color (maybe blue #0066cc)
+- Simple navigation bar
+
+Please provide all code with explanations. I want to be able to copy-paste and run this successfully, with instructions
