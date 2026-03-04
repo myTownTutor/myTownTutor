@@ -215,7 +215,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Email (SMTP)
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
 EMAIL_HOST = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
 EMAIL_PORT = int(os.getenv('MAIL_PORT', 587))
 EMAIL_USE_TLS = os.getenv('MAIL_USE_TLS', 'True') == 'True'
