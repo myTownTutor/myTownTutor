@@ -77,7 +77,7 @@ def _send_otp_email(email, otp, first_name):
             'Content-Type': 'application/json',
         },
         json={
-            'sender': {'name': 'MyTownTutor', 'email': 'noreply@mytowntutor.com'},
+            'sender': {'name': 'MyTownTutor', 'email': django_settings.DEFAULT_FROM_EMAIL},
             'to': [{'email': email}],
             'subject': 'Verify your MyTownTutor account',
             'textContent': (
