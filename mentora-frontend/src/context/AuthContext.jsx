@@ -61,11 +61,21 @@ export const AuthProvider = ({ children }) => {
         last_name: lastName,
         role,
       });
+      // No tokens yet — user must verify email first
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const verifyEmail = async (email, otp) => {
+    try {
+      const response = await api.post('/auth/verify-email', { email, otp });
       const { access_token, refresh_token, user: userData } = response.data;
       localStorage.setItem('token', access_token);
       if (refresh_token) localStorage.setItem('refresh_token', refresh_token);
       setUser(userData);
-      return response.data;
+      return userData;
     } catch (error) {
       throw error;
     }
@@ -77,6 +87,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     register,
+    verifyEmail,
     isAuthenticated: !!user
   };
 

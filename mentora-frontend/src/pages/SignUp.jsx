@@ -30,11 +30,8 @@ const SignUp = () => {
     }
     setLoading(true);
     try {
-      await register(formData.email, formData.password, formData.first_name, formData.last_name, role);
-      setTimeout(() => {
-        if (role === 'mentor') navigate('/mentor-profile-setup');
-        else navigate('/student-dashboard');
-      }, 100);
+      const data = await register(formData.email, formData.password, formData.first_name, formData.last_name, role);
+      navigate('/verify-email', { state: { email: data.email, role: data.role } });
     } catch (err) {
       if (!err.response) {
         setError('Cannot connect to server. Make sure the backend is running on port 8000.');

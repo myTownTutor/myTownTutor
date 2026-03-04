@@ -44,6 +44,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_email_verified = models.BooleanField(default=False)
+    email_otp = models.CharField(max_length=6, blank=True, null=True)
+    email_otp_expires_at = models.DateTimeField(blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'role']
@@ -61,6 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             'last_name': self.last_name,
             'role': self.role,
             'created_at': self.created_at.isoformat(),
+            'is_email_verified': self.is_email_verified,
         }
 
     def __str__(self):

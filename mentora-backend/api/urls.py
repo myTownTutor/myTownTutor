@@ -1,5 +1,5 @@
 from django.urls import path
-from api.views.auth_views import RegisterView, LoginView, LogoutView, MeView, TokenRefreshView
+from api.views.auth_views import RegisterView, LoginView, LogoutView, MeView, TokenRefreshView, VerifyEmailView, ResendOTPView
 from api.views.mentor_views import (
     ApprovedMentorsView, MentorDetailView, InitiatePaymentView, VerifyPaymentView,
     MarkPaidView, MentorProfileView, UploadPhotoView, MentorEnquiriesView,
@@ -23,6 +23,8 @@ from api.views.chat_views import (
 urlpatterns = [
     # ── Auth ────────────────────────────────────────────────────────────────
     path('auth/register', RegisterView.as_view(), name='register'),
+    path('auth/verify-email', VerifyEmailView.as_view(), name='verify-email'),
+    path('auth/resend-otp', ResendOTPView.as_view(), name='resend-otp'),
     path('auth/login', LoginView.as_view(), name='login'),
     path('auth/logout', LogoutView.as_view(), name='logout'),
     path('auth/refresh', TokenRefreshView.as_view(), name='token-refresh'),

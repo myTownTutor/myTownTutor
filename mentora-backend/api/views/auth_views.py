@@ -1,12 +1,20 @@
 """
 Auth views — /api/auth/* endpoints.
 POST /api/auth/register
+POST /api/auth/verify-email
+POST /api/auth/resend-otp
 POST /api/auth/login
 POST /api/auth/logout
 POST /api/auth/refresh
 GET  /api/auth/me
 """
 import re
+import random
+import secrets
+from django.utils import timezone
+from datetime import timedelta
+from django.core.mail import send_mail
+from django.conf import settings as django_settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -34,6 +42,31 @@ def _password_errors(password):
     if not re.search(r'\d', password):
         errors.append('Password must contain at least one number.')
     return errors
+
+
+def _generate_otp():
+    """Generate a 6-digit OTP."""
+    return str(random.randint(100000, 999999))
+
+
+def _send_otp_email(email, otp, first_name):
+    """Send OTP verification email via Gmail SMTP."""
+    subject = 'Verify your MyTownTutor account'
+    message = (
+        f'Hi {first_name},\n\n'
+        f'Your verification code for MyTownTutor is:\n\n'
+        f'  {otp}\n\n'
+        f'This code expires in 10 minutes.\n\n'
+        f'If you did not sign up, please ignore this email.\n\n'
+        f'— The MyTownTutor Team'
+    )
+    send_mail(
+        subject=subject,
+        message=message,
+        from_email=django_settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[email],
+        fail_silently=False,
+    )
 
 
 class RegisterView(APIView):
@@ -70,6 +103,9 @@ class RegisterView(APIView):
             return Response({'error': 'Email already registered'}, status=status.HTTP_409_CONFLICT)
 
         try:
+            otp = _generate_otp()
+            otp_expires_at = timezone.now() + timedelta(minutes=10)
+
             user = User.objects.create_user(
                 email=email,
                 first_name=first_name,
@@ -77,23 +113,93 @@ class RegisterView(APIView):
                 role=data['role'],
                 password=data['password'],
             )
+            user.email_otp = otp
+            user.email_otp_expires_at = otp_expires_at
+            user.is_email_verified = False
+            user.save()
 
             if data['role'] == 'mentor':
                 Mentor.objects.create(user=user, approval_status='pending_payment')
             elif data['role'] == 'student':
                 Student.objects.create(user=user)
 
-            access_token, refresh_token = get_tokens_for_user(user)
+            _send_otp_email(email, otp, first_name)
 
             return Response({
-                'message': 'User registered successfully',
-                'access_token': access_token,
-                'refresh_token': refresh_token,
-                'user': user.to_dict(),
+                'message': 'OTP sent to your email. Please verify to continue.',
+                'email': email,
+                'role': data['role'],
             }, status=status.HTTP_201_CREATED)
 
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class VerifyEmailView(APIView):
+    """POST /api/auth/verify-email"""
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        email = request.data.get('email', '').strip().lower()
+        otp = request.data.get('otp', '').strip()
+
+        if not email or not otp:
+            return Response({'error': 'Email and OTP are required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response({'error': 'Invalid email'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if user.is_email_verified:
+            return Response({'error': 'Email already verified'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not user.email_otp or user.email_otp != otp:
+            return Response({'error': 'Invalid OTP'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if timezone.now() > user.email_otp_expires_at:
+            return Response({'error': 'OTP has expired. Please request a new one.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.is_email_verified = True
+        user.email_otp = None
+        user.email_otp_expires_at = None
+        user.save()
+
+        access_token, refresh_token = get_tokens_for_user(user)
+
+        return Response({
+            'message': 'Email verified successfully',
+            'access_token': access_token,
+            'refresh_token': refresh_token,
+            'user': user.to_dict(),
+        }, status=status.HTTP_200_OK)
+
+
+class ResendOTPView(APIView):
+    """POST /api/auth/resend-otp"""
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        email = request.data.get('email', '').strip().lower()
+        if not email:
+            return Response({'error': 'Email is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response({'error': 'No account found with this email'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if user.is_email_verified:
+            return Response({'error': 'Email already verified'}, status=status.HTTP_400_BAD_REQUEST)
+
+        otp = _generate_otp()
+        user.email_otp = otp
+        user.email_otp_expires_at = timezone.now() + timedelta(minutes=10)
+        user.save()
+
+        _send_otp_email(email, otp, user.first_name)
+
+        return Response({'message': 'New OTP sent to your email'}, status=status.HTTP_200_OK)
 
 
 class LoginView(APIView):
@@ -117,6 +223,19 @@ class LoginView(APIView):
 
         if not user.check_password(data['password']):
             return Response({'error': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        if not user.is_email_verified and not user.is_staff:
+            # Re-send OTP so they can verify immediately
+            otp = _generate_otp()
+            user.email_otp = otp
+            user.email_otp_expires_at = timezone.now() + timedelta(minutes=10)
+            user.save()
+            _send_otp_email(email, otp, user.first_name)
+            return Response({
+                'error': 'email_not_verified',
+                'message': 'Please verify your email. A new OTP has been sent.',
+                'email': email,
+            }, status=status.HTTP_403_FORBIDDEN)
 
         access_token, refresh_token = get_tokens_for_user(user)
 

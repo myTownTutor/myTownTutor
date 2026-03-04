@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
+import VerifyEmail from './pages/VerifyEmail';
 import StudentDashboard from './pages/StudentDashboard';
 import BrowseMentors from './pages/BrowseMentors';
 import MentorProfile from './pages/MentorProfile';
@@ -57,6 +58,7 @@ function App() {
                   <Route path="/about" element={<About />} />
                   <Route path="/login" element={<LogIn />} />
                   <Route path="/signup" element={<SignUp />} />
+                  <Route path="/verify-email" element={<VerifyEmail />} />
                   <Route path="/browse-mentors" element={<BrowseMentors />} />
                   <Route path="/mentor/:mentorId" element={<MentorProfile />} />
 

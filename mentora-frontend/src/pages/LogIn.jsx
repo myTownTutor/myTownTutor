@@ -28,6 +28,8 @@ const LogIn = () => {
     } catch (err) {
       if (!err.response) {
         setError('Cannot connect to server. Make sure the backend is running on port 8000.');
+      } else if (err.response?.data?.error === 'email_not_verified') {
+        navigate('/verify-email', { state: { email: formData.email, role: null } });
       } else {
         setError(err.response?.data?.error || 'Login failed');
       }
