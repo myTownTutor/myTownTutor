@@ -123,7 +123,12 @@ class RegisterView(APIView):
             elif data['role'] == 'student':
                 Student.objects.create(user=user)
 
-            _send_otp_email(email, otp, first_name)
+            try:
+                _send_otp_email(email, otp, first_name)
+            except Exception as mail_err:
+                # Log but don't crash — user can request resend
+                import logging
+                logging.getLogger(__name__).error(f'Failed to send OTP email to {email}: {mail_err}')
 
             return Response({
                 'message': 'OTP sent to your email. Please verify to continue.',
@@ -197,7 +202,12 @@ class ResendOTPView(APIView):
         user.email_otp_expires_at = timezone.now() + timedelta(minutes=10)
         user.save()
 
-        _send_otp_email(email, otp, user.first_name)
+        try:
+            _send_otp_email(email, otp, user.first_name)
+        except Exception as mail_err:
+            import logging
+            logging.getLogger(__name__).error(f'Failed to send OTP email to {email}: {mail_err}')
+            return Response({'error': 'Failed to send email. Please try again later.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response({'message': 'New OTP sent to your email'}, status=status.HTTP_200_OK)
 
@@ -230,7 +240,10 @@ class LoginView(APIView):
             user.email_otp = otp
             user.email_otp_expires_at = timezone.now() + timedelta(minutes=10)
             user.save()
-            _send_otp_email(email, otp, user.first_name)
+            try:
+                _send_otp_email(email, otp, user.first_name)
+            except Exception:
+                pass
             return Response({
                 'error': 'email_not_verified',
                 'message': 'Please verify your email. A new OTP has been sent.',
