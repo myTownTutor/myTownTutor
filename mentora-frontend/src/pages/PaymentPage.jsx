@@ -60,7 +60,7 @@ const PaymentPage = () => {
         <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl mx-auto mb-4">
           🎓
         </div>
-        <h1 className="text-xl font-bold text-gray-900 mb-1">Become a Mentor</h1>
+        <h1 className="text-xl font-bold text-gray-900 mb-1">Become a Tutor</h1>
         <p className="text-gray-500 text-sm">Registration fee to get your profile live for 6 months</p>
       </div>
 
@@ -69,7 +69,7 @@ const PaymentPage = () => {
         <div className="flex items-baseline justify-center gap-1 mb-6">
           <span className="text-gray-400 text-lg">₹</span>
           <span className="text-5xl font-bold text-gray-900">{AMOUNT}</span>
-          <span className="text-gray-400 text-sm">one-time</span>
+          <span className="text-gray-400 text-sm"></span>
         </div>
 
         <ul className="space-y-3 mb-6">

@@ -78,12 +78,10 @@ const BrowseMentors = () => {
                       {/* Left half — full colour picture area */}
                       <div className={`w-1/2 flex-shrink-0 bg-gradient-to-br ${p.grad} relative overflow-hidden flex flex-col items-center justify-center gap-2`}>
                         {mentor.profile_photo_url ? (
-                          <>
+                          <div className="p-4 flex items-center justify-center w-full h-full">
                             <img src={mentor.profile_photo_url} alt={mentor.first_name}
-                              className="absolute inset-0 w-full h-full object-cover" />
-                            {/* dark scrim so badges stay readable */}
-                            <div className="absolute inset-0 bg-black/20" />
-                          </>
+                              className="w-24 h-24 rounded-full object-cover border-4 border-white/60 shadow-lg relative z-10" />
+                          </div>
                         ) : (
                           <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm border-2 border-white/40 flex items-center justify-center font-black text-2xl text-white select-none shadow-lg">
                             {mentor.first_name.charAt(0)}{mentor.last_name.charAt(0)}
