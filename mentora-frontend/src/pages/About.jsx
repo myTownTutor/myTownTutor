@@ -39,7 +39,7 @@ const About = () => (
 
     {/* Why we started */}
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <h2 className="text-lg font-bold text-gray-900 mb-3">Why We Started myTown Tutor</h2>
+      <h2 className="text-lg font-bold text-gray-900 mb-3">Why we Started myTown Tutor</h2>
       <p className="text-gray-600 text-sm leading-relaxed">
         We started MyTown Tutor to bridge that gap. Our goal is to create a centralised space with no middlemen, where students and tutors can connect directly, explore opportunities, and find the right fit without unnecessary complications. By simplifying the process, we aim to make quality learning more accessible and meaningful for everyone involved.
         </p>
