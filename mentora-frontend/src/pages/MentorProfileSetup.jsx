@@ -194,12 +194,12 @@ const MentorProfileSetup = () => {
     <div className="grid sm:grid-cols-2 gap-4">
       <div>
         <label className={labelCls}>Instagram URL</label>
-        <input type="url" name="instagram_url" value={formData.instagram_url} onChange={handleChange}
+        <input type="text" name="instagram_url" value={formData.instagram_url} onChange={handleChange}
           placeholder="https://instagram.com/you" className={inputCls} />
       </div>
       <div>
         <label className={labelCls}>Facebook URL</label>
-        <input type="url" name="facebook_url" value={formData.facebook_url} onChange={handleChange}
+        <input type="text" name="facebook_url" value={formData.facebook_url} onChange={handleChange}
           placeholder="https://facebook.com/you" className={inputCls} />
       </div>
       <div className="sm:col-span-2">
@@ -224,7 +224,7 @@ const MentorProfileSetup = () => {
       </div>
       <div>
         <label className={labelCls}>Resume URL</label>
-        <input type="url" name="resume_url" value={formData.resume_url} onChange={handleChange}
+        <input type="text" name="resume_url" value={formData.resume_url} onChange={handleChange}
           placeholder="https://drive.google.com/…" className={inputCls} />
       </div>
     </div>,
