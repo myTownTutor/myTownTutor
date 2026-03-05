@@ -26,13 +26,20 @@ const About = () => (
     {/* Mission & Vision */}
     <div className="grid md:grid-cols-2 gap-4">
       {[
-        { title: 'Our Mission', icon: '', text: 'To make finding the right tutor simple, transparent, and accessible for every student, while giving educators a platform to showcase their skills and connect directly with learners. We aim to remove barriers in the learning process by creating a space where quality guidance is easy to discover and meaningful educational connections can grow.' },
-        { title: 'What we are NOT', icon: '', text: 'MyTown Tutor is not a tutoring provider. We do not conduct classes, employ tutors, or guarantee academic outcomes. Our role is limited to providing a platform that connects students and tutors. We do not supervise, control, or take responsibility for the quality, safety, legality, or effectiveness of tutoring services offered by users. Any agreement, communication, scheduling, payment for tutoring sessions, or arrangement for online or in-person classes is made directly between the student and the tutor. Users are responsible for conducting their own due diligence before entering into any engagement.' },
+        { title: 'Our Mission', icon: '', text: ['To make finding the right tutor simple, transparent, and accessible for every student, while giving educators a platform to showcase their skills and connect directly with learners. We aim to remove barriers in the learning process by creating a space where quality guidance is easy to discover and meaningful educational connections can grow.'] },
+        { title: 'What we are NOT', icon: '', text: [
+          'MyTown Tutor is not a tutoring provider. We do not conduct classes, employ tutors, or guarantee academic outcomes. Our role is limited to providing a platform that connects students and tutors.',
+          'We do not supervise, control, or take responsibility for the quality, safety, legality, or effectiveness of tutoring services offered by users. Any agreement, communication, scheduling, payment for tutoring sessions, or arrangement for online or in-person classes is made directly between the student and the tutor. Users are responsible for conducting their own due diligence before entering into any engagement.',
+        ] },
       ].map(s => (
         <div key={s.title} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div className="text-2xl mb-3">{s.icon}</div>
           <h2 className="text-lg font-bold text-gray-900 mb-2">{s.title}</h2>
-          <p className="text-gray-600 text-sm leading-relaxed">{s.text}</p>
+          <div className="space-y-3">
+            {s.text.map((para, i) => (
+              <p key={i} className="text-gray-600 text-sm leading-relaxed">{para}</p>
+            ))}
+          </div>
         </div>
       ))}
     </div>
