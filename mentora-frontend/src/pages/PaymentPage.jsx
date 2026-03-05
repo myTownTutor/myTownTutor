@@ -134,7 +134,7 @@ const PaymentPage = () => {
                 <p className="text-gray-400 text-xs mb-3">Scan with any UPI app (PhonePe, GPay, Paytm…)</p>
                 <div className="inline-block p-2 border-2 border-gray-200 rounded-xl">
                   <img
-                    src={qrUrl}
+                    src="/QR.jpeg"
                     width={180}
                     height={180}
                     alt="UPI QR Code"
