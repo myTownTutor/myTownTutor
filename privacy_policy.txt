@@ -1,0 +1,129 @@
+PRIVACY POLICY
+
+[ Effective Date: March 3rd, 2026 ]
+ 
+1. Introduction
+This Privacy Policy explains how myTown Tutor (“Platform”) collects, uses, stores, and protects personal information of users in India.
+By accessing or using the Platform, you agree to the collection and use of information in accordance with this Privacy Policy.
+ 
+2. Information We Collect
+2.1 Information Provided by Users
+When creating a Tutor account, users are required to provide:
+•	Email address
+•	Name
+•	Surname
+•	Gender
+•	Age
+
+Optional information that users may provide includes:
+•	Profile picture
+•	City
+•	Subject(s) of interest
+•	Qualifications
+•	Expertise
+•	Experience
+•	Phone number
+•	Social media handles (e.g., Instagram, Facebook)
+Tutors are required to pay a subscription fee before their account becomes publicly visible.
+Students must create an account (email, name, surname required) before contacting tutors.
+ 
+2.2 Payment Information
+Subscription payments are made via UPI or QR-based transfers.
+The Platform:
+•	Does not collect or store bank account details.
+•	Does not collect debit/credit card numbers.
+•	Does not collect UPI PINs.
+Payments are processed through the user’s respective bank or UPI provider.
+The Platform may record limited transaction details such as:
+•	Transaction ID
+•	Payment status
+•	Date and time of transaction
+•	Amount paid
+The Platform is not responsible for payment failures, banking errors, or issues arising from the user’s bank or UPI provider.
+ 
+2.3 Automatically Collected Information
+When users access the Platform, certain technical information may be collected automatically, including:
+•	IP address
+•	Browser type
+•	Device type
+•	Operating system
+•	Usage behaviour
+•	Cookies and analytics data
+ 
+3. Use of Information
+The Platform uses collected information to:
+•	Create and manage user accounts
+•	Enable communication between tutors and students
+•	Process subscription payments
+•	Improve Platform performance and functionality
+•	Monitor and prevent misuse or fraud
+•	Comply with legal obligations
+ 
+4. Public Profile Information
+Tutors acknowledge that information they choose to publish on their profile may be visible to registered users of the Platform.
+Users are responsible for the content they choose to make publicly available.
+ 
+5. Communications Between Users
+The Platform may allow users to communicate through the Platform or independently through email, phone numbers, or social media accounts.
+The Platform is not responsible for privacy practices, content, or conduct once users choose to communicate outside the Platform.
+Users share personal contact information at their own discretion.
+ 
+6. Third-Party Services
+The Platform uses third-party service providers for hosting, domain services, analytics, and related infrastructure, including:
+•	Hosting services (e.g., DigitalOcean)
+•	Domain services (e.g., GoDaddy)
+•	Analytics services (e.g., Google Analytics)
+These third parties may collect technical data in accordance with their own privacy policies.
+The Platform does not control third-party data practices.
+ 
+7. Cookies and Analytics
+The Platform uses cookies and analytics tools to:
+•	Analyse traffic and usage patterns
+•	Improve user experience
+•	Maintain platform functionality
+Users may disable cookies through browser settings, though certain features may not function properly.
+ 
+8. Minor Users
+The Platform allows use by individuals under the age of 18.
+For minors:
+•	Personal information must be submitted under the supervision of a parent or legal guardian.
+•	Parents or guardians are responsible for monitoring use of the Platform.
+•	Parents or guardians may contact the Platform to request access, correction, or deletion of a minor’s data.
+The Platform does not knowingly collect excessive personal information from minors.
+ 
+9. Data Retention
+Personal information is retained for as long as the user account remains active.
+Upon account deletion, personal data will be deleted within 90 days, except where retention is required for:
+•	Legal compliance
+•	Accounting purposes
+•	Fraud prevention
+•	Dispute resolution
+Limited transaction records may be retained where necessary.
+ 
+10. Data Security
+The Platform implements reasonable technical and administrative measures to protect user information.
+However, no online system can guarantee complete security. Users transmit information at their own risk.
+ 
+11. International or External Data Processing
+User data may be processed or stored on servers operated by third-party service providers. These servers may be located outside the user’s state or country.
+By using the Platform, users consent to such data processing arrangements.
+ 
+12. User Rights
+Users may:
+•	Request access to their personal data
+•	Request correction of inaccurate information
+•	Request deletion of their account and personal data
+•	Withdraw consent where applicable
+Requests may be made via the contact details provided below.
+ 
+13. No Sale of Personal Information
+The Platform does not sell, rent, or trade user personal information.
+ 
+14. Changes to This Privacy Policy
+The Platform reserves the right to update this Privacy Policy at any time.
+Continued use of the Platform after updates constitutes acceptance of the revised policy.
+ 
+15. Contact Information
+For privacy-related inquiries or requests, contact:
+Email: mytowntutor@gmail.com
+

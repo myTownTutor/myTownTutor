@@ -28,6 +28,7 @@ import ManageUsers from './pages/ManageUsers';
 import ViewAllContacts from './pages/ViewAllContacts';
 import MyChats from './pages/MyChats';
 import ChatBox from './pages/ChatBox';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 import { BrowseFiltersProvider } from './context/BrowseFiltersContext';
 import './styles/index.css';
@@ -65,6 +66,7 @@ function App() {
                   <Route path="/reset-password" element={<ResetPassword />} />
                   <Route path="/browse-mentors" element={<BrowseMentors />} />
                   <Route path="/mentor/:mentorId" element={<MentorProfile />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
                   {/* Student Routes */}
                   <Route
