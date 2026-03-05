@@ -295,6 +295,13 @@ class LoginView(APIView):
 
         email = data['email'].strip().lower()
 
+        # Check if this email belongs to a soft-deleted account
+        if User.objects.filter(original_email=email, is_deleted=True).exists():
+            return Response(
+                {'error': 'This account has been deleted. Please contact support if you think this is a mistake.'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
@@ -384,6 +391,13 @@ class ForgotPasswordView(APIView):
         email = request.data.get('email', '').strip().lower()
         if not email:
             return Response({'error': 'Email is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Check if this email belongs to a soft-deleted account (stored in original_email)
+        if User.objects.filter(original_email=email, is_deleted=True).exists():
+            return Response(
+                {'error': 'This account has been deleted. Please contact support if you think this is a mistake.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         try:
             user = User.objects.get(email=email)
