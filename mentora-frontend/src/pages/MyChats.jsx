@@ -51,7 +51,7 @@ const MyChats = () => {
         <div>
           <h1 className="text-xl font-bold text-gray-900">My Chats</h1>
           <p className="text-gray-500 text-sm">
-            {user?.role === 'mentor' ? 'Conversations with students' : 'Your conversations with mentors'}
+            {user?.role === 'mentor' ? 'Conversations with students' : 'Your conversations with tutors'}
           </p>
         </div>
         {user?.role === 'student' && (
@@ -77,7 +77,7 @@ const MyChats = () => {
               to="/browse-mentors"
               className="inline-block mt-3 bg-primary text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-primary-dark transition-colors"
             >
-              Browse Mentors
+              Browse Tutors
             </Link>
           )}
         </div>

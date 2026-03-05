@@ -31,7 +31,7 @@ const StudentDashboard = () => {
   };
 
   const tips = [
-    'MyTown Tutor provides this chat feature solely to enable communication between students and tutors. We do not monitor conversations in real time and are not responsible for the content, accuracy, or outcome of any discussions.',
+    'MyTown Tutor provides a chat feature solely to enable communication between students and tutors. We do not monitor conversations in real time and are not responsible for the content, accuracy, or outcome of any discussions.',
     'Students and parents are advised to exercise caution when sharing personal information such as phone numbers, addresses, financial details, or identification documents. For minors, parental supervision is strongly recommended when interacting with tutors or arranging sessions.',
     'Any agreements regarding classes, fees, schedules, or meeting locations (online or in person) are made directly between the student and the tutor. The Platform is not responsible for any disputes, misunderstandings, or issues arising from such arrangements.',
     'If you encounter inappropriate behaviour, impersonation, or suspicious activity, please report it immediately through the platform.',
