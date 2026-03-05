@@ -187,10 +187,10 @@ const Home = () => {
         <h2 className="text-xl font-bold text-gray-900 mb-4">What Students Say</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           {[
-            { text: '"MyTown Tutor helped me transition into tech. My tutor was incredibly supportive and guided me through every step!"', author: 'Adnan, Aligarh' },
-            { text: '"Found amazing Tutors who believed in me. Got my promotion in 3 months with their guidance!"', author: 'Samiya, Aligarh' },
-            { text: '"Best investment for my career. My tutor\'s insights were invaluable and helped me grow professionally."', author: 'Ayush, Aligarh' },
-            { text: '"Highly recommended! The tutors are knowledgeable, responsive, and genuinely care about your growth."', author: 'Ahmad, Aligarh' },
+            { text: '"I was struggling to find extra help for my exams, but this platform made it easy to discover tutors in the subjects I needed. Being able to compare profiles and reach out directly was really helpful."', author: 'Adnan, Aligarh' },
+            { text: '"What I liked most was how straightforward everything was. I could see tutor profiles, their experience, and contact them without any confusion. It made finding the right tutor much easier."', author: 'Samiya, Aligarh' },
+            { text: '"What I liked most about this platform is that there’s no middleman taking a big cut. Students can contact me directly, which makes everything simpler and fairer."', author: 'Ayush, Aligarh' },
+            { text: '"I really like that the platform doesn’t interfere in tutor–student arrangements. There’s no middle layer, no hidden charges, which makes it much better for tutors."', author: 'Ahmad, Aligarh' },
           ].map((r, i) => (
             <div key={i} className="p-4 bg-gray-50 rounded-lg border border-gray-100">
               <div className="text-yellow-400 text-sm mb-2">★★★★★</div>
