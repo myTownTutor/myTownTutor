@@ -298,7 +298,7 @@ class LoginView(APIView):
         # Check if this email belongs to a soft-deleted account
         if User.objects.filter(original_email=email, is_deleted=True).exists():
             return Response(
-                {'error': 'This account has been deleted. Please contact support if you think this is a mistake.'},
+                {'error': 'Account does not exist.'},
                 status=status.HTTP_403_FORBIDDEN,
             )
 
@@ -395,7 +395,7 @@ class ForgotPasswordView(APIView):
         # Check if this email belongs to a soft-deleted account (stored in original_email)
         if User.objects.filter(original_email=email, is_deleted=True).exists():
             return Response(
-                {'error': 'This account has been deleted. Please contact support if you think this is a mistake.'},
+                {'error': 'Account does not exist.'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
