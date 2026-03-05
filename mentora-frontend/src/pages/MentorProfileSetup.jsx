@@ -254,7 +254,9 @@ const MentorProfileSetup = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6">
-          {sectionContent[activeSection]}
+          <div key={activeSection}>
+            {sectionContent[activeSection]}
+          </div>
 
           {error && <div className="error-message mt-4">{error}</div>}
           {success && <div className="success-message mt-4">{success}</div>}
