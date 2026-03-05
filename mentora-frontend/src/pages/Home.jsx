@@ -155,7 +155,7 @@ const Home = () => {
             <div key={mentor.id} className="mentor-card-home">
               <div className="avatar-circle">{mentor.first_name?.charAt(0).toUpperCase()}</div>
               <h3 className="font-semibold text-gray-900 text-sm">{mentor.first_name} {mentor.last_name}</h3>
-              <p className="text-primary text-xs font-medium mt-0.5">{mentor.expertise || 'Expert Mentor'}</p>
+              <p className="text-primary text-xs font-medium mt-0.5">{mentor.expertise || 'Expert Tutor'}</p>
               <p className="text-gray-400 text-xs mt-1">📍 {mentor.city || 'India'}</p>
               <div className="mt-2 inline-flex items-center gap-1 text-xs text-gray-500">
                 <span>⭐</span><span>{mentor.experience_years || 0}+ yrs</span>

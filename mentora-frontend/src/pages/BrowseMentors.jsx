@@ -91,7 +91,7 @@ const BrowseMentors = () => {
                         )}
                         {!mentor.profile_photo_url && (
                           <p className="text-white/90 text-xs font-semibold text-center px-2 leading-tight relative z-10">
-                            {mentor.expertise?.split(',')[0] || 'Mentor'}
+                            {mentor.expertise?.split(',')[0] || 'Tutor'}
                           </p>
                         )}
                         {mentor.hourly_rate && (
