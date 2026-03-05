@@ -7,7 +7,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [role, setRole] = useState('student');
+  const [role, setRole] = useState('');
   const [formData, setFormData] = useState({
     first_name: '', last_name: '', email: '', password: '', confirm_password: ''
   });
@@ -23,6 +23,7 @@ const SignUp = () => {
     if (!formData.first_name || !formData.last_name || !formData.email || !formData.password) {
       setError('All fields are required'); return;
     }
+    if (!role) { setError('Please select whether you are looking for a tutor or want to become one'); return; }
     if (formData.password !== formData.confirm_password) { setError('Passwords do not match'); return; }
     if (formData.password.length < 8) { setError('Password must be at least 8 characters'); return; }
     if (!/[A-Za-z]/.test(formData.password) || !/\d/.test(formData.password)) {
