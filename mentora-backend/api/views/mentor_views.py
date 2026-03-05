@@ -69,7 +69,7 @@ class ApprovedMentorsView(APIView):
         city = request.query_params.get('city', '')
         gender = request.query_params.get('gender', '')
 
-        qs = Mentor.objects.filter(approval_status='approved').select_related('user')
+        qs = Mentor.objects.filter(approval_status='approved', user__is_deleted=False, user__is_active=True).select_related('user')
 
         if search:
             from django.db.models import Q
@@ -101,6 +101,10 @@ class MentorDetailView(APIView):
         try:
             mentor = Mentor.objects.select_related('user').get(pk=mentor_id)
         except Mentor.DoesNotExist:
+            return Response({'error': 'Mentor not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Hide deleted accounts entirely
+        if mentor.user.is_deleted or not mentor.user.is_active:
             return Response({'error': 'Mentor not found'}, status=status.HTTP_404_NOT_FOUND)
 
         # Only show approved mentors; or the mentor viewing their own profile

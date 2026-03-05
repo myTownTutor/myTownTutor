@@ -89,7 +89,7 @@ class BrowseMentorsView(APIView):
         max_rate = float(request.query_params.get('max_rate', 10000))
         sort_by = request.query_params.get('sort_by', 'latest')
 
-        qs = Mentor.objects.filter(approval_status='approved').select_related('user')
+        qs = Mentor.objects.filter(approval_status='approved', user__is_deleted=False, user__is_active=True).select_related('user')
 
         if search:
             qs = qs.filter(
