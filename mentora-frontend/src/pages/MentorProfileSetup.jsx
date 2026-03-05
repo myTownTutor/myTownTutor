@@ -13,6 +13,7 @@ const MentorProfileSetup = () => {
   const [fetchLoading, setFetchLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [photoError, setPhotoError] = useState('');
   const [approvalStatus, setApprovalStatus] = useState('pending_payment');
   const [photoPreview, setPhotoPreview] = useState('');
   const [photoUploading, setPhotoUploading] = useState(false);
@@ -40,9 +41,56 @@ const MentorProfileSetup = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // Validate required fields per section; returns error string or ''
+  const validateSection = (sectionIndex) => {
+    if (sectionIndex === 0) {
+      if (!formData.age) return 'Age is required.';
+      if (!formData.gender) return 'Gender is required.';
+      if (!formData.city.trim()) return 'City is required.';
+    }
+    if (sectionIndex === 2) {
+      if (!formData.expertise.trim()) return 'Expertise / Field is required.';
+    }
+    return '';
+  };
+
+  const validateAll = () => {
+    const err0 = validateSection(0);
+    if (err0) { setActiveSection(0); return err0; }
+    const err2 = validateSection(2);
+    if (err2) { setActiveSection(2); return err2; }
+    return '';
+  };
+
+  const goToSection = (index) => {
+    setError('');
+    setSuccess('');
+    setActiveSection(index);
+  };
+
+  const handleNext = () => {
+    const err = validateSection(activeSection);
+    if (err) { setError(err); return; }
+    setError('');
+    setSuccess('');
+    setActiveSection(p => p + 1);
+  };
+
+  const handleBack = () => {
+    setError('');
+    setSuccess('');
+    setActiveSection(p => p - 1);
+  };
+
   const handlePhotoChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      setPhotoError('Image is too large. Please select an image under 2 MB.');
+      e.target.value = '';
+      return;
+    }
+    setPhotoError('');
     setPhotoPreview(URL.createObjectURL(file));
     setPhotoUploading(true);
     try {
@@ -53,7 +101,7 @@ const MentorProfileSetup = () => {
       });
       setFormData(prev => ({ ...prev, profile_photo_url: res.data.url }));
     } catch {
-      setError('Photo upload failed. Please try again.');
+      setPhotoError('Photo upload failed. Please try again.');
       setPhotoPreview('');
     } finally {
       setPhotoUploading(false);
@@ -62,6 +110,8 @@ const MentorProfileSetup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validationErr = validateAll();
+    if (validationErr) { setError(validationErr); return; }
     setError(''); setSuccess(''); setLoading(true);
     try {
       await api.put('/mentors/profile', formData);
@@ -80,15 +130,17 @@ const MentorProfileSetup = () => {
   const inputCls = "w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-primary transition";
   const labelCls = "block text-sm font-medium text-gray-700 mb-1";
 
+  const reqStar = <span className="text-red-500 ml-0.5">*</span>;
+
   const sectionContent = [
     /* Personal */
     <div className="grid sm:grid-cols-2 gap-4">
       <div>
-        <label className={labelCls}>Age</label>
+        <label className={labelCls}>Age {reqStar}</label>
         <input type="number" name="age" value={formData.age} onChange={handleChange} min="18" max="80" className={inputCls} />
       </div>
       <div>
-        <label className={labelCls}>Gender</label>
+        <label className={labelCls}>Gender {reqStar}</label>
         <select name="gender" value={formData.gender} onChange={handleChange} className={inputCls}>
           <option value="">Select…</option>
           <option value="Male">Male</option>
@@ -97,7 +149,7 @@ const MentorProfileSetup = () => {
         </select>
       </div>
       <div>
-        <label className={labelCls}>City</label>
+        <label className={labelCls}>City {reqStar}</label>
         <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="e.g. Mumbai" className={inputCls} />
       </div>
       <div className="sm:col-span-2">
@@ -121,7 +173,7 @@ const MentorProfileSetup = () => {
     /* Professional */
     <div className="grid sm:grid-cols-2 gap-4">
       <div className="sm:col-span-2">
-        <label className={labelCls}>Expertise / Field</label>
+        <label className={labelCls}>Expertise / Field {reqStar}</label>
         <input type="text" name="expertise" value={formData.expertise} onChange={handleChange}
           placeholder="e.g. Full Stack Development, Data Science" className={inputCls} />
       </div>
@@ -166,6 +218,7 @@ const MentorProfileSetup = () => {
               <input type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" disabled={photoUploading} />
             </label>
             <p className="text-xs text-gray-400 mt-1">JPG, PNG, GIF or WebP — max 2 MB</p>
+            {photoError && <p className="text-xs text-red-500 mt-1">{photoError}</p>}
           </div>
         </div>
       </div>
@@ -191,7 +244,7 @@ const MentorProfileSetup = () => {
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <div className="flex border-b border-gray-100">
           {SECTIONS.map((s, i) => (
-            <button key={s} onClick={() => setActiveSection(i)}
+            <button type="button" key={s} onClick={() => goToSection(i)}
               className={`flex-1 py-3 text-xs font-semibold transition-colors ${
                 activeSection === i ? 'border-b-2 border-primary text-primary bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
               }`}>
@@ -208,13 +261,13 @@ const MentorProfileSetup = () => {
 
           <div className="flex gap-3 mt-6">
             {activeSection > 0 && (
-              <button type="button" onClick={() => setActiveSection(p => p - 1)}
+              <button type="button" onClick={handleBack}
                 className="px-5 py-2.5 border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-50">
                 ← Back
               </button>
             )}
             {activeSection < SECTIONS.length - 1 ? (
-              <button type="button" onClick={() => setActiveSection(p => p + 1)}
+              <button type="button" onClick={handleNext}
                 className="bg-primary text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-primary-dark transition-colors">
                 Next →
               </button>

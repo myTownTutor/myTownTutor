@@ -94,7 +94,7 @@ const SignUp = () => {
             </div>
             <button type="submit" disabled={loading}
               className="w-full bg-primary text-white py-2.5 rounded-full font-semibold text-sm hover:bg-primary-dark transition-colors disabled:opacity-60 mt-1">
-              {loading ? 'Creating account…' : 'Agree & Join'}
+              {loading ? 'Creating account…' : 'I agree to the Terms & Conditions and Privacy Policy and Join'}
             </button>
           </form>
 
