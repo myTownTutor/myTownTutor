@@ -14,7 +14,7 @@ const PaymentPage = () => {
   const [copied, setCopied]       = useState(false);
   const [error, setError]         = useState('');
 
-  const AMOUNT = 299;
+  const AMOUNT = 99;
 
   const upiLink = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(UPI_NAME)}&am=${AMOUNT}&cu=INR`;
   const qrUrl   = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiLink)}`;
@@ -58,7 +58,7 @@ const PaymentPage = () => {
           🎓
         </div>
         <h1 className="text-xl font-bold text-gray-900 mb-1">Become a Mentor</h1>
-        <p className="text-gray-500 text-sm">One-time registration fee to get your profile live</p>
+        <p className="text-gray-500 text-sm">One-time registration fee to get your profile live for 6 Months</p>
       </div>
 
       {/* Price card */}

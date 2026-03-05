@@ -12,6 +12,8 @@ import About from './pages/About';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
 import VerifyEmail from './pages/VerifyEmail';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import StudentDashboard from './pages/StudentDashboard';
 import BrowseMentors from './pages/BrowseMentors';
 import MentorProfile from './pages/MentorProfile';
@@ -59,6 +61,8 @@ function App() {
                   <Route path="/login" element={<LogIn />} />
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/verify-email" element={<VerifyEmail />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/reset-password" element={<ResetPassword />} />
                   <Route path="/browse-mentors" element={<BrowseMentors />} />
                   <Route path="/mentor/:mentorId" element={<MentorProfile />} />
 

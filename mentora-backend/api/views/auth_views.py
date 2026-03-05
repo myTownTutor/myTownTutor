@@ -95,6 +95,49 @@ def _send_otp_email(email, otp, first_name):
         raise Exception(f'Brevo API error {response.status_code}: {response.text}')
 
 
+def _send_reset_otp_email(email, otp, first_name):
+    """Send password reset OTP email via Brevo HTTP API."""
+    import requests as http_requests
+    api_key = django_settings.BREVO_API_KEY
+    if not api_key:
+        from django.core.mail import send_mail
+        send_mail(
+            subject='Reset your MyTownTutor password',
+            message=(
+                f'Hi {first_name},\n\n'
+                f'Your password reset code is: {otp}\n\n'
+                f'This code expires in 10 minutes.\n\n'
+                f'If you did not request this, please ignore this email.\n\n'
+                f'— The MyTownTutor Team'
+            ),
+            from_email=django_settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
+            fail_silently=False,
+        )
+        return
+
+    response = http_requests.post(
+        'https://api.brevo.com/v3/smtp/email',
+        headers={'api-key': api_key, 'Content-Type': 'application/json'},
+        json={
+            'sender': {'name': 'MyTownTutor', 'email': django_settings.DEFAULT_FROM_EMAIL},
+            'to': [{'email': email}],
+            'subject': 'Reset your MyTownTutor password',
+            'textContent': (
+                f'Hi {first_name},\n\n'
+                f'Your password reset code for MyTownTutor is:\n\n'
+                f'  {otp}\n\n'
+                f'This code expires in 10 minutes.\n\n'
+                f'If you did not request this, please ignore this email.\n\n'
+                f'— The MyTownTutor Team'
+            ),
+        },
+        timeout=10,
+    )
+    if response.status_code not in (200, 201):
+        raise Exception(f'Brevo API error {response.status_code}: {response.text}')
+
+
 class RegisterView(APIView):
     """POST /api/auth/register"""
     permission_classes = [AllowAny]
@@ -329,3 +372,67 @@ class MeView(APIView):
     def get(self, request):
         return Response(request.user.to_dict(), status=status.HTTP_200_OK)
 
+
+class ForgotPasswordView(APIView):
+    """POST /api/auth/forgot-password"""
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        email = request.data.get('email', '').strip().lower()
+        if not email:
+            return Response({'error': 'Email is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            # Don't reveal whether email exists
+            return Response({'message': 'If this email is registered, an OTP has been sent.'}, status=status.HTTP_200_OK)
+
+        otp = _generate_otp()
+        user.email_otp = otp
+        user.email_otp_expires_at = timezone.now() + timedelta(minutes=10)
+        user.save()
+
+        try:
+            _send_reset_otp_email(email, otp, user.first_name)
+        except Exception as mail_err:
+            import logging
+            logging.getLogger(__name__).error(f'Failed to send reset OTP to {email}: {mail_err}')
+            return Response({'error': 'Failed to send email. Please try again later.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        return Response({'message': 'OTP sent to your email.', 'email': email}, status=status.HTTP_200_OK)
+
+
+class ResetPasswordView(APIView):
+    """POST /api/auth/reset-password"""
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        email = request.data.get('email', '').strip().lower()
+        otp = request.data.get('otp', '').strip()
+        new_password = request.data.get('new_password', '')
+
+        if not all([email, otp, new_password]):
+            return Response({'error': 'Email, OTP, and new password are required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        pw_errors = _password_errors(new_password)
+        if pw_errors:
+            return Response({'error': ' '.join(pw_errors)}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response({'error': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not user.email_otp or user.email_otp != otp:
+            return Response({'error': 'Invalid OTP'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if timezone.now() > user.email_otp_expires_at:
+            return Response({'error': 'OTP has expired. Please request a new one.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.set_password(new_password)
+        user.email_otp = None
+        user.email_otp_expires_at = None
+        user.save()
+
+        return Response({'message': 'Password reset successfully. You can now log in.'}, status=status.HTTP_200_OK)

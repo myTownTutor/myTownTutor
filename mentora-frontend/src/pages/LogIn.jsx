@@ -65,6 +65,9 @@ const LogIn = () => {
               {loading ? 'Signing in\u2026' : 'Sign In'}
             </button>
           </form>
+          <div className="text-right mt-2">
+            <Link to="/forgot-password" className="text-sm text-primary hover:underline">Forgot password?</Link>
+          </div>
           <p className="text-center text-sm text-gray-500 mt-5">
             Don't have an account?{' '}
             <Link to="/signup" className="text-primary font-medium hover:underline">Join now</Link>
