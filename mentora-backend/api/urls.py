@@ -2,6 +2,7 @@ from django.urls import path
 from api.views.auth_views import (
     RegisterView, LoginView, LogoutView, MeView, TokenRefreshView,
     VerifyEmailView, ResendOTPView, ForgotPasswordView, ResetPasswordView,
+    DeleteAccountView,
 )
 from api.views.mentor_views import (
     ApprovedMentorsView, MentorDetailView, InitiatePaymentView, VerifyPaymentView,
@@ -34,6 +35,7 @@ urlpatterns = [
     path('auth/me', MeView.as_view(), name='me'),
     path('auth/forgot-password', ForgotPasswordView.as_view(), name='forgot-password'),
     path('auth/reset-password', ResetPasswordView.as_view(), name='reset-password'),
+    path('auth/delete-account', DeleteAccountView.as_view(), name='delete-account'),
 
     # ── Mentors ──────────────────────────────────────────────────────────────
     path('mentors/approved', ApprovedMentorsView.as_view(), name='approved-mentors'),

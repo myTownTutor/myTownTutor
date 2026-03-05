@@ -183,7 +183,11 @@ class RejectMentorView(APIView):
 
 
 class AllUsersView(APIView):
-    """GET /api/admin/users"""
+    """GET /api/admin/users
+    Optional query params:
+      role=mentor|student
+      show_deleted=true  → show only archived (soft-deleted) accounts
+    """
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -193,8 +197,13 @@ class AllUsersView(APIView):
         page = int(request.query_params.get('page', 1))
         per_page = int(request.query_params.get('per_page', 20))
         role = request.query_params.get('role', '')
+        show_deleted = request.query_params.get('show_deleted', '').lower() == 'true'
 
-        qs = User.objects.all()
+        if show_deleted:
+            qs = User.objects.filter(is_deleted=True)
+        else:
+            qs = User.objects.filter(is_deleted=False)
+
         if role:
             qs = qs.filter(role=role)
 
@@ -264,8 +273,15 @@ class UserDetailView(APIView):
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
         try:
-            user.delete()
-            return Response({'message': 'User deleted successfully'})
+            # Soft-delete: preserve data as archive
+            user.is_deleted = True
+            user.deleted_at = timezone.now()
+            if not user.original_email:
+                user.original_email = user.email
+            user.email = f'deleted_{user.id}_{int(timezone.now().timestamp())}@deleted.invalid'
+            user.is_active = False
+            user.save()
+            return Response({'message': 'User archived (soft-deleted) successfully'})
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

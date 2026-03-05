@@ -47,6 +47,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_email_verified = models.BooleanField(default=True)
     email_otp = models.CharField(max_length=6, blank=True, null=True)
     email_otp_expires_at = models.DateTimeField(blank=True, null=True)
+    # Soft-delete / archive fields
+    is_deleted = models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(blank=True, null=True)
+    original_email = models.EmailField(blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'role']
@@ -65,6 +69,9 @@ class User(AbstractBaseUser, PermissionsMixin):
             'role': self.role,
             'created_at': self.created_at.isoformat(),
             'is_email_verified': self.is_email_verified,
+            'is_deleted': self.is_deleted,
+            'deleted_at': self.deleted_at.isoformat() if self.deleted_at else None,
+            'original_email': self.original_email,
         }
 
     def __str__(self):

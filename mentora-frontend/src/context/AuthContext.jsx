@@ -81,6 +81,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const deleteAccount = async () => {
+    const refreshToken = localStorage.getItem('refresh_token');
+    await api.delete('/auth/delete-account', {
+      data: { refresh_token: refreshToken || '' },
+    });
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh_token');
+    setUser(null);
+  };
+
   const value = {
     user,
     loading,
@@ -88,6 +98,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     register,
     verifyEmail,
+    deleteAccount,
     isAuthenticated: !!user
   };
 

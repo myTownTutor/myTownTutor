@@ -7,6 +7,9 @@ POST /api/auth/login
 POST /api/auth/logout
 POST /api/auth/refresh
 GET  /api/auth/me
+POST /api/auth/forgot-password
+POST /api/auth/reset-password
+DELETE /api/auth/delete-account
 """
 import re
 import random
@@ -436,3 +439,38 @@ class ResetPasswordView(APIView):
         user.save()
 
         return Response({'message': 'Password reset successfully. You can now log in.'}, status=status.HTTP_200_OK)
+
+
+class DeleteAccountView(APIView):
+    """
+    DELETE /api/auth/delete-account
+    Soft-deletes (archives) the authenticated user's account.
+    - Marks is_deleted=True, records deleted_at timestamp
+    - Saves original email, then scrambles it so the address is free to re-register
+    - Sets is_active=False so the user cannot log in
+    - Blacklists the provided refresh token
+    """
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request):
+        user = request.user
+        refresh_token = request.data.get('refresh_token', '')
+
+        # Blacklist the refresh token so it can't be reused
+        if refresh_token:
+            try:
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+            except TokenError:
+                pass  # already invalid is fine
+
+        # Archive the account
+        user.is_deleted = True
+        user.deleted_at = timezone.now()
+        user.original_email = user.email
+        # Scramble the email so the address can be re-registered by someone else
+        user.email = f'deleted_{user.id}_{int(timezone.now().timestamp())}@deleted.invalid'
+        user.is_active = False
+        user.save()
+
+        return Response({'message': 'Account deleted successfully.'}, status=status.HTTP_200_OK)

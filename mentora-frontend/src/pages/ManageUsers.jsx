@@ -15,6 +15,7 @@ const ManageUsers = () => {
   const [success, setSuccess] = useState('');
   const [search, setSearch] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
+  const [showDeleted, setShowDeleted] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [viewUser, setViewUser] = useState(null);
@@ -25,12 +26,12 @@ const ManageUsers = () => {
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
 
-  useEffect(() => { fetchUsers(); }, [currentPage, roleFilter, search]);
+  useEffect(() => { fetchUsers(); }, [currentPage, roleFilter, search, showDeleted]);
 
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const params = { page: currentPage, search, role: roleFilter !== 'all' ? roleFilter : '' };
+      const params = { page: currentPage, search, role: roleFilter !== 'all' ? roleFilter : '', show_deleted: showDeleted ? 'true' : 'false' };
       const res = await api.get('/admin/users', { params });
       setUsers(res.data.users || []);
       setTotalPages(res.data.pages || 1);
@@ -66,8 +67,8 @@ const ManageUsers = () => {
     try {
       await api.delete(`/admin/users/${deleteConfirm.id}`);
       setUsers(prev => prev.filter(u => u.id !== deleteConfirm.id));
-      setDeleteConfirm(null); setSuccess('User deleted');
-    } catch { setError('Failed to delete user'); }
+      setDeleteConfirm(null); setSuccess('User archived successfully');
+    } catch { setError('Failed to archive user'); }
     finally { setActionLoading(false); }
   };
 
@@ -76,7 +77,25 @@ const ManageUsers = () => {
       {/* Header */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-6 py-4">
         <h1 className="text-xl font-bold text-gray-900">Manage Users</h1>
-        <p className="text-gray-500 text-sm">View, edit, and delete platform users</p>
+        <p className="text-gray-500 text-sm">View, edit, and archive platform users</p>
+        <div className="mt-3 flex gap-2">
+          <button
+            onClick={() => { setShowDeleted(false); setCurrentPage(1); }}
+            className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
+              !showDeleted ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            Active Users
+          </button>
+          <button
+            onClick={() => { setShowDeleted(true); setCurrentPage(1); }}
+            className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
+              showDeleted ? 'bg-red-500 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            Deleted Accounts
+          </button>
+        </div>
       </div>
 
       {/* Filters */}
@@ -123,7 +142,11 @@ const ManageUsers = () => {
                         <span className="font-medium text-gray-900">{user.first_name} {user.last_name}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-gray-500 text-xs">{user.email}</td>
+                    <td className="px-4 py-3 text-gray-500 text-xs">
+                      {showDeleted && user.original_email ? (
+                        <span title={`Archived email: ${user.email}`}>{user.original_email} <span className="text-red-400">(archived)</span></span>
+                      ) : user.email}
+                    </td>
                     <td className="px-4 py-3">
                       <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${roleBadge[user.role] || 'bg-gray-100 text-gray-600'}`}>
                         {user.role}
@@ -132,8 +155,15 @@ const ManageUsers = () => {
                     <td className="px-4 py-3">
                       <div className="flex gap-2">
                         <button onClick={() => openView(user)} className="text-xs text-primary hover:underline font-medium">View</button>
-                        <button onClick={() => openEdit(user)} className="text-xs text-gray-600 hover:text-primary hover:underline font-medium">Edit</button>
-                        <button onClick={() => setDeleteConfirm(user)} className="text-xs text-red-500 hover:underline font-medium">Delete</button>
+                        {!showDeleted && (
+                          <>
+                            <button onClick={() => openEdit(user)} className="text-xs text-gray-600 hover:text-primary hover:underline font-medium">Edit</button>
+                            <button onClick={() => setDeleteConfirm(user)} className="text-xs text-red-500 hover:underline font-medium">Archive</button>
+                          </>
+                        )}
+                        {showDeleted && user.deleted_at && (
+                          <span className="text-xs text-gray-400">Deleted {new Date(user.deleted_at).toLocaleDateString()}</span>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -240,6 +270,13 @@ const ManageUsers = () => {
                   )}
 
                   <DetailRow label="Joined" value={viewUser.created_at ? new Date(viewUser.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : null} />
+                  {viewUser.is_deleted && (
+                    <>
+                      <DetailRow label="Original Email" value={viewUser.original_email} />
+                      <DetailRow label="Deleted At" value={viewUser.deleted_at ? new Date(viewUser.deleted_at).toLocaleString('en-IN') : null} />
+                      <div className="flex gap-2"><span className="font-medium text-gray-500 w-36 flex-shrink-0">Status</span><span className="text-red-500 font-semibold text-sm">Archived / Deleted</span></div>
+                    </>
+                  )}
                 </>
               )}
             </div>
@@ -285,17 +322,20 @@ const ManageUsers = () => {
         </div>
       )}
 
-      {/* Delete confirm */}
+      {/* Archive confirm */}
       {deleteConfirm && (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4" onClick={() => setDeleteConfirm(null)}>
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 text-center" onClick={e => e.stopPropagation()}>
             <div className="text-4xl mb-3">⚠️</div>
-            <h3 className="font-bold text-gray-900 mb-2">Delete User?</h3>
-            <p className="text-gray-500 text-sm mb-5">This will permanently delete <strong>{deleteConfirm.first_name} {deleteConfirm.last_name}</strong>.</p>
+            <h3 className="font-bold text-gray-900 mb-2">Archive User?</h3>
+            <p className="text-gray-500 text-sm mb-5">
+              <strong>{deleteConfirm.first_name} {deleteConfirm.last_name}</strong>'s account will be soft-deleted and archived.
+              Their data is preserved for admin review.
+            </p>
             <div className="flex gap-2">
               <button onClick={() => setDeleteConfirm(null)} className="flex-1 border border-gray-200 py-2 rounded-full text-sm text-gray-600 hover:bg-gray-50">Cancel</button>
               <button onClick={deleteUser} disabled={actionLoading} className="flex-1 bg-red-500 text-white py-2 rounded-full text-sm font-semibold hover:bg-red-600 disabled:opacity-50">
-                {actionLoading ? 'Deleting…' : 'Delete'}
+                {actionLoading ? 'Archiving…' : 'Archive'}
               </button>
             </div>
           </div>
