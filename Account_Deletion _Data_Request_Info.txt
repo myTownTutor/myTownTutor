@@ -1,0 +1,22 @@
+Account Deletion & Data Requests
+ 
+Deleting Your Account
+Users can delete their account at any time from their account settings.
+Once an account deletion request is submitted:
+•	Your profile will be removed from public view immediately.
+•	Access to the account will be disabled.
+•	Personal data will be permanently deleted within 90 days.
+Certain information (such as payment records) may be retained where required for legal, tax, or fraud-prevention purposes.
+ 
+Requesting Your Data
+You may request:
+•	A copy of the personal data we store about you.
+•	Correction of inaccurate information.
+•	Deletion of your personal data.
+To make a data request, contact:
+mytowntutor@gmail.com
+We may verify your identity before processing the request.
+ 
+Important
+If you have communicated with other users outside the platform (email, phone, social media), we cannot delete data stored outside our system.
+

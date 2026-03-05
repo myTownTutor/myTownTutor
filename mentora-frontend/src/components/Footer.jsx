@@ -60,6 +60,9 @@ const Footer = () => {
               <li><a href="mailto:contact@mentora.com" className="hover:text-white transition-colors">Contact</a></li>
               <li><a href="mailto:support@mentora.com" className="hover:text-white transition-colors">Support</a></li>
               <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="hover:text-white transition-colors">Terms &amp; Conditions</Link></li>
+              <li><Link to="/refund-policy" className="hover:text-white transition-colors">Refund Policy</Link></li>
+              <li><Link to="/account-deletion" className="hover:text-white transition-colors">Account Deletion</Link></li>
             </ul>
           </div>
         </div>

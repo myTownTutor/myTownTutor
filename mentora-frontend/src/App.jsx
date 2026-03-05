@@ -29,6 +29,9 @@ import ViewAllContacts from './pages/ViewAllContacts';
 import MyChats from './pages/MyChats';
 import ChatBox from './pages/ChatBox';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsAndConditions from './pages/TermsAndConditions';
+import RefundPolicy from './pages/RefundPolicy';
+import AccountDeletion from './pages/AccountDeletion';
 
 import { BrowseFiltersProvider } from './context/BrowseFiltersContext';
 import './styles/index.css';
@@ -67,6 +70,9 @@ function App() {
                   <Route path="/browse-mentors" element={<BrowseMentors />} />
                   <Route path="/mentor/:mentorId" element={<MentorProfile />} />
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="/terms" element={<TermsAndConditions />} />
+                  <Route path="/refund-policy" element={<RefundPolicy />} />
+                  <Route path="/account-deletion" element={<AccountDeletion />} />
 
                   {/* Student Routes */}
                   <Route
