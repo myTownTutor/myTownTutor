@@ -62,18 +62,7 @@ const About = () => (
     </div>
 
     {/* How it works */}
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <h2 className="text-lg font-bold text-gray-900 mb-4">How It Works</h2>
-      <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-        {steps.map(s => (
-          <div key={s.n} className="text-center">
-            <div className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold mx-auto mb-3">{s.n}</div>
-            <h3 className="font-semibold text-gray-800 text-sm mb-1">{s.title}</h3>
-            <p className="text-gray-500 text-xs leading-relaxed">{s.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
+    
   </div>
 );
 

@@ -10,7 +10,9 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <h3 className="text-white font-bold text-lg mb-3">🎓 myTown Tutor</h3>
+            <Link to="/" className="inline-block mb-3">
+              <img src="/logo.png" alt="myTown Tutor" className="h-10 w-auto" />
+            </Link>
             <p className="text-sm text-gray-400 leading-relaxed mb-4">
               Connecting students with skilled tutors to make learning simple and effective.
             </p>
@@ -69,7 +71,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-500">
-          &copy; {currentYear} 2026 myTown Tutor. All rights reserved. Aligarh, India.
+          &copy; {currentYear} myTown Tutor. All rights reserved. Aligarh, India.
         </div>
       </div>
     </footer>

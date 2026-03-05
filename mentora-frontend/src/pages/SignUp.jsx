@@ -61,7 +61,7 @@ const SignUp = () => {
                 className={`p-3 rounded-lg border-2 text-sm font-medium transition-all ${
                   role === r ? 'border-primary bg-blue-50 text-primary' : 'border-gray-200 text-gray-600 hover:border-gray-300'
                 }`}>
-                <div className="font-semibold capitalize">{r === 'student' ? "Looking for Tutor" : "I'm a Tutor"}</div>
+                <div className="font-semibold capitalize">{r === 'student' ? "Looking for Tutor" : "Become a Tutor"}</div>
                 <div className="text-xs text-gray-400 mt-0.5">{r === 'student' ? 'Find & contact tutors' : 'Share your expertise'}</div>
               </button>
             ))}
