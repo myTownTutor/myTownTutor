@@ -184,7 +184,7 @@ const Home = () => {
 
       {/* ── Reviews ───────────────────────────────────── */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">What Students Say</h2>
+        <h2 className="text-xl font-bold text-gray-900 mb-4">What People Say</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           {[
             { text: '"I was struggling to find extra help for my exams, but this platform made it easy to discover tutors in the subjects I needed. Being able to compare profiles and reach out directly was really helpful."', author: 'Adnan, Aligarh' },
@@ -193,7 +193,7 @@ const Home = () => {
             { text: '"I really like that the platform doesn’t interfere in tutor–student arrangements. There’s no middle layer, no hidden charges, which makes it much better for tutors."', author: 'Ahmad, Aligarh' },
           ].map((r, i) => (
             <div key={i} className="p-4 bg-gray-50 rounded-lg border border-gray-100">
-              <div className="text-yellow-400 text-sm mb-2">★★★★★</div>
+              <div className="text-yellow-400 text-sm mb-2">★★★★</div>
               <p className="text-gray-700 text-sm italic leading-relaxed">{r.text}</p>
               <p className="text-gray-400 text-xs mt-2">— {r.author}</p>
             </div>
