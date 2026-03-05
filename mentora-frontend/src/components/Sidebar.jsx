@@ -94,7 +94,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
           {hasRole('mentor') && (
             <>
               <hr className="my-2 border-gray-100" />
-              <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider px-3 py-1">Mentor</p>
+              <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider px-3 py-1">Tutor</p>
               <Link to="/mentor-dashboard" className={linkClass('/mentor-dashboard')} onClick={onClose}>
                 <span></span> Dashboard
               </Link>
