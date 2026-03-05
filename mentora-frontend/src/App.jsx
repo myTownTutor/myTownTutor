@@ -56,8 +56,8 @@ function App() {
             />
 
             {/* Main content */}
-            <main className="flex-1 min-w-0 lg:ml-64">
-              <div className="px-4 py-4">
+            <main className="flex-1 min-w-0 lg:ml-64 flex flex-col">
+              <div className="px-4 py-4 flex-1">
                 <Routes>
                   {/* Public Routes */}
                   <Route path="/" element={<Home />} />
