@@ -112,7 +112,7 @@ const Home = () => {
         <div className="steps-grid">
           {[
             { n: 1, title: 'Create Profile', desc: 'Sign up and tell us about your goals and interests' },
-            { n: 2, title: 'Browse Mentors', desc: 'Explore profiles of verified experts in your field' },
+            { n: 2, title: 'Browse Tutors', desc: 'Explore profiles of verified experts in your field' },
             { n: 3, title: 'Connect', desc: 'Send enquiry and get in touch with your mentor' },
             { n: 4, title: 'Learn & Grow', desc: 'Receive guidance and achieve your career goals' },
           ].map(s => (
@@ -127,7 +127,7 @@ const Home = () => {
 
       {/* ── Featured Mentors ──────────────────────────── */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-1">Meet Our Mentors</h2>
+        <h2 className="text-xl font-bold text-gray-900 mb-1">Meet Our Tutors</h2>
         <p className="text-gray-500 text-sm mb-4">Learn from the best in the industry</p>
         <div className="mentors-carousel">
           {mentors.length > 0 ? mentors.map(mentor => (
@@ -140,7 +140,7 @@ const Home = () => {
                 <span>⭐</span><span>{mentor.experience_years || 0}+ yrs</span>
               </div>
             </div>
-          )) : <p className="text-gray-400 text-sm">Loading mentors…</p>}
+          )) : <p className="text-gray-400 text-sm">Loading Tutors…</p>}
         </div>
       </div>
 
@@ -166,10 +166,10 @@ const Home = () => {
         <h2 className="text-xl font-bold text-gray-900 mb-4">What Students Say</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           {[
-            { text: '"Mentora helped me transition into tech. My mentor was incredibly supportive and guided me through every step!"', author: 'Sarah, Mumbai' },
-            { text: '"Found amazing mentors who believed in me. Got my promotion in 3 months with their guidance!"', author: 'Arjun, Delhi' },
-            { text: '"Best investment for my career. My mentor\'s insights were invaluable and helped me grow professionally."', author: 'Priya, Bangalore' },
-            { text: '"Highly recommended! The mentors are knowledgeable, responsive, and genuinely care about your growth."', author: 'Rohan, Pune' },
+            { text: '"MyTown Tutor helped me transition into tech. My tutor was incredibly supportive and guided me through every step!"', author: 'Sarah, Mumbai' },
+            { text: '"Found amazing Tutors who believed in me. Got my promotion in 3 months with their guidance!"', author: 'Arjun, Delhi' },
+            { text: '"Best investment for my career. My tutor\'s insights were invaluable and helped me grow professionally."', author: 'Priya, Bangalore' },
+            { text: '"Highly recommended! The tutors are knowledgeable, responsive, and genuinely care about your growth."', author: 'Rohan, Pune' },
           ].map((r, i) => (
             <div key={i} className="p-4 bg-gray-50 rounded-lg border border-gray-100">
               <div className="text-yellow-400 text-sm mb-2">★★★★★</div>
@@ -184,7 +184,7 @@ const Home = () => {
       {!isAuthenticated && (
         <div className="bg-white-900 rounded-xl p-8 text-center">
           <h2 className="text-2xl font-bold text-black mb-2">Ready to Start Your Journey?</h2>
-          <p className="text-black-400 mb-5 text-sm">Join thousands of students learning from top mentors today</p>
+          <p className="text-black-400 mb-5 text-sm">Join hundreds of students learning from top tutors today</p>
           <Link to="/signup" className="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-primary-dark transition-colors">
             Sign Up Now
           </Link>

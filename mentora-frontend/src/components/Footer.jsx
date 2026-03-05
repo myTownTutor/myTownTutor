@@ -10,14 +10,14 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <h3 className="text-white font-bold text-lg mb-3">🎓 MyTown Tutor</h3>
+            <h3 className="text-white font-bold text-lg mb-3">🎓 myTown Tutor</h3>
             <p className="text-sm text-gray-400 leading-relaxed mb-4">
-              Connecting ambitious learners with industry experts to accelerate career growth.
+              Connecting students with skilled tutors to make learning simple and effective.
             </p>
             <div className="flex gap-3">
               {[
                 { label: 'in', href: 'https://linkedin.com' },
-                { label: '📧', href: 'mailto:support@mentora.com' },
+                { label: '📧', href: 'mailto:mytowntutor@gmail.com' },
                 { label: 'f', href: 'https://facebook.com' },
               ].map((s) => (
                 <a
@@ -38,8 +38,9 @@ const Footer = () => {
             <h4 className="text-white font-semibold text-sm mb-3">For Students</h4>
             <ul className="space-y-2 text-sm">
               <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
-              <li><Link to="/browse-mentors" className="hover:text-white transition-colors">Find Mentors</Link></li>
               <li><Link to="/about" className="hover:text-white transition-colors">How It Works</Link></li>
+              <li><Link to="/browse-mentors" className="hover:text-white transition-colors">Find a Tutor</Link></li>
+              
             </ul>
           </div>
 
@@ -47,7 +48,7 @@ const Footer = () => {
           <div>
             <h4 className="text-white font-semibold text-sm mb-3">For Mentors</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/signup" className="hover:text-white transition-colors">Become a Mentor</Link></li>
+              <li><Link to="/signup" className="hover:text-white transition-colors">Become a Tutor</Link></li>
               <li><Link to="/about" className="hover:text-white transition-colors">Resources</Link></li>
             </ul>
           </div>
@@ -56,9 +57,9 @@ const Footer = () => {
           <div>
             <h4 className="text-white font-semibold text-sm mb-3">Company</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
-              <li><a href="mailto:contact@mentora.com" className="hover:text-white transition-colors">Contact</a></li>
-              <li><a href="mailto:support@mentora.com" className="hover:text-white transition-colors">Support</a></li>
+              <li><Link to="/about" className="hover:text-white transition-colors">About us</Link></li>
+              <li><a href="mailto:mytowntutor@gmail.com" className="hover:text-white transition-colors">Contact/Support</a></li>
+              
               <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
               <li><Link to="/terms" className="hover:text-white transition-colors">Terms &amp; Conditions</Link></li>
               <li><Link to="/refund-policy" className="hover:text-white transition-colors">Refund Policy</Link></li>
@@ -68,7 +69,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-500">
-          &copy; {currentYear} Mentora. All rights reserved.
+          &copy; {currentYear} 2026 myTown Tutor. All rights reserved. Aligarh, India.
         </div>
       </div>
     </footer>

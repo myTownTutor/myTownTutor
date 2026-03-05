@@ -183,7 +183,7 @@ const MentorProfileSetup = () => {
     <div className="max-w-2xl mx-auto space-y-4">
       {/* Header */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-6 py-4">
-        <h1 className="text-xl font-bold text-gray-900">Edit Mentor Profile</h1>
+        <h1 className="text-xl font-bold text-gray-900">Edit tutor Profile</h1>
         <p className="text-gray-500 text-sm">Fill in your details to get discovered by students</p>
       </div>
 

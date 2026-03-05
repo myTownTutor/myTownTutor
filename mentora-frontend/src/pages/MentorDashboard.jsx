@@ -66,7 +66,7 @@ const MentorDashboard = () => {
     <div className="space-y-4">
       {/* Welcome */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-6 py-4">
-        <h1 className="text-xl font-bold text-gray-900">Mentor Dashboard</h1>
+        <h1 className="text-xl font-bold text-gray-900">Tutor Dashboard</h1>
         <p className="text-gray-500 text-sm">Welcome back, {user?.first_name}!</p>
       </div>
 
@@ -110,7 +110,7 @@ const MentorDashboard = () => {
             <div className="w-9 h-9 rounded-full bg-orange-100 flex items-center justify-center text-lg flex-shrink-0">💳</div>
             <div className="min-w-0">
               <p className="text-sm font-semibold text-gray-900 leading-tight">Registration payment pending</p>
-              <p className="text-xs text-gray-400 mt-0.5">One-time fee · ₹299 · Unlock your public profile</p>
+              <p className="text-xs text-gray-400 mt-0.5">6 months subscription fee · ₹99 · Unlock your public profile</p>
             </div>
           </div>
           <Link
@@ -185,7 +185,7 @@ const MentorDashboard = () => {
           </div>
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
             <h3 className="font-bold text-gray-900 mb-2">🔗 Your Profile</h3>
-            <p className="text-gray-500 text-sm mb-4">See how students view your public mentor profile.</p>
+            <p className="text-gray-500 text-sm mb-4">See how students view your public tutor profile.</p>
             <Link to={`/mentor/${profile?.id || ''}`} className="inline-block bg-gray-50 border border-gray-200 text-gray-700 px-5 py-2 rounded-full text-sm font-semibold hover:bg-gray-100 transition-colors">
               View Public Profile
             </Link>

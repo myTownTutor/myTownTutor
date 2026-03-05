@@ -44,7 +44,7 @@ const LogIn = () => {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-900">Welcome back</h1>
-            <p className="text-gray-500 text-sm mt-1">Sign in to your Mentora account</p>
+            <p className="text-gray-500 text-sm mt-1">Sign in to your MyTown Tutor account</p>
           </div>
           {error && <div className="error-message">{error}</div>}
           <form onSubmit={handleSubmit} className="space-y-4">

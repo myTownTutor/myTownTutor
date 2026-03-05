@@ -31,10 +31,10 @@ const StudentDashboard = () => {
   };
 
   const tips = [
-    'Complete your profile to attract better mentors',
-    'Browse mentors by expertise and experience',
-    'Reach out with a clear, specific question',
-    'Be consistent and follow through on advice',
+    'MyTown Tutor provides this chat feature solely to enable communication between students and tutors. We do not monitor conversations in real time and are not responsible for the content, accuracy, or outcome of any discussions.',
+    'Students and parents are advised to exercise caution when sharing personal information such as phone numbers, addresses, financial details, or identification documents. For minors, parental supervision is strongly recommended when interacting with tutors or arranging sessions.',
+    'Any agreements regarding classes, fees, schedules, or meeting locations (online or in person) are made directly between the student and the tutor. The Platform is not responsible for any disputes, misunderstandings, or issues arising from such arrangements.',
+    'If you encounter inappropriate behaviour, impersonation, or suspicious activity, please report it immediately through the platform.',
   ];
 
   const handleDeleteAccount = async () => {
@@ -63,10 +63,10 @@ const StudentDashboard = () => {
       {/* Quick actions */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-          <h2 className="font-bold text-gray-900 mb-2">Find a Mentor</h2>
-          <p className="text-gray-500 text-sm mb-4">Explore our network of experienced mentors ready to help you.</p>
+          <h2 className="font-bold text-gray-900 mb-2">Find a Tutor</h2>
+          <p className="text-gray-500 text-sm mb-4">Explore our network of experienced tutors ready to help you.</p>
           <Link to="/browse-mentors" className="inline-block bg-primary text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-primary-dark transition-colors">
-            Browse Mentors →
+            Browse Tutors →
           </Link>
         </div>
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
@@ -105,7 +105,7 @@ const StudentDashboard = () => {
 
       {/* Tips */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-        <h2 className="font-bold text-gray-900 mb-3">💡 Tips for Success</h2>
+        <h2 className="font-bold text-gray-900 mb-3">💡 Important to know</h2>
         <ul className="space-y-2">
           {tips.map((tip, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
@@ -134,7 +134,7 @@ const StudentDashboard = () => {
           <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm">
             <h3 className="text-lg font-bold text-gray-900 mb-2">Delete Account</h3>
             <p className="text-gray-500 text-sm mb-4">
-              This action is <span className="font-semibold text-red-500">permanent for you</span>. Your account will be archived.
+              This action is <span className="font-semibold text-red-500">permanent for you</span>. Your account will be deleted.
               Type <span className="font-mono font-bold">DELETE</span> to confirm.
             </p>
             <input

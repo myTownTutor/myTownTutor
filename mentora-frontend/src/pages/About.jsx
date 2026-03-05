@@ -1,33 +1,33 @@
 import React from 'react';
 
 const values = [
-  { icon: '🔒', label: 'Trust', desc: 'We verify all mentors and maintain a safe, trusted platform.' },
+  
   { icon: '⭐', label: 'Quality', desc: 'We connect you with experienced, verified professionals only.' },
-  { icon: '🚀', label: 'Growth', desc: 'We believe in continuous learning and professional development.' },
+  
   { icon: '🌍', label: 'Accessibility', desc: 'Mentorship should be affordable and available to everyone.' },
-  { icon: '🤝', label: 'Community', desc: 'We foster a supportive community of mentors and students.' },
+  { icon: '🤝', label: 'Community', desc: 'We foster a supportive community of tutors and students.' },
 ];
 
 const steps = [
-  { n: '1', title: 'Mentors Sign Up', desc: 'Experienced professionals join and create detailed profiles.' },
-  { n: '2', title: 'Verification', desc: 'We review and approve mentors to ensure quality.' },
-  { n: '3', title: 'Students Browse', desc: 'Students search and find mentors matching their needs.' },
-  { n: '4', title: 'Connect', desc: 'Students reach out and connect directly with mentors.' },
+  { n: '1', title: 'Tutors Sign Up', desc: 'Experienced tutors join and create detailed profiles.' },
+  { n: '2', title: 'Verification', desc: 'We review and approve tutors to ensure quality.' },
+  { n: '3', title: 'Students Browse', desc: 'Students search and find tutors matching their needs.' },
+  { n: '4', title: 'Connect', desc: 'Students reach out and connect directly with tutors.' },
 ];
 
 const About = () => (
   <div className="space-y-6">
     {/* Header */}
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">About</h1>
-      <p className="text-gray-500">Connecting talented individuals with industry experts</p>
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">About us</h1>
+      <p className="text-gray-500">myTown Tutor is a platform connecting students with independent tutors.</p>
     </div>
 
     {/* Mission & Vision */}
     <div className="grid md:grid-cols-2 gap-4">
       {[
-        { title: 'Our Mission', icon: '🎯', text: 'At MytownTutor, our mission is to democratize quality mentorship. We believe every person deserves access to guidance from experienced professionals to achieve their goals and full potential.' },
-        { title: 'Our Vision', icon: '👁️', text: 'A world where meaningful mentorship relationships are accessible to everyone, enabling individuals to learn, grow, and succeed in their careers.' },
+        { title: 'Our Mission', icon: '', text: 'To make finding the right tutor simple, transparent, and accessible for every student, while giving educators a platform to showcase their skills and connect directly with learners. We aim to remove barriers in the learning process by creating a space where quality guidance is easy to discover and meaningful educational connections can grow.' },
+        { title: 'What we are NOT', icon: '', text: 'MyTown Tutor is not a tutoring provider. We do not conduct classes, employ tutors, or guarantee academic outcomes. Our role is limited to providing a platform that connects students and tutors. We do not supervise, control, or take responsibility for the quality, safety, legality, or effectiveness of tutoring services offered by users. Any agreement, communication, scheduling, payment for tutoring sessions, or arrangement for online or in-person classes is made directly between the student and the tutor. Users are responsible for conducting their own due diligence before entering into any engagement.' },
       ].map(s => (
         <div key={s.title} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div className="text-2xl mb-3">{s.icon}</div>
@@ -39,10 +39,10 @@ const About = () => (
 
     {/* Why we started */}
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <h2 className="text-lg font-bold text-gray-900 mb-3">Why We Started MytownTutor</h2>
+      <h2 className="text-lg font-bold text-gray-900 mb-3">Why We Started myTown Tutor</h2>
       <p className="text-gray-600 text-sm leading-relaxed">
-        Finding the right tutor can be difficult and time-consuming. Too many talented individuals struggle to find guidance, and many experienced professionals want to give back but don't have a structured way to do so. MytownTutor bridges this gap by creating a trusted platform where tutors and students can connect and grow together.
-      </p>
+        We started MyTown Tutor to bridge that gap. Our goal is to create a centralised space with no middlemen, where students and tutors can connect directly, explore opportunities, and find the right fit without unnecessary complications. By simplifying the process, we aim to make quality learning more accessible and meaningful for everyone involved.
+        </p>
     </div>
 
     {/* Values */}

@@ -39,7 +39,7 @@ const MentorProfile = () => {
   const ContactBtn = ({ full }) => {
     const cls = `flex items-center justify-center bg-gray-900 hover:bg-gray-700 text-white text-sm font-medium rounded-lg transition-colors ${full ? 'w-full py-3' : 'px-5 py-2.5'}`;
     if (isAuthenticated && user?.role === 'student') {
-      return <Link to={`/contact-mentor/${mentorId}`} className={cls}>Contact Mentor</Link>;
+      return <Link to={`/contact-mentor/${mentorId}`} className={cls}>Contact Tutor</Link>;
     }
     if (!isAuthenticated) {
       return <button onClick={() => navigate('/login')} className={cls}>Log in to Contact</button>;
@@ -137,7 +137,7 @@ const MentorProfile = () => {
           {/* Contact card */}
           <div className="bg-white border border-gray-200 rounded-xl p-5 lg:sticky lg:top-4">
             <h2 className="text-sm font-semibold text-gray-900 mb-1">Get in touch</h2>
-            <p className="text-xs text-gray-400 mb-4">Send an enquiry directly to this mentor.</p>
+            <p className="text-xs text-gray-400 mb-4">Send an enquiry directly to this tutor.</p>
             
             {(mentor.hourly_rate || mentor.monthly_rate) && (
               <>

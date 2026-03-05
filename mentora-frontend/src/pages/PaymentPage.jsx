@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 
-const UPI_ID   = import.meta.env.VITE_UPI_ID   || 'mytowntutor@upi';
+const UPI_ID   = import.meta.env.VITE_UPI_ID   || 'mytowntutor@ybl';
 const UPI_NAME = import.meta.env.VITE_UPI_NAME  || 'MyTownTutor';
 
 const PaymentPage = () => {
@@ -20,10 +20,13 @@ const PaymentPage = () => {
   const qrUrl   = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiLink)}`;
 
   const features = [
-    'Get your profile listed publicly',
-    'Receive messages from students',
-    'Build your mentoring network',
-    'One-time registration fee',
+    'Tutors are required to pay a subscription fee of INR 99 for a period of six (6) months to list their profile on the Platform.',
+    'This subscription fee:',
+    '•    Is solely a listing fee.',
+    '•    Does not guarantee student leads.',
+    '•    Does not guarantee bookings.',
+    '•    Does not guarantee visibility ranking.',
+    '•    Does not constitute payment for tutoring services.',
   ];
 
   const handleCopy = () => {
@@ -58,7 +61,7 @@ const PaymentPage = () => {
           🎓
         </div>
         <h1 className="text-xl font-bold text-gray-900 mb-1">Become a Mentor</h1>
-        <p className="text-gray-500 text-sm">One-time registration fee to get your profile live for 6 Months</p>
+        <p className="text-gray-500 text-sm">Registration fee to get your profile live for 6 months</p>
       </div>
 
       {/* Price card */}
@@ -91,9 +94,11 @@ const PaymentPage = () => {
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 space-y-3">
         <h3 className="font-bold text-gray-900 text-sm">Frequently Asked Questions</h3>
         {[
+
+          ['Attachment your email address to the payment?', 'Please ensure you use the same email for payment and registration.'],
           ['Is the fee refundable?', 'No, the registration fee is non-refundable once paid.'],
           ['When will my profile go live?', 'Your profile will be reviewed within 24-48 hours after payment.'],
-          ['Can I edit my profile later?', 'Yes, you can update your profile anytime from your dashboard.'],
+          ['Can I edit my profile later?', 'Yes, you can update your profile anytime from your dashboard.']
         ].map(([q, a]) => (
           <div key={q}>
             <p className="text-sm font-medium text-gray-800">{q}</p>
