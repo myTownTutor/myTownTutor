@@ -108,8 +108,7 @@ const MentorProfileSetup = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     const validationErr = validateAll();
     if (validationErr) { setError(validationErr); return; }
     setError(''); setSuccess(''); setLoading(true);
@@ -253,7 +252,7 @@ const MentorProfileSetup = () => {
           ))}
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6">
+        <div className="p-6">
           <div key={activeSection}>
             {sectionContent[activeSection]}
           </div>
@@ -274,13 +273,13 @@ const MentorProfileSetup = () => {
                 Next →
               </button>
             ) : (
-              <button type="submit" disabled={loading}
+              <button type="button" onClick={handleSubmit} disabled={loading}
                 className="bg-primary text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-primary-dark disabled:opacity-50 transition-colors">
                 {loading ? 'Saving…' : '💾 Save Profile'}
               </button>
             )}
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
