@@ -7,7 +7,7 @@ const Home = () => {
   const { isAuthenticated, user } = useAuth();
   const [mentors, setMentors] = useState([]);
   const [counters, setCounters] = useState({ students: 0, mentors: 0, sessions: 0, success: 0 });
-  const TYPEWRITER_TEXT = 'Find Your Perfect Mentor...';
+  const TYPEWRITER_TEXT = 'Find Your Perfect Tutor...';
   const [displayed, setDisplayed] = useState('');
   const [twDone, setTwDone] = useState(false);
   const [twCycle, setTwCycle] = useState(0);
@@ -94,12 +94,12 @@ const Home = () => {
           <div className="hero-right">
             <div className="hero-mission">
               
-              <h3 className="mission-title">Our Mission</h3>
-              
-              <p className="text-gray-700 mb-3">• Connect students with verified, experienced tutors</p>
-              <p className="text-gray-700 mb-3">• Give learners the freedom to choose the mentor that fits their goals and learning style</p>
-              <p className="text-gray-700 mb-3">• Empower students to learn effectively and reach their full potential</p>
-              
+              <h3 className="mission-title">Why myTown Tutor</h3>
+              <p className="text-gray-700 mb-3">• Finding the right tutor shouldn't be complicated.</p>
+              <p className="text-gray-700 mb-3">• Too many students struggle to access the right guidance.</p>
+              <p className="text-gray-700 mb-3">• Tutors deserve a platform to showcase their expertise.</p>
+              <p className="text-gray-700 mb-3">• We bring both sides together in one simple, transparent space with no middlemen in learning</p>
+              <p className="text-gray-700 mb-3">• One centralised place. Clear profiles. Direct connections.</p>
             </div>
           </div>
         </div>
@@ -107,13 +107,13 @@ const Home = () => {
 
       {/* ── How It Works ─────────────────────────────── */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-1">How It Works</h2>
-        <p className="text-gray-500 text-sm mb-4">Get guidance from experts in just a few simple steps</p>
+        <h2 className="text-xl font-bold text-gray-900 mb-1">How It Works for Students</h2>
+        <p className="text-gray-500 text-sm mb-4">Get guidance from experienced tutors in just a few simple steps</p>
         <div className="steps-grid">
           {[
-            { n: 1, title: 'Create Profile', desc: 'Sign up and tell us about your goals and interests' },
-            { n: 2, title: 'Browse Tutors', desc: 'Explore profiles of verified experts in your field' },
-            { n: 3, title: 'Connect', desc: 'Send enquiry and get in touch with your mentor' },
+            { n: 1, title: 'Create Profile', desc: 'Sign up or Login, you will need it to contact tutors' },
+            { n: 2, title: 'Browse Tutors', desc: 'Explore profiles of tutors in your field' },
+            { n: 3, title: 'Connect', desc: 'Send enquiry and get in touch with your tutor (sign up required)' },
             { n: 4, title: 'Learn & Grow', desc: 'Receive guidance and achieve your career goals' },
           ].map(s => (
             <div key={s.n} className="step-card">
@@ -124,6 +124,27 @@ const Home = () => {
           ))}
         </div>
       </div>
+
+{/* ── How It Works ─────────────────────────────── */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h2 className="text-xl font-bold text-gray-900 mb-1">How It Works for Mentors</h2>
+        <p className="text-gray-500 text-sm mb-4">Get started in just a few simple steps</p>
+        <div className="steps-grid">
+          {[
+            { n: 1, title: 'Create Profile', desc: 'Sign up and tell us about your experience and preferred subjects' },
+            { n: 2, title: 'Payment', desc: 'Pay the required fees to be visible on the platform' },
+            { n: 3, title: 'Connect', desc: 'Reply enquiry and get in touch with your student' },
+            { n: 4, title: 'Teach & Inspire', desc: 'Provide guidance and help your students achieve their goals' },
+          ].map(s => (
+            <div key={s.n} className="step-card">
+              <div className="step-number">{s.n}</div>
+              <h3 className="font-semibold text-gray-900 text-sm mb-1">{s.title}</h3>
+              <p className="text-gray-500 text-xs">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
 
       {/* ── Featured Mentors ──────────────────────────── */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -166,10 +187,10 @@ const Home = () => {
         <h2 className="text-xl font-bold text-gray-900 mb-4">What Students Say</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           {[
-            { text: '"MyTown Tutor helped me transition into tech. My tutor was incredibly supportive and guided me through every step!"', author: 'Sarah, Mumbai' },
-            { text: '"Found amazing Tutors who believed in me. Got my promotion in 3 months with their guidance!"', author: 'Arjun, Delhi' },
-            { text: '"Best investment for my career. My tutor\'s insights were invaluable and helped me grow professionally."', author: 'Priya, Bangalore' },
-            { text: '"Highly recommended! The tutors are knowledgeable, responsive, and genuinely care about your growth."', author: 'Rohan, Pune' },
+            { text: '"MyTown Tutor helped me transition into tech. My tutor was incredibly supportive and guided me through every step!"', author: 'Adnan, Aligarh' },
+            { text: '"Found amazing Tutors who believed in me. Got my promotion in 3 months with their guidance!"', author: 'Samiya, Aligarh' },
+            { text: '"Best investment for my career. My tutor\'s insights were invaluable and helped me grow professionally."', author: 'Ayush, Aligarh' },
+            { text: '"Highly recommended! The tutors are knowledgeable, responsive, and genuinely care about your growth."', author: 'Ahmad, Aligarh' },
           ].map((r, i) => (
             <div key={i} className="p-4 bg-gray-50 rounded-lg border border-gray-100">
               <div className="text-yellow-400 text-sm mb-2">★★★★★</div>

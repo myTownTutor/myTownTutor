@@ -125,7 +125,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
         {/* Browse Mentors — Filter Panel */}
         {onBrowsePage && browseFilters && (
           <div className="p-4 border-t border-gray-100 space-y-3">
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Filter Mentors</p>
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Filter Tutors</p>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Search</label>
               <input

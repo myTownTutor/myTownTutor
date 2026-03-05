@@ -46,7 +46,7 @@ const Footer = () => {
 
           {/* Mentors */}
           <div>
-            <h4 className="text-white font-semibold text-sm mb-3">For Mentors</h4>
+            <h4 className="text-white font-semibold text-sm mb-3">For Tutors</h4>
             <ul className="space-y-2 text-sm">
               <li><Link to="/signup" className="hover:text-white transition-colors">Become a Tutor</Link></li>
               <li><Link to="/about" className="hover:text-white transition-colors">Resources</Link></li>
