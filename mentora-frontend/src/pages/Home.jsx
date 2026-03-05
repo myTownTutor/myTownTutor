@@ -62,7 +62,7 @@ const Home = () => {
       <section className="hero-section -mx-4 -mt-4" style={{
         backgroundImage: `linear-gradient(135deg, rgba(248,249,250,0.7) 0%, rgba(232,240,254,0.7) 100%), url('/hero-animation.gif')`,
         backgroundSize: 'cover', backgroundPosition: 'center',
-        minHeight: 'calc(100vh - 56px)'
+        minHeight: '500px'
       }}>
         <div className="hero-overlay">
           <div className="hero-left">
@@ -107,7 +107,7 @@ const Home = () => {
 
       {/* ── How It Works ─────────────────────────────── */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-1">How It Works for Students</h2>
+        <h2 className="text-xl font-bold text-gray-900 mb-1">How it works for students</h2>
         <p className="text-gray-500 text-sm mb-4">Get guidance from experienced tutors in just a few simple steps</p>
         <div className="steps-grid">
           {[
@@ -127,8 +127,8 @@ const Home = () => {
 
 {/* ── How It Works ─────────────────────────────── */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-1">How It Works for Mentors</h2>
-        <p className="text-gray-500 text-sm mb-4">Get started in just a few simple steps</p>
+        <h2 className="text-xl font-bold text-gray-900 mb-1">How it works for tutors</h2>
+        <p className="text-gray-500 text-sm mb-4">Tutors join and create detailed profiles showcasing their skills and expertise.</p>
         <div className="steps-grid">
           {[
             { n: 1, title: 'Create Profile', desc: 'Sign up and tell us about your experience and preferred subjects' },
