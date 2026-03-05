@@ -62,7 +62,7 @@ const Home = () => {
       <section className="hero-section -mx-4 -mt-4" style={{
         backgroundImage: `linear-gradient(135deg, rgba(248,249,250,0.7) 0%, rgba(232,240,254,0.7) 100%), url('/hero-animation.gif')`,
         backgroundSize: 'cover', backgroundPosition: 'center',
-        minHeight: '600px'
+        minHeight: '750px'
       }}>
         <div className="hero-overlay">
           <div className="hero-left">
