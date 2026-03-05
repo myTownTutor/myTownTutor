@@ -10,9 +10,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link to="/" className="inline-block mb-3">
-              <img src="/logo.png" alt="myTown Tutor" className="h-10 w-auto" />
-            </Link>
+            <h3 className="text-white font-bold text-lg mb-3">🎓 myTown Tutor</h3>
             <p className="text-sm text-gray-400 leading-relaxed mb-4">
               Connecting students with skilled tutors to make learning simple and effective.
             </p>

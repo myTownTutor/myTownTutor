@@ -25,12 +25,8 @@ const Navbar = ({ onToggleSidebar }) => {
       </button>
 
       {/* Logo */}
-      <Link
-        to="/"
-        className="flex items-center gap-2 font-bold text-xl text-primary hover:opacity-90 transition-opacity whitespace-nowrap"
-      >
-        <span className="text-2xl">🎓</span>
-        <span className="hidden sm:inline">MyTown Tutor</span>
+      <Link to="/" className="flex items-center hover:opacity-90 transition-opacity flex-shrink-0">
+        <img src="/logo.png" alt="MyTown Tutor" className="h-9 w-auto object-contain" />
       </Link>
 
       {/* Search bar (decorative, linked to browse) */}
