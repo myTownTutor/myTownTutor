@@ -46,18 +46,18 @@ const Navbar = ({ onToggleSidebar }) => {
       <div className="flex-1" />
 
       {/* Right nav */}
-      <nav className="flex items-center gap-2">
+      <nav className="flex items-center gap-2 flex-shrink-0">
         {!isAuthenticated ? (
           <>
             <Link
               to="/login"
-              className="text-sm font-medium text-gray-700 hover:text-primary px-3 py-1.5 rounded-full hover:bg-blue-50 transition-colors"
+              className="text-sm font-medium text-gray-700 hover:text-primary px-3 py-1.5 rounded-full hover:bg-blue-50 transition-colors whitespace-nowrap"
             >
               Sign In
             </Link>
             <Link
               to="/signup"
-              className="text-sm font-semibold bg-primary text-white px-4 py-1.5 rounded-full hover:bg-primary-dark transition-colors"
+              className="text-sm font-semibold bg-primary text-white px-4 py-1.5 rounded-full hover:bg-primary-dark transition-colors whitespace-nowrap"
             >
               Join Now
             </Link>
