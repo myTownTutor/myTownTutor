@@ -234,17 +234,17 @@ const MentorProfileSetup = () => {
   return (
     <div className="max-w-2xl mx-auto space-y-4">
       {/* Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-6 py-4">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 sm:px-6 py-4">
         <h1 className="text-xl font-bold text-gray-900">Edit tutor Profile</h1>
         <p className="text-gray-500 text-sm">Fill in your details to get discovered by students</p>
       </div>
 
       {/* Section tabs */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="flex border-b border-gray-100">
+        <div className="flex border-b border-gray-100 overflow-x-auto">
           {SECTIONS.map((s, i) => (
             <button type="button" key={s} onClick={() => goToSection(i)}
-              className={`flex-1 py-3 text-xs font-semibold transition-colors ${
+              className={`flex-1 min-w-[72px] py-3 text-xs font-semibold whitespace-nowrap transition-colors ${`}
                 activeSection === i ? 'border-b-2 border-primary text-primary bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
               }`}>
               {s}
@@ -252,7 +252,7 @@ const MentorProfileSetup = () => {
           ))}
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <div key={activeSection}>
             {sectionContent[activeSection]}
           </div>

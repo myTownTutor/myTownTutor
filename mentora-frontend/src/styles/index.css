@@ -224,9 +224,27 @@ body {
 
 /* ── Responsive ──────────────────────────────────────── */
 @media (max-width: 768px) {
-  .hero-overlay { flex-direction: column; padding: 24px 16px; gap: 24px; }
-  .hero-title { font-size: 1.9rem; }
-  .hero-right { display: none; }
+  .hero-section   { min-height: 320px; }
+  .hero-overlay   { flex-direction: column; padding: 24px 16px; gap: 24px; }
+  .hero-title     { font-size: 1.9rem; }
+  .hero-right     { display: none; }
+  .steps-grid     { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
+  .step-card      { padding: 16px 12px; }
+  .step-number    { width: 40px; height: 40px; font-size: 1rem; margin-bottom: 10px; }
+  .mentors-carousel { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
+  .mentor-card-home { padding: 14px 10px; }
+  .hero-mission   { padding: 20px; }
+}
+
+@media (max-width: 480px) {
+  .hero-section   { min-height: 260px; }
+  .hero-title     { font-size: 1.6rem; }
+  .hero-buttons   { gap: 8px; }
+  .hero-buttons .btn { padding: 10px 16px; font-size: 0.85rem; }
+  .steps-grid     { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .step-card      { padding: 12px 8px; }
+  .mentors-carousel { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .mentor-card-home { padding: 12px 8px; font-size: 0.8rem; }
 }
 
 /* end */

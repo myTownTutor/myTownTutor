@@ -11,7 +11,7 @@ const Bullet = ({ children }) => (
 const AccountDeletion = () => {
   return (
     <div className="max-w-3xl mx-auto py-8 px-4">
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 space-y-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 sm:p-8 space-y-8">
         <h1 className="text-2xl font-bold text-gray-900">Account Deletion &amp; Data Requests</h1>
 
         {/* Deleting Your Account */}

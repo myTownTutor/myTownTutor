@@ -39,9 +39,9 @@ const LogIn = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-8">
+    <div className="min-h-[80vh] flex items-center justify-center py-4 sm:py-8 px-2 sm:px-0">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 sm:p-8">
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-900">Welcome back</h1>
             <p className="text-gray-500 text-sm mt-1">Sign in to your MyTown Tutor account</p>

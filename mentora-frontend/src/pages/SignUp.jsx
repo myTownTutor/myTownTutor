@@ -47,9 +47,9 @@ const SignUp = () => {
   const inputCls = "w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-primary transition";
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-8">
+    <div className="min-h-[80vh] flex items-center justify-center py-4 sm:py-8 px-2 sm:px-0">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 sm:p-8">
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-900">Create your account</h1>
             <p className="text-gray-500 text-sm mt-1"></p>
@@ -71,7 +71,7 @@ const SignUp = () => {
           {error && <div className="error-message">{error}</div>}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-2">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
                 <input type="text" name="first_name" value={formData.first_name} onChange={handleChange} placeholder="" required className={inputCls} />

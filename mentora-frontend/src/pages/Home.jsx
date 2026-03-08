@@ -62,7 +62,7 @@ const Home = () => {
       <section className="hero-section -mx-4 -mt-4" style={{
         backgroundImage: `linear-gradient(135deg, rgba(248,249,250,0.7) 0%, rgba(232,240,254,0.7) 100%), url('/hero-animation.gif')`,
         backgroundSize: 'cover', backgroundPosition: 'center',
-        minHeight: '750px'
+        minHeight: 'clamp(280px, 55vh, 750px)'
       }}>
         <div className="hero-overlay">
           <div className="hero-left">
@@ -106,8 +106,8 @@ const Home = () => {
       </section>
 
       {/* ── How It Works ─────────────────────────────── */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-1">How it works for students</h2>
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 sm:px-6 py-5">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-1">How it works for students</h2>
         <p className="text-gray-500 text-sm mb-4">Get guidance from experienced tutors in just a few simple steps</p>
         <div className="steps-grid">
           {[
@@ -126,8 +126,8 @@ const Home = () => {
       </div>
 
 {/* ── How It Works ─────────────────────────────── */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-1">How it works for tutors</h2>
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 sm:px-6 py-5">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-1">How it works for tutors</h2>
         <p className="text-gray-500 text-sm mb-4">Tutors join and create detailed profiles showcasing their skills and expertise.</p>
         <div className="steps-grid">
           {[
@@ -147,8 +147,8 @@ const Home = () => {
 
 
       {/* ── Featured Mentors ──────────────────────────── */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-1">Meet Our Tutors</h2>
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 sm:px-6 py-5">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-1">Meet Our Tutors</h2>
         <p className="text-gray-500 text-sm mb-4">Learn from the best in the industry</p>
         <div className="mentors-carousel">
           {mentors.length > 0 ? mentors.map(mentor => (
@@ -166,7 +166,7 @@ const Home = () => {
       </div>
 
       {/* ── Stats ─────────────────────────────────────── */}
-      <div className="bg-secondary rounded-xl p-6 ">
+      <div className="bg-secondary rounded-xl p-4 sm:p-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-black">
           {[
             { val: counters.students + '+', label: 'Students Found Tutors' },
@@ -175,7 +175,7 @@ const Home = () => {
             { val: counters.success + '%', label: 'Success Rate' },
           ].map(s => (
             <div key={s.label}>
-              <div className="text-3xl font-bold">{s.val}</div>
+              <div className="text-2xl sm:text-3xl font-bold">{s.val}</div>
               <div className="text-black-100 text-sm mt-1">{s.label}</div>
             </div>
           ))}
@@ -183,8 +183,8 @@ const Home = () => {
       </div>
 
       {/* ── Reviews ───────────────────────────────────── */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">What People Say</h2>
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 sm:px-6 py-5">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">What People Say</h2>
         <div className="grid sm:grid-cols-2 gap-4">
           {[
             { text: '"I was struggling to find extra help for my exams, but this platform made it easy to discover tutors in the subjects I needed. Being able to compare profiles and reach out directly was really helpful."', author: 'Adnan, Aligarh' },

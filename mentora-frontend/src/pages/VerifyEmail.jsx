@@ -91,9 +91,9 @@ const VerifyEmail = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-8">
+    <div className="min-h-[80vh] flex items-center justify-center py-4 sm:py-8 px-2 sm:px-0">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 sm:p-8">
           {/* Icon */}
           <div className="flex justify-center mb-4">
             <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center">

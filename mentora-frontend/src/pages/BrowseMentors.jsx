@@ -37,7 +37,7 @@ const BrowseMentors = () => {
   return (
     <div className="space-y-4 pb-[100px]">
       {/* Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-6 py-4 flex items-center justify-between">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-bold text-gray-900">Browse Tutors</h1>
           <p className="text-gray-500 text-sm">Find the right tutor for your goals</p>
@@ -61,7 +61,7 @@ const BrowseMentors = () => {
             </div>
           ) : (
             <>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
                 {mentors.map((mentor, idx) => {
                   const shades = [
                     { grad: 'from-gray-900 to-gray-700' },
@@ -73,7 +73,7 @@ const BrowseMentors = () => {
                   ];
                   const p = shades[idx % shades.length];
                   return (
-                    <div key={mentor.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex h-52">
+                    <div key={mentor.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex h-44 sm:h-52">
 
                       {/* Left half — full colour picture area */}
                       <div className={`w-1/2 flex-shrink-0 bg-gradient-to-br ${p.grad} relative overflow-hidden flex flex-col items-center justify-center gap-2`}>

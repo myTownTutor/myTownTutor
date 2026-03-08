@@ -95,9 +95,9 @@ const ResetPassword = () => {
   const inputCls = "w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-primary transition";
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-8">
+    <div className="min-h-[80vh] flex items-center justify-center py-4 sm:py-8 px-2 sm:px-0">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 sm:p-8">
           <div className="flex justify-center mb-4">
             <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center">
               <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">

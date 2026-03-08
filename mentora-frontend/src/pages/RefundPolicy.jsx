@@ -10,7 +10,7 @@ const Bullet = ({ children }) => (
 const RefundPolicy = () => {
   return (
     <div className="max-w-3xl mx-auto py-8 px-4">
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 sm:p-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-8">Cancellation and Refund Policy</h1>
 
         <div className="text-gray-600 text-sm leading-relaxed">

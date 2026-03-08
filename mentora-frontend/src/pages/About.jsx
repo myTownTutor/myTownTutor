@@ -18,8 +18,8 @@ const steps = [
 const About = () => (
   <div className="space-y-6">
     {/* Header */}
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">About us</h1>
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 sm:p-8 text-center">
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">About us</h1>
       <p className="text-gray-500">myTown Tutor is a platform connecting students with independent tutors.</p>
     </div>
 
