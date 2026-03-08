@@ -42,11 +42,7 @@ const BrowseMentors = () => {
           <h1 className="text-xl font-bold text-gray-900">Browse Tutors</h1>
           <p className="text-gray-500 text-sm">Find the right tutor for your goals</p>
         </div>
-        {!isAuthenticated && (
-          <button onClick={() => navigate('/signup')} className="bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary-dark transition-colors">
-            Join Free
-          </button>
-        )}
+       
       </div>
 
       {/* Tutor Grid */}
