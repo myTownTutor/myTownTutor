@@ -73,7 +73,7 @@ const BrowseMentors = () => {
                   ];
                   const p = shades[idx % shades.length];
                   return (
-                    <div key={mentor.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex h-44 sm:h-52">
+                    <div key={mentor.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex min-h-[172px] sm:min-h-[208px]">
 
                       {/* Left half — full colour picture area */}
                       <div className={`w-1/2 flex-shrink-0 bg-gradient-to-br ${p.grad} relative overflow-hidden flex flex-col items-center justify-center gap-2`}>
