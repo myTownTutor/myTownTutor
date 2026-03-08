@@ -244,7 +244,7 @@ const MentorProfileSetup = () => {
         <div className="flex border-b border-gray-100 overflow-x-auto">
           {SECTIONS.map((s, i) => (
             <button type="button" key={s} onClick={() => goToSection(i)}
-              className={`flex-1 min-w-[72px] py-3 text-xs font-semibold whitespace-nowrap transition-colors ${`}
+              className={`flex-1 min-w-[72px] py-3 text-xs font-semibold whitespace-nowrap transition-colors ${
                 activeSection === i ? 'border-b-2 border-primary text-primary bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
               }`}>
               {s}
