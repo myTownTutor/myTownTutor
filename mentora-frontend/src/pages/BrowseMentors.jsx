@@ -79,12 +79,7 @@ const BrowseMentors = () => {
                             {mentor.expertise?.split(',')[0] || 'Tutor'}
                           </p>
                         )}
-                        {mentor.hourly_rate && (
-                            <span className="absolute top-3 right-3 bg-blue-50 text-primary text-xs font-bold px-2 py-0.5 rounded-full z-10">
-                            ₹{mentor.hourly_rate}/hr
-                          </span>
-                        )}
-                      </div>
+</div>
 
                       {/* Right half — info */}
                       <div className="w-1/2 flex flex-col justify-between p-4">
