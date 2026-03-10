@@ -74,8 +74,12 @@ const BrowseMentors = () => {
                             {mentor.first_name.charAt(0)}{mentor.last_name.charAt(0)}
                           </div>
                         )}
+                        {/* Name always shown below picture */}
+                        <p className="text-gray-800 text-xs font-semibold text-center px-2 leading-tight">
+                          {mentor.first_name} {mentor.last_name}
+                        </p>
                         {!mentor.profile_photo_url && (
-                          <p className="text-gray-600 text-xs font-semibold text-center px-2 leading-tight relative z-10">
+                          <p className="text-gray-500 text-xs text-center px-2 leading-tight">
                             {mentor.expertise?.split(',')[0] || 'Tutor'}
                           </p>
                         )}
@@ -84,8 +88,8 @@ const BrowseMentors = () => {
                       {/* Right half — info */}
                       <div className="w-1/2 flex flex-col justify-between p-4">
                         <div className="space-y-1.5">
-                          <h3 className="font-bold text-gray-900 text-sm leading-tight truncate">
-                            {mentor.first_name} {mentor.last_name}
+                          <h3 className="font-bold text-primary text-sm leading-tight truncate">
+                            {mentor.expertise || 'Tutor'}
                           </h3>
                           {mentor.city && (
                             <p className="text-gray-500 text-xs flex items-center gap-1 truncate">
