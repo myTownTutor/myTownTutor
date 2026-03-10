@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 
 const Home = () => {
   const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
   const [mentors, setMentors] = useState([]);
   const [counters, setCounters] = useState({ students: 0, mentors: 0, sessions: 0, success: 0 });
   const TYPEWRITER_TEXT = 'Find Your Perfect Tutor...';
@@ -162,6 +163,23 @@ const Home = () => {
               <p className="text-gray-400 text-xs mt-1">📍 {mentor.city || 'India'}</p>
               <div className="mt-2 inline-flex items-center gap-1 text-xs text-gray-500">
                 <span>⭐</span><span>{mentor.experience_years || 0}+ yrs</span>
+              </div>
+              <div className="flex flex-col gap-1.5 mt-3 w-full">
+                <Link to={`/mentor/${mentor.id}`}
+                  className="w-full text-center border border-gray-200 text-gray-700 py-1.5 rounded-lg text-xs font-semibold hover:bg-gray-50 transition-colors">
+                  View Profile
+                </Link>
+                {isAuthenticated && user?.role === 'student' ? (
+                  <Link to={`/contact-mentor/${mentor.id}`}
+                    className="w-full text-center bg-primary hover:bg-primary-dark text-white py-1.5 rounded-lg text-xs font-semibold transition-colors">
+                    Contact
+                  </Link>
+                ) : (
+                  <button onClick={() => navigate('/login')}
+                    className="w-full bg-primary hover:bg-primary-dark text-white py-1.5 rounded-lg text-xs font-semibold transition-colors">
+                    Contact
+                  </button>
+                )}
               </div>
             </div>
           )) : <p className="text-gray-400 text-sm">Loading Tutors…</p>}
