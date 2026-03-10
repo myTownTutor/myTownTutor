@@ -58,28 +58,19 @@ const BrowseMentors = () => {
           ) : (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
-                {mentors.map((mentor, idx) => {
-                  const shades = [
-                    { grad: 'from-blue-50 to-blue-100' },
-                    { grad: 'from-indigo-50 to-indigo-100' },
-                    { grad: 'from-sky-50 to-sky-100' },
-                    { grad: 'from-violet-50 to-violet-100' },
-                    { grad: 'from-teal-50 to-teal-100' },
-                    { grad: 'from-cyan-50 to-cyan-100' },
-                  ];
-                  const p = shades[idx % shades.length];
+                {mentors.map((mentor) => {
                   return (
                     <div key={mentor.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex min-h-[172px] sm:min-h-[208px]">
 
-                      {/* Left half — full colour picture area */}
-                      <div className={`w-1/2 flex-shrink-0 bg-gradient-to-br ${p.grad} relative overflow-hidden flex flex-col items-center justify-center gap-2`}>
+                      {/* Left half — profile picture area */}
+                      <div className="w-1/2 flex-shrink-0 bg-white relative overflow-hidden flex flex-col items-center justify-center gap-2 border-r border-gray-100">
                         {mentor.profile_photo_url ? (
                           <div className="p-4 flex items-center justify-center w-full h-full">
                             <img src={mentor.profile_photo_url} alt={mentor.first_name}
-                              className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md relative z-10" />
+                              className="w-24 h-24 rounded-full object-cover border-2 border-gray-200 shadow-sm relative z-10" />
                           </div>
                         ) : (
-                          <div className="w-16 h-16 rounded-full bg-white/70 border-2 border-white flex items-center justify-center font-black text-2xl text-primary select-none shadow">
+                          <div className="w-16 h-16 rounded-full bg-gray-100 border-2 border-gray-200 flex items-center justify-center font-black text-2xl text-primary select-none">
                             {mentor.first_name.charAt(0)}{mentor.last_name.charAt(0)}
                           </div>
                         )}
@@ -89,7 +80,7 @@ const BrowseMentors = () => {
                           </p>
                         )}
                         {mentor.hourly_rate && (
-                            <span className="absolute top-3 right-3 bg-white/80 text-primary text-xs font-bold px-2 py-0.5 rounded-full z-10 shadow-sm">
+                            <span className="absolute top-3 right-3 bg-blue-50 text-primary text-xs font-bold px-2 py-0.5 rounded-full z-10">
                             ₹{mentor.hourly_rate}/hr
                           </span>
                         )}
