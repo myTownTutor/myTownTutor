@@ -148,7 +148,10 @@ const Home = () => {
 
       {/* ── Featured Mentors ──────────────────────────── */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 sm:px-6 py-5">
-        <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-1">Meet Our Tutors</h2>
+        <div className="flex items-center justify-between mb-1">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">Meet Our Tutors</h2>
+          <Link to="/browse-mentors" className="text-sm text-primary font-medium hover:underline">View all →</Link>
+        </div>
         <p className="text-gray-500 text-sm mb-4">Learn from the best in the industry</p>
         <div className="mentors-carousel">
           {mentors.length > 0 ? mentors.map(mentor => (
