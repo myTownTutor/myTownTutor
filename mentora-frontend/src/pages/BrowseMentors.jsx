@@ -67,10 +67,10 @@ const BrowseMentors = () => {
                         {mentor.profile_photo_url ? (
                           <div className="p-4 flex items-center justify-center w-full h-full">
                             <img src={mentor.profile_photo_url} alt={mentor.first_name}
-                              className="w-24 h-24 rounded-full object-cover border-2 border-gray-200 shadow-sm relative z-10" />
+                              className="w-28 h-28 rounded-full object-cover border-2 border-gray-200 shadow-sm relative z-10" />
                           </div>
                         ) : (
-                          <div className="w-16 h-16 rounded-full bg-gray-100 border-2 border-gray-200 flex items-center justify-center font-black text-2xl text-primary select-none">
+                          <div className="w-20 h-20 rounded-full bg-gray-100 border-2 border-gray-200 flex items-center justify-center font-black text-3xl text-primary select-none">
                             {mentor.first_name.charAt(0)}{mentor.last_name.charAt(0)}
                           </div>
                         )}
