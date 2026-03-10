@@ -157,7 +157,12 @@ const Home = () => {
         <div className="mentors-carousel">
           {mentors.length > 0 ? mentors.map(mentor => (
             <div key={mentor.id} className="mentor-card-home">
-              <div className="avatar-circle">{mentor.first_name?.charAt(0).toUpperCase()}</div>
+              {mentor.profile_photo_url ? (
+                <img src={mentor.profile_photo_url} alt={mentor.first_name}
+                  className="w-16 h-16 rounded-full object-cover border-2 border-gray-200 mx-auto mb-3" />
+              ) : (
+                <div className="avatar-circle">{mentor.first_name?.charAt(0).toUpperCase()}</div>
+              )}
               <h3 className="font-semibold text-gray-900 text-sm">{mentor.first_name} {mentor.last_name}</h3>
               <p className="text-primary text-xs font-medium mt-0.5">{mentor.expertise || 'Expert Tutor'}</p>
               <p className="text-gray-400 text-xs mt-1">📍 {mentor.city || 'India'}</p>
