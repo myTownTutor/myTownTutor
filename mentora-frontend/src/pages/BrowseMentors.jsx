@@ -60,12 +60,12 @@ const BrowseMentors = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
                 {mentors.map((mentor, idx) => {
                   const shades = [
-                    { grad: 'from-gray-900 to-gray-700' },
-                    { grad: 'from-zinc-800 to-zinc-600' },
-                    { grad: 'from-neutral-900 to-stone-700' },
-                    { grad: 'from-slate-800 to-slate-600' },
-                    { grad: 'from-gray-700 to-gray-500' },
-                    { grad: 'from-stone-800 to-stone-600' },
+                    { grad: 'from-blue-50 to-blue-100' },
+                    { grad: 'from-indigo-50 to-indigo-100' },
+                    { grad: 'from-sky-50 to-sky-100' },
+                    { grad: 'from-violet-50 to-violet-100' },
+                    { grad: 'from-teal-50 to-teal-100' },
+                    { grad: 'from-cyan-50 to-cyan-100' },
                   ];
                   const p = shades[idx % shades.length];
                   return (
@@ -76,20 +76,20 @@ const BrowseMentors = () => {
                         {mentor.profile_photo_url ? (
                           <div className="p-4 flex items-center justify-center w-full h-full">
                             <img src={mentor.profile_photo_url} alt={mentor.first_name}
-                              className="w-24 h-24 rounded-full object-cover border-4 border-white/60 shadow-lg relative z-10" />
+                              className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md relative z-10" />
                           </div>
                         ) : (
-                          <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm border-2 border-white/40 flex items-center justify-center font-black text-2xl text-white select-none shadow-lg">
+                          <div className="w-16 h-16 rounded-full bg-white/70 border-2 border-white flex items-center justify-center font-black text-2xl text-primary select-none shadow">
                             {mentor.first_name.charAt(0)}{mentor.last_name.charAt(0)}
                           </div>
                         )}
                         {!mentor.profile_photo_url && (
-                          <p className="text-white/90 text-xs font-semibold text-center px-2 leading-tight relative z-10">
+                          <p className="text-gray-600 text-xs font-semibold text-center px-2 leading-tight relative z-10">
                             {mentor.expertise?.split(',')[0] || 'Tutor'}
                           </p>
                         )}
                         {mentor.hourly_rate && (
-                          <span className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-2 py-0.5 rounded-full z-10">
+                            <span className="absolute top-3 right-3 bg-white/80 text-primary text-xs font-bold px-2 py-0.5 rounded-full z-10 shadow-sm">
                             ₹{mentor.hourly_rate}/hr
                           </span>
                         )}
