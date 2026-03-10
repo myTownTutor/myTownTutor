@@ -63,12 +63,10 @@ const BrowseMentors = () => {
                     <div key={mentor.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex min-h-[172px] sm:min-h-[208px]">
 
                       {/* Left half — profile picture area */}
-                      <div className="w-1/2 flex-shrink-0 bg-white relative overflow-hidden flex flex-col items-center justify-center gap-2 border-r border-gray-100">
+                      <div className="w-1/2 flex-shrink-0 bg-white relative overflow-hidden flex flex-col items-center justify-center gap-2 border-r border-gray-100 py-3">
                         {mentor.profile_photo_url ? (
-                          <div className="p-4 flex items-center justify-center w-full h-full">
-                            <img src={mentor.profile_photo_url} alt={mentor.first_name}
-                              className="w-24 h-24 rounded-full object-cover border-2 border-gray-200 shadow-sm relative z-10" />
-                          </div>
+                          <img src={mentor.profile_photo_url} alt={mentor.first_name}
+                            className="w-24 h-24 rounded-full object-cover border-2 border-gray-200 shadow-sm" />
                         ) : (
                           <div className="w-16 h-16 rounded-full bg-gray-100 border-2 border-gray-200 flex items-center justify-center font-black text-2xl text-primary select-none">
                             {mentor.first_name.charAt(0)}{mentor.last_name.charAt(0)}
@@ -83,7 +81,7 @@ const BrowseMentors = () => {
                             {mentor.expertise?.split(',')[0] || 'Tutor'}
                           </p>
                         )}
-</div>
+                      </div>
 
                       {/* Right half — info */}
                       <div className="w-1/2 flex flex-col justify-between p-4">
