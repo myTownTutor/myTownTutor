@@ -38,7 +38,7 @@ const QRAnalytics = () => {
     setError('');
     try {
       const res = await api.post('/qr', { label: label.trim() });
-      setQrCodes((prev) => [res.data, ...prev]);
+      setQrCodes((prev) => [...prev, res.data]);
       setLabel('');
       setShowForm(false);
     } catch (err) {
