@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /admin-dashboard
+Disallow: /admin-users
+Disallow: /admin-contacts
+Disallow: /admin-qr
+Disallow: /mentor-dashboard
+Disallow: /mentor-profile-setup
+Disallow: /student-dashboard
+Disallow: /my-chats
+Disallow: /chat/
+Disallow: /payment
+
+Sitemap: https://www.mytowntutor.com/sitemap.xml

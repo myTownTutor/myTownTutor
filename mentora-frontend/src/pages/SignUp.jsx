@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import SEO from '../components/SEO';
 
 const SignUp = () => {
   const { register } = useAuth();
@@ -48,6 +49,7 @@ const SignUp = () => {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-4 sm:py-8 px-2 sm:px-0">
+      <SEO title="Sign Up" description="Create your free myTown Tutor account. Join as a student to find tutors or as a tutor to list your profile." url="/signup" noIndex />
       <div className="w-full max-w-md">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 sm:p-8">
           <div className="mb-6">

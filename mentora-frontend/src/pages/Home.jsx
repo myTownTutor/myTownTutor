@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import SEO from '../components/SEO';
 import api from '../services/api';
 
 const Home = () => {
@@ -59,6 +60,18 @@ const Home = () => {
 
   return (
     <div className="space-y-6">
+      <SEO
+        url="/"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'EducationalOrganization',
+          name: 'myTown Tutor',
+          url: 'https://www.mytowntutor.com',
+          description: 'Find verified, experienced home tutors near you. myTown Tutor connects students with the best local tutors for all subjects and age groups across India.',
+          logo: 'https://www.mytowntutor.com/logo.png',
+          address: { '@type': 'PostalAddress', addressCountry: 'IN' },
+        }}
+      />
       {/* ── Hero Section ─────────────────────────────── */}
       <section className="hero-section -mx-4 -mt-4" style={{
         backgroundImage: `linear-gradient(135deg, rgba(248,249,250,0.7) 0%, rgba(232,240,254,0.7) 100%), url('/hero-animation.gif')`,

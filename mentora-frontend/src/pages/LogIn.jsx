@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import SEO from '../components/SEO';
 
 const LogIn = () => {
   const { login } = useAuth();
@@ -40,6 +41,7 @@ const LogIn = () => {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-4 sm:py-8 px-2 sm:px-0">
+      <SEO title="Log In" description="Sign in to your myTown Tutor account." url="/login" noIndex />
       <div className="w-full max-w-md">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 sm:p-8">
           <div className="mb-6">

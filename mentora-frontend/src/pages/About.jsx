@@ -1,4 +1,5 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 const values = [
   
@@ -17,6 +18,11 @@ const steps = [
 
 const About = () => (
   <div className="space-y-6">
+    <SEO
+      title="About Us"
+      description="Learn about myTown Tutor – our mission to connect students with verified home tutors across India. No middlemen, direct connections."
+      url="/about"
+    />
     {/* Header */}
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 sm:p-8 text-center">
       <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">About us</h1>

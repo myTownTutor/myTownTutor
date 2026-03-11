@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import SEO from '../components/SEO';
 import api from '../services/api';
 
 const Divider = () => <hr className="border-gray-100 my-4" />;
@@ -49,6 +50,13 @@ const MentorProfile = () => {
 
   return (
     <div className="max-w-5xl mx-auto pb-10">
+      <SEO
+        title={`${mentor.first_name} ${mentor.last_name} – ${mentor.expertise || 'Tutor'}`}
+        description={mentor.bio ? mentor.bio.slice(0, 155) : `Connect with ${mentor.first_name} ${mentor.last_name}, an experienced tutor${mentor.city ? ` in ${mentor.city}` : ''} on myTown Tutor.`}
+        url={`/mentor/${mentorId}`}
+        image={mentor.profile_photo_url || undefined}
+        type="profile"
+      />
       {/* Breadcrumb */}
       <button onClick={() => navigate(-1)} className="text-xs text-gray-400 hover:text-gray-600 mb-5 flex items-center gap-1">
         ← Back

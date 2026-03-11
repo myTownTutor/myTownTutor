@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useBrowseFilters } from '../context/BrowseFiltersContext';
+import SEO from '../components/SEO';
 import api from '../services/api';
 
 const BrowseMentors = () => {
@@ -36,6 +37,11 @@ const BrowseMentors = () => {
 
   return (
     <div className="space-y-4 pb-[100px]">
+      <SEO
+        title="Browse Tutors"
+        description="Find and connect with verified home tutors near you. Browse by subject, city, and expertise on myTown Tutor."
+        url="/browse-mentors"
+      />
       {/* Header */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
         <div>
