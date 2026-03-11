@@ -95,7 +95,7 @@ const Home = () => {
           <div className="hero-right">
             <div className="hero-mission">
               
-              <h3 className="mission-title">Why myTown Tutor</h3>
+              <h3 className="mission-title">Why myTown Tutor?</h3>
               <p className="text-gray-700 mb-3">• Finding the right tutor shouldn't be complicated.</p>
               <p className="text-gray-700 mb-3">• Too many students struggle to access the right guidance.</p>
               <p className="text-gray-700 mb-3">• Tutors deserve a platform to showcase their expertise.</p>
@@ -154,7 +154,7 @@ const Home = () => {
           <Link to="/browse-mentors" className="text-sm text-primary font-medium hover:underline">View all →</Link>
         </div>
         <p className="text-gray-500 text-sm mb-4">Learn from the best in the industry</p>
-        <div className="mentors-carousel">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
           {mentors.length > 0 ? mentors.map(mentor => (
             <div key={mentor.id} className="mentor-card-home">
               {mentor.profile_photo_url ? (
