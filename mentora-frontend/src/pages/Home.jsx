@@ -61,7 +61,7 @@ const Home = () => {
     <div className="space-y-6">
       {/* ── Hero Section ─────────────────────────────── */}
       <section className="hero-section -mx-4 -mt-4" style={{
-        backgroundImage: `linear-gradient(135deg, rgba(248,249,250,0.7) 0%, rgba(232,240,254,0.7) 100%), url('/hero-animation.gif')`,
+        backgroundImage: `linear-gradient(135deg, rgba(248,249,250,0.7) 0%, rgba(220,252,231,0.7) 100%), url('/hero-animation.gif')`,
         backgroundSize: 'cover', backgroundPosition: 'center',
         minHeight: 'clamp(280px, 55vh, 750px)'
       }}>

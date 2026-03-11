@@ -6,7 +6,7 @@ import api from '../services/api';
 const statusColors = {
   sent:     'bg-yellow-50 text-yellow-700 border-yellow-200',
   pending:  'bg-yellow-50 text-yellow-700 border-yellow-200',
-  read:     'bg-blue-50 text-blue-700 border-blue-200',
+  read:     'bg-green-50 text-green-700 border-blue-200',
   replied:  'bg-green-50 text-green-700 border-green-200',
 };
 

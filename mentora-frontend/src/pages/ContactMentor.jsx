@@ -39,7 +39,7 @@ const ContactMentor = () => {
     }
   };
 
-  const inputCls = "w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-primary transition";
+  const inputCls = "w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-primary transition";
 
   return (
     <div className="max-w-lg mx-auto space-y-4">

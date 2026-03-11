@@ -30,7 +30,7 @@ const ForgotPassword = () => {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 sm:p-8">
           {/* Icon */}
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center">
+            <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center">
               <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
@@ -56,7 +56,7 @@ const ForgotPassword = () => {
                 onChange={e => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 required
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-primary transition"
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-primary transition"
               />
             </div>
             <button

@@ -221,7 +221,7 @@ const ChatBox = () => {
             }}
             placeholder="Type a message…"
             rows={1}
-            className="flex-1 resize-none overflow-hidden px-4 py-2.5 border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-primary transition"
+            className="flex-1 resize-none overflow-hidden px-4 py-2.5 border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-primary transition"
             style={{ lineHeight: '1.4', maxHeight: '100px' }}
             onInput={(e) => {
               e.target.style.height = 'auto';

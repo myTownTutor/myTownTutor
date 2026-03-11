@@ -126,7 +126,7 @@ const MentorProfileSetup = () => {
     } finally { setLoading(false); }
   };
 
-  const inputCls = "w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-primary transition";
+  const inputCls = "w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-primary transition";
   const labelCls = "block text-sm font-medium text-gray-700 mb-1";
 
   const reqStar = <span className="text-red-500 ml-0.5">*</span>;
@@ -245,7 +245,7 @@ const MentorProfileSetup = () => {
           {SECTIONS.map((s, i) => (
             <button type="button" key={s} onClick={() => goToSection(i)}
               className={`flex-1 min-w-[72px] py-3 text-xs font-semibold whitespace-nowrap transition-colors ${
-                activeSection === i ? 'border-b-2 border-primary text-primary bg-blue-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                activeSection === i ? 'border-b-2 border-primary text-primary bg-green-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
               }`}>
               {s}
             </button>

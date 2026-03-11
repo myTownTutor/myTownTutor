@@ -3,7 +3,7 @@ import api from '../services/api';
 
 const statusColors = {
   pending: 'bg-yellow-50 text-yellow-700 border-yellow-200',
-  read:    'bg-blue-50 text-blue-700 border-blue-200',
+  read:    'bg-green-50 text-green-700 border-blue-200',
   replied: 'bg-green-50 text-green-700 border-green-200',
 };
 
@@ -42,9 +42,9 @@ const ViewAllContacts = () => {
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 py-3 flex flex-wrap gap-3">
         <input type="text" placeholder="Search student or mentor name…" value={search}
           onChange={e => { setSearch(e.target.value); setCurrentPage(1); }}
-          className="flex-1 min-w-48 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100" />
+          className="flex-1 min-w-48 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-100" />
         <select value={statusFilter} onChange={e => { setStatusFilter(e.target.value); setCurrentPage(1); }}
-          className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-100">
+          className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-green-100">
           <option value="all">All Statuses</option>
           <option value="pending">Pending</option>
           <option value="read">Read</option>

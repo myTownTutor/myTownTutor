@@ -124,7 +124,7 @@ const PaymentPage = () => {
 
             <div className="p-6 space-y-4">
               {/* Amount badge */}
-              <div className="bg-blue-50 rounded-xl px-4 py-3 flex items-center justify-between">
+              <div className="bg-green-50 rounded-xl px-4 py-3 flex items-center justify-between">
                 <span className="text-gray-500 text-sm">Amount to pay</span>
                 <span className="text-primary text-2xl font-extrabold">₹{AMOUNT}</span>
               </div>

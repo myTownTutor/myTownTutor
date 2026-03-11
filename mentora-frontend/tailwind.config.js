@@ -18,10 +18,11 @@ export default {
     },
     extend: {
       colors: {
-        primary: '#0a66c2',
-        'primary-dark': '#0c539b',
-        'primary-light': '#e8f0fe',
-        'linkedin-bg': '#f3f2ef',
+        primary: '#16a34a',
+        'primary-dark': '#15803d',
+        'primary-light': '#dcfce7',
+        'linkedin-bg': '#f0fdf4',
+        secondary: '#e9f7ef',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],

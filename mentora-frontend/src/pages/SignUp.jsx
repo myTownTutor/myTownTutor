@@ -44,7 +44,7 @@ const SignUp = () => {
     }
   };
 
-  const inputCls = "w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-primary transition";
+  const inputCls = "w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-primary transition";
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-4 sm:py-8 px-2 sm:px-0">
@@ -60,7 +60,7 @@ const SignUp = () => {
             {['student', 'mentor'].map(r => (
               <button key={r} type="button" onClick={() => setRole(r)}
                 className={`p-3 rounded-lg border-2 text-sm font-medium transition-all ${
-                  role === r ? 'border-primary bg-blue-50 text-primary' : 'border-gray-200 text-gray-600 hover:border-gray-300'
+                  role === r ? 'border-primary bg-green-50 text-primary' : 'border-gray-200 text-gray-600 hover:border-gray-300'
                 }`}>
                 <div className="font-semibold capitalize">{r === 'student' ? "Looking for Tutor" : "Become a Tutor"}</div>
                 <div className="text-xs text-gray-400 mt-0.5">{r === 'student' ? 'Find & contact tutors' : 'Share your expertise'}</div>

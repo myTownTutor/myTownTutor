@@ -16,7 +16,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-3">
               {[
-                { label: 'in', href: 'https://linkedin.com' },
+                { label: 'in', href: 'https://www.instagram.com/mytowntutor/' },
                 { label: '📧', href: 'mailto:mytowntutor@gmail.com' },
                 { label: 'f', href: 'https://facebook.com' },
               ].map((s) => (

@@ -20,7 +20,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
   const browseFilters = useBrowseFilters();
   const onBrowsePage = location.pathname === '/browse-mentors';
 
-  const inputCls = 'w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-primary transition bg-gray-50';
+  const inputCls = 'w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-primary transition bg-gray-50';
 
   return (
     <>
@@ -52,7 +52,7 @@ const Sidebar = ({ mobileOpen, onClose }) => {
                   user.role === 'super_admin'
                     ? 'bg-purple-100 text-purple-700'
                     : user.role === 'mentor'
-                    ? 'bg-blue-100 text-blue-700'
+                    ? 'bg-green-100 text-green-700'
                     : 'bg-green-100 text-green-700'
                 }`}>
                   {user.role === 'super_admin' ? 'Admin' : user.role === 'mentor' ? 'Mentor' : 'Student'}

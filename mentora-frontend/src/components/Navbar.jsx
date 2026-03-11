@@ -51,7 +51,7 @@ const Navbar = ({ onToggleSidebar }) => {
           <>
             <Link
               to="/login"
-              className="text-sm font-medium text-gray-700 hover:text-primary px-3 py-1.5 rounded-full hover:bg-blue-50 transition-colors whitespace-nowrap"
+              className="text-sm font-medium text-gray-700 hover:text-primary px-3 py-1.5 rounded-full hover:bg-green-50 transition-colors whitespace-nowrap"
             >
               Sign In
             </Link>

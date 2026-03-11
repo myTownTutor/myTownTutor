@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import api from '../services/api';
 
-const roleBadge = { admin: 'bg-purple-100 text-purple-700', mentor: 'bg-blue-100 text-blue-700', student: 'bg-green-100 text-green-700' };
+const roleBadge = { admin: 'bg-purple-100 text-purple-700', mentor: 'bg-green-100 text-green-700', student: 'bg-green-100 text-green-700' };
 const statusBadge = { approved: 'bg-green-100 text-green-700', pending_approval: 'bg-yellow-100 text-yellow-700', pending_payment: 'bg-orange-100 text-orange-700', rejected: 'bg-red-100 text-red-700' };
-const inputCls = "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-primary transition";
+const inputCls = "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-primary transition";
 
 const DetailRow = ({ label, value }) =>
   value ? <div className="flex gap-2"><span className="font-medium text-gray-500 w-36 flex-shrink-0">{label}</span><span className="text-gray-800 break-all">{value}</span></div> : null;
@@ -102,9 +102,9 @@ const ManageUsers = () => {
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 py-3 flex flex-wrap gap-3">
         <input type="text" placeholder="Search by name or email…" value={search}
           onChange={e => { setSearch(e.target.value); setCurrentPage(1); }}
-          className="flex-1 min-w-48 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-100" />
+          className="flex-1 min-w-48 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-100" />
         <select value={roleFilter} onChange={e => { setRoleFilter(e.target.value); setCurrentPage(1); }}
-          className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-100">
+          className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-green-100">
           <option value="all">All Roles</option>
           <option value="student">Students</option>
           <option value="mentor">Mentors</option>

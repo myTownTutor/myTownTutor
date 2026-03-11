@@ -65,7 +65,7 @@ const AdminDashboard = () => {
   };
 
   const statCards = [
-    { label: 'Total Mentors', value: stats.total_mentors, color: 'bg-blue-50 text-primary', icon: '👨‍🏫' },
+    { label: 'Total Mentors', value: stats.total_mentors, color: 'bg-green-50 text-primary', icon: '👨‍🏫' },
     { label: 'Total Students', value: stats.total_students, color: 'bg-green-50 text-green-700', icon: '🎓' },
     { label: 'Pending Approval', value: stats.pending_mentors, color: 'bg-yellow-50 text-yellow-700', icon: '⏳' },
     { label: 'Approved Mentors', value: stats.approved_mentors, color: 'bg-purple-50 text-purple-700', icon: '✅' },
