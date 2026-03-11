@@ -187,14 +187,19 @@ const QRAnalytics = () => {
                     </td>
                     {/* QR Image */}
                     <td className="px-4 py-3">
-                      <QRCodeCanvas
-                        id={`qr-canvas-${qr.slug}`}
-                        value={qr.qr_url}
-                        size={72}
-                        bgColor="#ffffff"
-                        fgColor="#556B2F"
-                        level="M"
-                      />
+                      <div className="relative inline-block">
+                        <QRCodeCanvas
+                          id={`qr-canvas-${qr.slug}`}
+                          value={qr.qr_url}
+                          size={72}
+                          bgColor="#ffffff"
+                          fgColor="#556B2F"
+                          level="M"
+                        />
+                        <span className="absolute bottom-0 right-0 bg-gray-800 text-white text-[9px] font-bold leading-none px-1 py-0.5 rounded-tl">
+                          {idx + 1}
+                        </span>
+                      </div>
                     </td>
                     {/* Label — inline edit */}
                     <td className="px-4 py-3 max-w-[200px]">
