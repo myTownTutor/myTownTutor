@@ -118,6 +118,9 @@ const Sidebar = ({ mobileOpen, onClose }) => {
               <Link to="/admin-contacts" className={linkClass('/admin-contacts')} onClick={onClose}>
                 <span>💬</span> All Contacts
               </Link>
+              <Link to="/admin-qr" className={linkClass('/admin-qr')} onClick={onClose}>
+                <span>📲</span> QR Analytics
+              </Link>
             </>
           )}
         </nav>

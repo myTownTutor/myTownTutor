@@ -18,6 +18,7 @@ from api.views.admin_views import (
     AllUsersView, UserDetailView, UserDetailsView,
     AdminMentorProfileView, AdminStudentProfileView,
     TransactionsView, AllContactsView, AdminMentorTuitionStatusView,
+    QRCodeListCreateView,
 )
 from api.views.chat_views import (
     ConversationListView, ConversationDetailView,
@@ -71,6 +72,9 @@ urlpatterns = [
     path('admin/transactions', TransactionsView.as_view(), name='transactions'),
     path('admin/contacts', AllContactsView.as_view(), name='admin-contacts'),
     path('admin/mentors/tuition-status', AdminMentorTuitionStatusView.as_view(), name='mentor-tuition-status'),
+
+    # ── QR Codes ─────────────────────────────────────────────────────────────
+    path('qr', QRCodeListCreateView.as_view(), name='qr-list-create'),
 
     # ── Chat ─────────────────────────────────────────────────────────────────
     path('chat/conversations', ConversationListView.as_view(), name='conversations'),

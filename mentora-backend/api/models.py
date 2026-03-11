@@ -324,3 +324,26 @@ class Contact(models.Model):
             'status': self.status,
             'created_at': self.created_at.isoformat(),
         }
+
+
+class QRCode(models.Model):
+    slug = models.CharField(max_length=20, unique=True)
+    label = models.CharField(max_length=100)
+    scan_count = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_scanned_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'qr_codes'
+        ordering = ['-created_at']
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'slug': self.slug,
+            'label': self.label,
+            'scan_count': self.scan_count,
+            'created_at': self.created_at.isoformat(),
+            'last_scanned_at': self.last_scanned_at.isoformat() if self.last_scanned_at else None,
+            'qr_url': f'https://www.mytowntutor.com/qr/{self.slug}',
+        }

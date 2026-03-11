@@ -18,12 +18,13 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.db.models import Sum
 from django.utils import timezone
+from django.http import HttpResponseRedirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
-from api.models import User, Mentor, Student, Payment, Contact
+from api.models import User, Mentor, Student, Payment, Contact, QRCode
 from api.utils import paginate
 
 
@@ -434,3 +435,56 @@ class AllContactsView(APIView):
             'pages': pages,
             'current_page': page,
         })
+
+
+import random
+import string
+
+
+def _random_slug(length=8):
+    chars = string.ascii_lowercase + string.digits
+    return ''.join(random.choices(chars, k=length))
+
+
+class QRCodeListCreateView(APIView):
+    """
+    GET  /api/qr/   — list all QR codes (admin only)
+    POST /api/qr/   — create a new QR code (admin only)
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        if not is_admin(request.user):
+            return Response({'error': 'Unauthorized'}, status=status.HTTP_403_FORBIDDEN)
+        qrs = QRCode.objects.all()
+        return Response({'qr_codes': [q.to_dict() for q in qrs]})
+
+    def post(self, request):
+        if not is_admin(request.user):
+            return Response({'error': 'Unauthorized'}, status=status.HTTP_403_FORBIDDEN)
+        label = request.data.get('label', '').strip()
+        if not label:
+            return Response({'error': 'label is required'}, status=status.HTTP_400_BAD_REQUEST)
+        # generate unique slug
+        slug = _random_slug()
+        while QRCode.objects.filter(slug=slug).exists():
+            slug = _random_slug()
+        qr = QRCode.objects.create(slug=slug, label=label)
+        return Response(qr.to_dict(), status=status.HTTP_201_CREATED)
+
+
+class QRRedirectView(APIView):
+    """
+    GET /qr/<slug>/  — public endpoint; logs the scan and redirects to homepage.
+    """
+    permission_classes = []   # no auth needed
+
+    def get(self, request, slug):
+        try:
+            qr = QRCode.objects.get(slug=slug)
+        except QRCode.DoesNotExist:
+            return HttpResponseRedirect('https://www.mytowntutor.com/')
+        qr.scan_count += 1
+        qr.last_scanned_at = timezone.now()
+        qr.save(update_fields=['scan_count', 'last_scanned_at'])
+        return HttpResponseRedirect('https://www.mytowntutor.com/')

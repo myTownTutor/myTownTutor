@@ -32,6 +32,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import RefundPolicy from './pages/RefundPolicy';
 import AccountDeletion from './pages/AccountDeletion';
+import QRAnalytics from './pages/QRAnalytics';
 
 import { BrowseFiltersProvider } from './context/BrowseFiltersContext';
 import './styles/index.css';
@@ -156,6 +157,14 @@ function App() {
                     element={
                       <ProtectedRoute allowedRoles={['super_admin']}>
                         <ViewAllContacts />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/admin-qr"
+                    element={
+                      <ProtectedRoute allowedRoles={['super_admin']}>
+                        <QRAnalytics />
                       </ProtectedRoute>
                     }
                   />

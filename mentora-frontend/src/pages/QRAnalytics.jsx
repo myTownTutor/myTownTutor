@@ -1,0 +1,199 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { QRCodeCanvas } from 'qrcode.react';
+import api from '../services/api';
+
+const QRAnalytics = () => {
+  const [qrCodes, setQrCodes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [creating, setCreating] = useState(false);
+  const [label, setLabel] = useState('');
+  const [error, setError] = useState('');
+  const [showForm, setShowForm] = useState(false);
+
+  const fetchQR = async () => {
+    try {
+      const res = await api.get('/qr');
+      setQrCodes(res.data.qr_codes || []);
+    } catch {
+      setError('Failed to load QR codes.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchQR();
+  }, []);
+
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    if (!label.trim()) return;
+    setCreating(true);
+    setError('');
+    try {
+      const res = await api.post('/qr', { label: label.trim() });
+      setQrCodes((prev) => [res.data, ...prev]);
+      setLabel('');
+      setShowForm(false);
+    } catch {
+      setError('Failed to create QR code.');
+    } finally {
+      setCreating(false);
+    }
+  };
+
+  const downloadQR = (slug, qrLabel) => {
+    const canvas = document.getElementById(`qr-canvas-${slug}`);
+    if (!canvas) return;
+    const url = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `qr-${slug}.png`;
+    a.click();
+  };
+
+  const fmt = (iso) => {
+    if (!iso) return '—';
+    return new Date(iso).toLocaleString('en-IN', {
+      day: '2-digit', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit',
+    });
+  };
+
+  return (
+    <div className="max-w-6xl mx-auto py-6">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">QR Analytics</h1>
+          <p className="text-sm text-gray-500 mt-1">
+            Generate QR codes for offline campaigns and track scan counts in real time.
+          </p>
+        </div>
+        <button
+          onClick={() => setShowForm((v) => !v)}
+          className="btn-primary px-4 py-2 text-sm rounded-lg font-semibold"
+        >
+          {showForm ? 'Cancel' : '+ Create New QR'}
+        </button>
+      </div>
+
+      {/* Create form */}
+      {showForm && (
+        <div className="bg-white border border-gray-200 rounded-xl p-5 mb-6 shadow-sm">
+          <h2 className="text-sm font-semibold text-gray-700 mb-3">New QR Code</h2>
+          <form onSubmit={handleCreate} className="flex gap-3 items-end">
+            <div className="flex-1">
+              <label className="block text-xs font-medium text-gray-600 mb-1">Label</label>
+              <input
+                type="text"
+                value={label}
+                onChange={(e) => setLabel(e.target.value)}
+                placeholder="e.g. Pamphlet – July 2025"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-primary transition bg-gray-50"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={creating}
+              className="btn-primary px-5 py-2 text-sm rounded-lg font-semibold disabled:opacity-60"
+            >
+              {creating ? 'Creating…' : 'Create'}
+            </button>
+          </form>
+        </div>
+      )}
+
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg mb-4">
+          {error}
+        </div>
+      )}
+
+      {/* Table */}
+      {loading ? (
+        <div className="text-sm text-gray-500 text-center py-12">Loading…</div>
+      ) : qrCodes.length === 0 ? (
+        <div className="text-center py-16 text-gray-400 text-sm">
+          No QR codes yet. Create your first one above.
+        </div>
+      ) : (
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-sm">
+              <thead className="bg-gray-50 border-b border-gray-200">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">QR</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Label</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">URL</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Scans</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Created</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Last Scanned</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Download</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {qrCodes.map((qr) => (
+                  <tr key={qr.slug} className="hover:bg-gray-50 transition-colors">
+                    {/* QR Image */}
+                    <td className="px-4 py-3">
+                      <QRCodeCanvas
+                        id={`qr-canvas-${qr.slug}`}
+                        value={qr.qr_url}
+                        size={72}
+                        bgColor="#ffffff"
+                        fgColor="#556B2F"
+                        level="M"
+                      />
+                    </td>
+                    {/* Label */}
+                    <td className="px-4 py-3 font-medium text-gray-800 max-w-[200px] truncate">
+                      {qr.label}
+                    </td>
+                    {/* URL */}
+                    <td className="px-4 py-3">
+                      <a
+                        href={qr.qr_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline text-xs break-all"
+                      >
+                        {qr.qr_url}
+                      </a>
+                    </td>
+                    {/* Scans */}
+                    <td className="px-4 py-3 text-center">
+                      <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-green-50 text-primary font-bold text-base">
+                        {qr.scan_count}
+                      </span>
+                    </td>
+                    {/* Created */}
+                    <td className="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">
+                      {fmt(qr.created_at)}
+                    </td>
+                    {/* Last Scanned */}
+                    <td className="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">
+                      {fmt(qr.last_scanned_at)}
+                    </td>
+                    {/* Download */}
+                    <td className="px-4 py-3 text-center">
+                      <button
+                        onClick={() => downloadQR(qr.slug, qr.label)}
+                        className="text-xs px-3 py-1.5 border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors font-medium"
+                      >
+                        ↓ PNG
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default QRAnalytics;
