@@ -101,6 +101,7 @@ const Home = () => {
               <p className="text-gray-700 mb-3">• Tutors deserve a platform to showcase their expertise.</p>
               <p className="text-gray-700 mb-3">• We bring both sides together in one simple, transparent space with no middlemen in learning</p>
               <p className="text-gray-700 mb-3">• One centralised place. Clear profiles. Direct connections.</p>
+              <p className="text-gray-700 mb-1">• Want to know more about the platform? <Link to="/about" className="text-primary font-semibold hover:underline">Click here →</Link></p>
             </div>
           </div>
         </div>
