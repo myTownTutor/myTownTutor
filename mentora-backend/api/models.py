@@ -347,12 +347,3 @@ class QRCode(models.Model):
             'last_scanned_at': self.last_scanned_at.isoformat() if self.last_scanned_at else None,
             'qr_url': f'https://www.mytowntutor.com/api/qr/{self.slug}/scan',
         }
-
-
-class QRScan(models.Model):
-    """One row per scan — used for per-day analytics graphs."""
-    qr_code = models.ForeignKey(QRCode, on_delete=models.CASCADE, related_name='scans')
-    scanned_at = models.DateTimeField(auto_now_add=True, db_index=True)
-
-    class Meta:
-        db_table = 'qr_scans'

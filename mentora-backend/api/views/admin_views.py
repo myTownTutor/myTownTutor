@@ -24,7 +24,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
-from api.models import User, Mentor, Student, Payment, Contact, QRCode, QRScan
+from api.models import User, Mentor, Student, Payment, Contact, QRCode
 from api.utils import paginate
 
 
@@ -488,7 +488,6 @@ class QRRedirectView(APIView):
         qr.scan_count += 1
         qr.last_scanned_at = timezone.now()
         qr.save(update_fields=['scan_count', 'last_scanned_at'])
-        QRScan.objects.create(qr_code=qr)
         return HttpResponseRedirect('https://www.mytowntutor.com/')
 
 
@@ -526,53 +525,4 @@ class QRCodeDetailView(APIView):
             return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
         qr.delete()
         return Response({'success': True}, status=status.HTTP_200_OK)
-
-
-class QRStatsView(APIView):
-    """
-    GET /api/qr/<id>/stats?days=30  — daily scan counts for a QR code (admin only)
-    Also returns overall totals and all-QR combined daily data when id=0.
-    """
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request, qr_id):
-        if not is_admin(request.user):
-            return Response({'error': 'Unauthorized'}, status=status.HTTP_403_FORBIDDEN)
-
-        from django.db.models.functions import TruncDate
-        from django.db.models import Count
-        import datetime
-
-        days = int(request.query_params.get('days', 30))
-        since = timezone.now() - datetime.timedelta(days=days - 1)
-        since_date = since.replace(hour=0, minute=0, second=0, microsecond=0)
-
-        # Build queryset
-        if qr_id == 0:
-            qs = QRScan.objects.filter(scanned_at__gte=since_date)
-        else:
-            try:
-                qr = QRCode.objects.get(id=qr_id)
-            except QRCode.DoesNotExist:
-                return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
-            qs = QRScan.objects.filter(qr_code=qr, scanned_at__gte=since_date)
-
-        # Aggregate by date
-        daily = (
-            qs
-            .annotate(date=TruncDate('scanned_at'))
-            .values('date')
-            .annotate(count=Count('id'))
-            .order_by('date')
-        )
-
-        # Fill in zero-count days
-        data_map = {str(row['date']): row['count'] for row in daily}
-        result = []
-        for i in range(days):
-            d = (since_date + datetime.timedelta(days=i)).date()
-            key = str(d)
-            result.append({'date': key, 'scans': data_map.get(key, 0)})
-
-        return Response({'daily': result})
 
