@@ -345,5 +345,5 @@ class QRCode(models.Model):
             'scan_count': self.scan_count,
             'created_at': self.created_at.isoformat(),
             'last_scanned_at': self.last_scanned_at.isoformat() if self.last_scanned_at else None,
-            'qr_url': f'https://www.mytowntutor.com/qr/{self.slug}',
+            'qr_url': f'https://www.mytowntutor.com/api/qr/{self.slug}/scan',
         }

@@ -18,7 +18,7 @@ from api.views.admin_views import (
     AllUsersView, UserDetailView, UserDetailsView,
     AdminMentorProfileView, AdminStudentProfileView,
     TransactionsView, AllContactsView, AdminMentorTuitionStatusView,
-    QRCodeListCreateView,
+    QRCodeListCreateView, QRRedirectView,
 )
 from api.views.chat_views import (
     ConversationListView, ConversationDetailView,
@@ -75,6 +75,7 @@ urlpatterns = [
 
     # ── QR Codes ─────────────────────────────────────────────────────────────
     path('qr', QRCodeListCreateView.as_view(), name='qr-list-create'),
+    path('qr/<str:slug>/scan', QRRedirectView.as_view(), name='qr-redirect'),
 
     # ── Chat ─────────────────────────────────────────────────────────────────
     path('chat/conversations', ConversationListView.as_view(), name='conversations'),
