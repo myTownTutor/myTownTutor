@@ -475,7 +475,7 @@ class QRCodeListCreateView(APIView):
 
 class QRRedirectView(APIView):
     """
-    GET /qr/<slug>/  — public endpoint; logs the scan and redirects to homepage.
+    GET /api/qr/<slug>/scan  — public endpoint; logs the scan and redirects to homepage.
     """
     authentication_classes = []   # skip JWT parsing for public scans
     permission_classes = []
@@ -489,3 +489,40 @@ class QRRedirectView(APIView):
         qr.last_scanned_at = timezone.now()
         qr.save(update_fields=['scan_count', 'last_scanned_at'])
         return HttpResponseRedirect('https://www.mytowntutor.com/')
+
+
+class QRCodeDetailView(APIView):
+    """
+    PUT    /api/qr/<id>  — rename label (admin only)
+    DELETE /api/qr/<id>  — delete QR code (admin only)
+    """
+    permission_classes = [IsAuthenticated]
+
+    def _get_qr(self, qr_id):
+        try:
+            return QRCode.objects.get(id=qr_id)
+        except QRCode.DoesNotExist:
+            return None
+
+    def put(self, request, qr_id):
+        if not is_admin(request.user):
+            return Response({'error': 'Unauthorized'}, status=status.HTTP_403_FORBIDDEN)
+        qr = self._get_qr(qr_id)
+        if not qr:
+            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+        label = request.data.get('label', '').strip()
+        if not label:
+            return Response({'error': 'label is required'}, status=status.HTTP_400_BAD_REQUEST)
+        qr.label = label
+        qr.save(update_fields=['label'])
+        return Response(qr.to_dict())
+
+    def delete(self, request, qr_id):
+        if not is_admin(request.user):
+            return Response({'error': 'Unauthorized'}, status=status.HTTP_403_FORBIDDEN)
+        qr = self._get_qr(qr_id)
+        if not qr:
+            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+        qr.delete()
+        return Response({'success': True}, status=status.HTTP_200_OK)
+

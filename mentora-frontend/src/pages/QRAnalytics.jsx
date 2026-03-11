@@ -10,6 +10,14 @@ const QRAnalytics = () => {
   const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
 
+  // rename state
+  const [editingId, setEditingId] = useState(null);
+  const [editLabel, setEditLabel] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  // delete state
+  const [deletingId, setDeletingId] = useState(null);
+
   const fetchQR = async () => {
     try {
       const res = await api.get('/qr');
@@ -21,9 +29,7 @@ const QRAnalytics = () => {
     }
   };
 
-  useEffect(() => {
-    fetchQR();
-  }, []);
+  useEffect(() => { fetchQR(); }, []);
 
   const handleCreate = async (e) => {
     e.preventDefault();
@@ -42,7 +48,44 @@ const QRAnalytics = () => {
     }
   };
 
-  const downloadQR = (slug, qrLabel) => {
+  const startEdit = (qr) => {
+    setEditingId(qr.id);
+    setEditLabel(qr.label);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditLabel('');
+  };
+
+  const handleRename = async (qr) => {
+    if (!editLabel.trim() || editLabel.trim() === qr.label) { cancelEdit(); return; }
+    setSaving(true);
+    try {
+      const res = await api.put(`/qr/${qr.id}`, { label: editLabel.trim() });
+      setQrCodes((prev) => prev.map((q) => q.id === qr.id ? res.data : q));
+      cancelEdit();
+    } catch (err) {
+      setError(err?.response?.data?.error || err?.message || 'Failed to rename.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDelete = async (qr) => {
+    if (!window.confirm(`Delete "${qr.label}"? This cannot be undone.`)) return;
+    setDeletingId(qr.id);
+    try {
+      await api.delete(`/qr/${qr.id}`);
+      setQrCodes((prev) => prev.filter((q) => q.id !== qr.id));
+    } catch (err) {
+      setError(err?.response?.data?.error || err?.message || 'Failed to delete.');
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  const downloadQR = (slug) => {
     const canvas = document.getElementById(`qr-canvas-${slug}`);
     if (!canvas) return;
     const url = canvas.toDataURL('image/png');
@@ -106,8 +149,9 @@ const QRAnalytics = () => {
       )}
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg mb-4">
-          {error}
+        <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg mb-4 flex justify-between items-center">
+          <span>{error}</span>
+          <button onClick={() => setError('')} className="text-red-400 hover:text-red-600 ml-4 font-bold">✕</button>
         </div>
       )}
 
@@ -130,12 +174,12 @@ const QRAnalytics = () => {
                   <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Scans</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Created</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Last Scanned</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Download</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {qrCodes.map((qr) => (
-                  <tr key={qr.slug} className="hover:bg-gray-50 transition-colors">
+                  <tr key={qr.id} className="hover:bg-gray-50 transition-colors">
                     {/* QR Image */}
                     <td className="px-4 py-3">
                       <QRCodeCanvas
@@ -147,9 +191,33 @@ const QRAnalytics = () => {
                         level="M"
                       />
                     </td>
-                    {/* Label */}
-                    <td className="px-4 py-3 font-medium text-gray-800 max-w-[200px] truncate">
-                      {qr.label}
+                    {/* Label — inline edit */}
+                    <td className="px-4 py-3 max-w-[200px]">
+                      {editingId === qr.id ? (
+                        <div className="flex flex-col gap-1.5">
+                          <input
+                            autoFocus
+                            value={editLabel}
+                            onChange={(e) => setEditLabel(e.target.value)}
+                            className="px-2 py-1 border border-primary rounded text-xs focus:outline-none focus:ring-2 focus:ring-green-100"
+                            onKeyDown={(e) => { if (e.key === 'Enter') handleRename(qr); if (e.key === 'Escape') cancelEdit(); }}
+                          />
+                          <div className="flex gap-1">
+                            <button
+                              onClick={() => handleRename(qr)}
+                              disabled={saving}
+                              className="text-xs px-2 py-0.5 bg-primary text-white rounded font-medium disabled:opacity-60"
+                            >
+                              {saving ? '…' : 'Save'}
+                            </button>
+                            <button onClick={cancelEdit} className="text-xs px-2 py-0.5 border border-gray-200 rounded text-gray-500">
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <span className="font-medium text-gray-800 truncate block">{qr.label}</span>
+                      )}
                     </td>
                     {/* URL */}
                     <td className="px-4 py-3">
@@ -176,14 +244,29 @@ const QRAnalytics = () => {
                     <td className="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">
                       {fmt(qr.last_scanned_at)}
                     </td>
-                    {/* Download */}
-                    <td className="px-4 py-3 text-center">
-                      <button
-                        onClick={() => downloadQR(qr.slug, qr.label)}
-                        className="text-xs px-3 py-1.5 border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors font-medium"
-                      >
-                        ↓ PNG
-                      </button>
+                    {/* Actions */}
+                    <td className="px-4 py-3">
+                      <div className="flex flex-col gap-1.5 items-center">
+                        <button
+                          onClick={() => downloadQR(qr.slug)}
+                          className="text-xs px-3 py-1 border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors font-medium w-full"
+                        >
+                          ↓ PNG
+                        </button>
+                        <button
+                          onClick={() => startEdit(qr)}
+                          className="text-xs px-3 py-1 border border-primary/30 rounded-lg text-primary hover:bg-green-50 transition-colors font-medium w-full"
+                        >
+                          ✏ Rename
+                        </button>
+                        <button
+                          onClick={() => handleDelete(qr)}
+                          disabled={deletingId === qr.id}
+                          className="text-xs px-3 py-1 border border-red-200 rounded-lg text-red-500 hover:bg-red-50 transition-colors font-medium w-full disabled:opacity-60"
+                        >
+                          {deletingId === qr.id ? '…' : '🗑 Delete'}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
