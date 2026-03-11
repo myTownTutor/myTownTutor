@@ -18,8 +18,8 @@ export default {
     },
     extend: {
       colors: {
-        primary: '#16a34a',
-        'primary-dark': '#15803d',
+        primary: '#556B2F',
+        'primary-dark': '#3d4d22',
         'primary-light': '#dcfce7',
         'linkedin-bg': '#f0fdf4',
         secondary: '#e9f7ef',
