@@ -6,11 +6,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --primary-color: #556B2F;
-  --primary-dark: #3d4d22;
-  --secondary-color: #dcfce7;
-  --border-color: #d1fae5;
-  --text-light: #6b7280;
+  --primary-color: #0a66c2;
+  --primary-dark: #004182;
   --spacing: 8px;
   --radius: 0px;
 }
@@ -19,7 +16,7 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: #f0fdf4;
+  background-color: #f3f2ef;
   color: #1d2226;
   line-height: 1.6;
 }
@@ -96,7 +93,7 @@ body {
 .mission-title {
   font-size: 1.4rem;
   font-weight: 700;
-  color: #556B2F;
+  color: #0a66c2;
   margin-bottom: 12px;
 }
 
@@ -117,11 +114,11 @@ body {
   text-decoration: none;
 }
 
-.btn-primary { background: #556B2F; color: white; }
-.btn-primary:hover { background: #3d4d22; }
+.btn-primary { background: #0a66c2; color: white; }
+.btn-primary:hover { background: #004182; }
 
-.btn-outline { background: transparent; border: 2px solid #556B2F; color: #556B2F; }
-.btn-outline:hover { background: #f0fdf4; }
+.btn-outline { background: transparent; border: 2px solid #0a66c2; color: #0a66c2; }
+.btn-outline:hover { background: #e8f0fe; }
 
 .btn-secondary { background: #fff; color: #1d2226; border: 1px solid #d0cdc8; }
 .btn-secondary:hover { background: #f0efeb; }
@@ -156,7 +153,7 @@ body {
 
 .step-number {
   width: 48px; height: 48px;
-  background: #556B2F; color: white;
+  background: #0a66c2; color: white;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-size: 1.2rem; font-weight: 700;
@@ -183,7 +180,7 @@ body {
 
 .avatar-circle {
   width: 60px; height: 60px;
-  background: linear-gradient(135deg, #556B2F, #3d4d22);
+  background: linear-gradient(135deg, #0a66c2, #004182);
   color: white;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
