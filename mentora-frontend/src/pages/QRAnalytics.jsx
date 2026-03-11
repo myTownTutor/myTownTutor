@@ -168,6 +168,7 @@ const QRAnalytics = () => {
             <table className="min-w-full text-sm">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
+                  <th className="px-3 py-3 text-center text-xs font-semibold text-gray-400 uppercase tracking-wider">#</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">QR</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Label</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">URL</th>
@@ -178,8 +179,12 @@ const QRAnalytics = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {qrCodes.map((qr) => (
+                {qrCodes.map((qr, idx) => (
                   <tr key={qr.id} className="hover:bg-gray-50 transition-colors">
+                    {/* Index */}
+                    <td className="px-3 py-3 text-center">
+                      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 text-gray-500 text-xs font-bold">{idx + 1}</span>
+                    </td>
                     {/* QR Image */}
                     <td className="px-4 py-3">
                       <QRCodeCanvas
