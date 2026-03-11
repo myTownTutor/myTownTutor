@@ -14,8 +14,8 @@ const QRAnalytics = () => {
     try {
       const res = await api.get('/qr');
       setQrCodes(res.data.qr_codes || []);
-    } catch {
-      setError('Failed to load QR codes.');
+    } catch (err) {
+      setError(err?.response?.data?.error || err?.message || 'Failed to load QR codes.');
     } finally {
       setLoading(false);
     }
@@ -35,8 +35,8 @@ const QRAnalytics = () => {
       setQrCodes((prev) => [res.data, ...prev]);
       setLabel('');
       setShowForm(false);
-    } catch {
-      setError('Failed to create QR code.');
+    } catch (err) {
+      setError(err?.response?.data?.error || err?.response?.data?.detail || err?.message || 'Failed to create QR code.');
     } finally {
       setCreating(false);
     }

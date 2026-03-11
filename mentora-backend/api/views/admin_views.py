@@ -477,7 +477,8 @@ class QRRedirectView(APIView):
     """
     GET /qr/<slug>/  — public endpoint; logs the scan and redirects to homepage.
     """
-    permission_classes = []   # no auth needed
+    authentication_classes = []   # skip JWT parsing for public scans
+    permission_classes = []
 
     def get(self, request, slug):
         try:
