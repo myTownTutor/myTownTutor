@@ -191,10 +191,11 @@ const QRAnalytics = () => {
                         <QRCodeCanvas
                           id={`qr-canvas-${qr.slug}`}
                           value={qr.qr_url}
-                          size={72}
+                          size={300}
+                          style={{ width: '72px', height: '72px' }}
                           bgColor="#ffffff"
                           fgColor="#556B2F"
-                          level="M"
+                          level="H"
                         />
                         <span className="absolute bottom-0 right-0 bg-gray-800 text-white text-[9px] font-bold leading-none px-1 py-0.5 rounded-tl">
                           {idx + 1}
