@@ -194,7 +194,7 @@ const QRAnalytics = () => {
                           size={300}
                           style={{ width: '72px', height: '72px' }}
                           bgColor="#ffffff"
-                          fgColor="#556B2F"
+                          fgColor="#000000"
                           level="H"
                         />
                         <span className="absolute bottom-0 right-0 bg-gray-800 text-white text-[9px] font-bold leading-none px-1 py-0.5 rounded-tl">
