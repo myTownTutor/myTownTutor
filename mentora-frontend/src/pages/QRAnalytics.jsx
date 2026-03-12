@@ -85,10 +85,27 @@ const QRAnalytics = () => {
     }
   };
 
-  const downloadQR = (slug) => {
+  const downloadQR = (slug, num) => {
     const canvas = document.getElementById(`qr-canvas-${slug}`);
     if (!canvas) return;
-    const url = canvas.toDataURL('image/png');
+    // Create offscreen canvas to composite QR + number badge
+    const offscreen = document.createElement('canvas');
+    offscreen.width = canvas.width;
+    offscreen.height = canvas.height;
+    const ctx = offscreen.getContext('2d');
+    ctx.drawImage(canvas, 0, 0);
+    // Draw number badge at bottom-right
+    const badgeSize = Math.round(canvas.width * 0.12);
+    const x = canvas.width - badgeSize;
+    const y = canvas.height - badgeSize;
+    ctx.fillStyle = '#1f2937';
+    ctx.fillRect(x, y, badgeSize, badgeSize);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `bold ${Math.round(badgeSize * 0.65)}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(String(num), x + badgeSize / 2, y + badgeSize / 2);
+    const url = offscreen.toDataURL('image/png');
     const a = document.createElement('a');
     a.href = url;
     a.download = `qr-${slug}.png`;
@@ -259,7 +276,7 @@ const QRAnalytics = () => {
                     <td className="px-4 py-3">
                       <div className="flex flex-col gap-1.5 items-center">
                         <button
-                          onClick={() => downloadQR(qr.slug)}
+                          onClick={() => downloadQR(qr.slug, idx + 1)}
                           className="text-xs px-3 py-1 border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors font-medium w-full"
                         >
                           ↓ PNG
