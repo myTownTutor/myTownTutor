@@ -16,9 +16,9 @@ const Footer = () => {
             </p>
             <div className="flex gap-3">
               {[
-                { label: 'in', href: 'https://www.instagram.com/mytowntutor/' },
-                { label: '📧', href: 'mailto:mytowntutor@gmail.com' },
-                { label: 'f', href: 'https://facebook.com' },
+                { label: '🅾', href: 'https://www.instagram.com/mytowntutor/' },
+                { label: '📩', href: 'mailto:mytowntutor@gmail.com' },
+                { label: 'ⓕ', href: 'https://facebook.com' },
               ].map((s) => (
                 <a
                   key={s.label}
@@ -38,7 +38,7 @@ const Footer = () => {
             <h4 className="text-white font-semibold text-sm mb-3">For Students</h4>
             <ul className="space-y-2 text-sm">
               <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
-              <li><Link to="/about" className="hover:text-white transition-colors">How It Works</Link></li>
+              <li><Link to="/home" className="hover:text-white transition-colors">How It Works</Link></li>
               <li><Link to="/browse-mentors" className="hover:text-white transition-colors">Find a Tutor</Link></li>
               
             </ul>
