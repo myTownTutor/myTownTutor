@@ -16,6 +16,7 @@ import uuid
 import os
 
 from django.conf import settings
+from django.core.mail import send_mail
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -192,10 +193,33 @@ class MentorProfileView(APIView):
         if user.role != 'mentor':
             return Response({'error': 'Unauthorized'}, status=status.HTTP_403_FORBIDDEN)
 
-        mentor, _ = Mentor.objects.get_or_create(
+        mentor, is_new = Mentor.objects.get_or_create(
             user=user,
             defaults={'approval_status': 'pending_payment'}
         )
+
+        if is_new:
+            try:
+                send_mail(
+                    subject='Complete Your Registration on MyTown Tutor',
+                    message=(
+                        f'Hi {user.first_name},\n\n'
+                        'Thank you for signing up as a tutor on MyTown Tutor.\n\n'
+                        'We noticed that your registration is not yet complete. Please note that your profile will NOT be visible to students until both steps are completed:\n'
+                        '* Fill in all required profile details\n'
+                        '* Complete the registration payment\n\n'
+                        'Once everything is completed and confirmed, your profile will be reviewed and published on the platform.\n\n'
+                        'A complete and verified profile significantly improves your chances of being contacted by students.\n\n'
+                        'If you have already completed these steps or believe this message was sent in error, please reply to this email so we can verify.\n\n'
+                        'Best regards,\n'
+                        'MyTown Tutor Team'
+                    ),
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[user.email],
+                    fail_silently=True,
+                )
+            except Exception:
+                pass
 
         data = request.data
         str_fields = [

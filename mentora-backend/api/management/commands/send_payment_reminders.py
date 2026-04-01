@@ -6,35 +6,38 @@ from datetime import timedelta
 
 from api.models import MentorProfile
 
-REMINDER_SCHEDULE = [2, 3, 4]  # days to wait for reminders 1, 2, 3
-REPEAT_INTERVAL = 15            # days between reminders 4+
+REMINDER_SCHEDULE = [2, 3, 4]
+REPEAT_INTERVAL = 15
 
 EMAIL_SUBJECT = 'Complete Your Registration on MyTown Tutor'
 
-EMAIL_BODY = """Hi {first_name},
-
-Thank you for signing up as a tutor on MyTown Tutor.
-
-We noticed that your registration is not yet complete. Please note that your profile will NOT be visible to students until both steps are completed:
-* Fill in all required profile details
-* Complete the registration payment
-
-Once everything is completed and confirmed, your profile will be reviewed and published on the platform.
-
-A complete and verified profile significantly improves your chances of being contacted by students.
-
-If you have already completed these steps or believe this message was sent in error, please reply to this email so we can verify.
-
-Best regards,
-MyTown Tutor Team
-"""
+EMAIL_BODY = (
+    'Hi {first_name},\n\n'
+    'Thank you for signing up as a tutor on MyTown Tutor.\n\n'
+    'We noticed that your registration is not yet complete. Please note that your profile will NOT be visible to students until both steps are completed:\n'
+    '* Fill in all required profile details\n'
+    '* Complete the registration payment\n\n'
+    'Once everything is completed and confirmed, your profile will be reviewed and published on the platform.\n\n'
+    'A complete and verified profile significantly improves your chances of being contacted by students.\n\n'
+    'If you have already completed these steps or believe this message was sent in error, please reply to this email so we can verify.\n\n'
+    'Best regards,\n'
+    'MyTown Tutor Team\n'
+)
 
 
 class Command(BaseCommand):
     help = 'Send payment reminder emails to mentors who have not completed their registration'
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--force',
+            action='store_true',
+            help='Send to all pending mentors immediately, ignoring timing schedule (use for testing)',
+        )
+
     def handle(self, *args, **options):
         now = timezone.now()
+        force = options['force']
         pending = MentorProfile.objects.filter(
             approval_status__in=['pending_payment', 'pending_approval']
         ).select_related('user')
@@ -48,19 +51,16 @@ class Command(BaseCommand):
             last_sent = mentor.last_reminder_sent
             created = mentor.created_at
 
-            # Determine when the next reminder should go out
-            if count == 0:
-                # First reminder: 2 days after signup
-                next_reminder = created + timedelta(days=REMINDER_SCHEDULE[0])
-            elif count < len(REMINDER_SCHEDULE):
-                # 2nd reminder: 3 days after 1st; 3rd: 4 days after 2nd
-                next_reminder = last_sent + timedelta(days=REMINDER_SCHEDULE[count])
-            else:
-                # All subsequent: every 15 days
-                next_reminder = last_sent + timedelta(days=REPEAT_INTERVAL)
+            if not force:
+                if count == 0:
+                    next_reminder = created + timedelta(days=REMINDER_SCHEDULE[0])
+                elif count < len(REMINDER_SCHEDULE):
+                    next_reminder = last_sent + timedelta(days=REMINDER_SCHEDULE[count])
+                else:
+                    next_reminder = last_sent + timedelta(days=REPEAT_INTERVAL)
 
-            if now < next_reminder:
-                continue  # Not time yet
+                if now < next_reminder:
+                    continue
 
             try:
                 send_mail(
