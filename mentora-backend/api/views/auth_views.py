@@ -392,16 +392,15 @@ class ForgotPasswordView(APIView):
         if not email:
             return Response({'error': 'Email is required'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Check if this email belongs to a soft-deleted account (stored in original_email)
-        if User.objects.filter(original_email=email, is_deleted=True).exists():
-            return Response(
-                {'error': 'Account does not exist.'},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
+            # Only show "does not exist" if it's a soft-deleted account with no active replacement
+            if User.objects.filter(original_email=email, is_deleted=True).exists():
+                return Response(
+                    {'error': 'Account does not exist.'},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
             # Don't reveal whether email exists
             return Response({'message': 'If this email is registered, an OTP has been sent.'}, status=status.HTTP_200_OK)
 
