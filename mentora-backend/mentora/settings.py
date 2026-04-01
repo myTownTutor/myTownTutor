@@ -217,6 +217,7 @@ AUTHENTICATION_BACKENDS = [
 
 # Email — Brevo HTTP API (port 443, not blocked by DigitalOcean)
 EMAIL_BACKEND = 'anymail.backends.brevo.EmailBackend'
+BREVO_API_KEY = os.getenv('BREVO_API_KEY', '')
 ANYMAIL = {
     'BREVO_API_KEY': os.getenv('BREVO_API_KEY', ''),
 }
