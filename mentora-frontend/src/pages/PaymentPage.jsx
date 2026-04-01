@@ -18,11 +18,6 @@ const PaymentPage = () => {
   useEffect(() => {
     api.get('/mentors/profile').then(r => setMentorStatus(r.data?.approval_status || '')).catch(() => {});
   }, []);
-  const [mentorStatus, setMentorStatus] = useState('');
-
-  useEffect(() => {
-    api.get('/mentors/profile').then(r => setMentorStatus(r.data?.approval_status || '')).catch(() => {});
-  }, []);
 
   const AMOUNT = 99;
 
