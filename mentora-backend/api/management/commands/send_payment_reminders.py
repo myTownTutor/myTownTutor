@@ -4,7 +4,7 @@ from django.conf import settings
 from django.utils import timezone
 from datetime import timedelta
 
-from api.models import MentorProfile
+from api.models import Mentor as MentorProfile
 
 REMINDER_SCHEDULE = [2, 3, 4]
 REPEAT_INTERVAL = 15
