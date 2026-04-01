@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Third-party
+    'anymail',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
@@ -214,17 +215,12 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-# Email (SMTP)
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
-EMAIL_HOST = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
-EMAIL_PORT = int(os.getenv('MAIL_PORT', 587))
-EMAIL_USE_TLS = os.getenv('MAIL_USE_TLS', 'True') == 'True'
-EMAIL_HOST_USER = os.getenv('MAIL_USERNAME', '')
-EMAIL_HOST_PASSWORD = os.getenv('MAIL_PASSWORD', '')
+# Email — Brevo HTTP API (port 443, not blocked by DigitalOcean)
+EMAIL_BACKEND = 'anymail.backends.brevo.EmailBackend'
+ANYMAIL = {
+    'BREVO_API_KEY': os.getenv('BREVO_API_KEY', ''),
+}
 DEFAULT_FROM_EMAIL = os.getenv('MAIL_DEFAULT_SENDER', 'noreply@mentora.com')
-
-# Brevo HTTP API key (used instead of SMTP to bypass port 587 blocks)
-BREVO_API_KEY = os.getenv('BREVO_API_KEY', '')
 
 # Razorpay
 RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID', 'rzp_test_dummy')
