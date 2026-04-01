@@ -242,6 +242,36 @@ class VerifyEmailView(APIView):
         user.email_otp_expires_at = None
         user.save()
 
+        # Send welcome email to new mentors after email verification
+        if user.role == 'mentor':
+            try:
+                import requests as http_requests
+                api_key = django_settings.BREVO_API_KEY
+                http_requests.post(
+                    'https://api.brevo.com/v3/smtp/email',
+                    headers={'api-key': api_key, 'Content-Type': 'application/json'},
+                    json={
+                        'sender': {'name': 'MyTownTutor', 'email': django_settings.DEFAULT_FROM_EMAIL},
+                        'to': [{'email': user.email}],
+                        'subject': 'Complete Your Registration on MyTown Tutor',
+                        'textContent': (
+                            f'Hi {user.first_name},\n\n'
+                            'Thank you for signing up as a tutor on MyTown Tutor.\n\n'
+                            'We noticed that your registration is not yet complete. Please note that your profile will NOT be visible to students until both steps are completed:\n'
+                            '* Fill in all required profile details\n'
+                            '* Complete the registration payment\n\n'
+                            'Once everything is completed and confirmed, your profile will be reviewed and published on the platform.\n\n'
+                            'A complete and verified profile significantly improves your chances of being contacted by students.\n\n'
+                            'If you have already completed these steps or believe this message was sent in error, please reply to this email so we can verify.\n\n'
+                            'Best regards,\n'
+                            'MyTown Tutor Team'
+                        ),
+                    },
+                    timeout=10,
+                )
+            except Exception:
+                pass
+
         access_token, refresh_token = get_tokens_for_user(user)
 
         return Response({
