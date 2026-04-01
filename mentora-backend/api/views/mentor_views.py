@@ -182,22 +182,10 @@ class MentorProfileView(APIView):
         if user.role != 'mentor':
             return Response({'error': 'Unauthorized'}, status=status.HTTP_403_FORBIDDEN)
 
-        mentor, _ = Mentor.objects.get_or_create(
-            user=user,
-            defaults={'approval_status': 'pending_payment'}
-        )
-        return Response(mentor.to_dict())
-
-    def put(self, request):
-        user = request.user
-        if user.role != 'mentor':
-            return Response({'error': 'Unauthorized'}, status=status.HTTP_403_FORBIDDEN)
-
         mentor, is_new = Mentor.objects.get_or_create(
             user=user,
             defaults={'approval_status': 'pending_payment'}
         )
-
         if is_new:
             try:
                 send_mail(
@@ -220,6 +208,17 @@ class MentorProfileView(APIView):
                 )
             except Exception:
                 pass
+        return Response(mentor.to_dict())
+
+    def put(self, request):
+        user = request.user
+        if user.role != 'mentor':
+            return Response({'error': 'Unauthorized'}, status=status.HTTP_403_FORBIDDEN)
+
+        mentor, _ = Mentor.objects.get_or_create(
+            user=user,
+            defaults={'approval_status': 'pending_payment'}
+        )
 
         data = request.data
         str_fields = [
