@@ -109,6 +109,8 @@ class Mentor(models.Model):
     )
     rejected_reason = models.TextField(blank=True, null=True)
     student_found = models.BooleanField(null=True, blank=True)
+    reminder_count = models.IntegerField(default=0)
+    last_reminder_sent = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
