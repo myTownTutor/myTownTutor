@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
@@ -13,6 +13,16 @@ const PaymentPage = () => {
   const [loading, setLoading]     = useState(false);
   const [copied, setCopied]       = useState(false);
   const [error, setError]         = useState('');
+  const [mentorStatus, setMentorStatus] = useState('');
+
+  useEffect(() => {
+    api.get('/mentors/profile').then(r => setMentorStatus(r.data?.approval_status || '')).catch(() => {});
+  }, []);
+  const [mentorStatus, setMentorStatus] = useState('');
+
+  useEffect(() => {
+    api.get('/mentors/profile').then(r => setMentorStatus(r.data?.approval_status || '')).catch(() => {});
+  }, []);
 
   const AMOUNT = 99;
 
@@ -49,11 +59,20 @@ const PaymentPage = () => {
     }
   };
 
+  const alreadySubmitted = mentorStatus === 'pending_approval';
+
   return (
     <div className="max-w-md mx-auto space-y-4">
       <button onClick={() => navigate(-1)} className="text-sm text-gray-500 hover:text-primary flex items-center gap-1">
         ← Back
       </button>
+
+      {alreadySubmitted && (
+        <div className="bg-yellow-50 border border-yellow-300 rounded-xl p-4 text-sm text-yellow-800">
+          <p className="font-semibold mb-1">⚠️ Payment not yet confirmed</p>
+          <p>You marked payment as done, but admin hasn't approved your profile yet. If you haven't paid, scan the QR below and pay now, then click <strong>I Have Paid</strong> again.</p>
+        </div>
+      )}
 
       {/* Header */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 text-center">

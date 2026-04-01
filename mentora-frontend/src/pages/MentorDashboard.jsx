@@ -86,7 +86,14 @@ const MentorDashboard = () => {
             </Link>
           </>
         )}
-        {(status === 'pending_approval' || status === 'pending') && <p className="text-gray-600 text-sm">Your profile is under review. We'll notify you once it's approved.</p>}
+        {(status === 'pending_approval' || status === 'pending') && (
+          <>
+            <p className="text-gray-600 text-sm">Your profile is under review. We'll notify you once it's approved.</p>
+            <Link to="/payment" className="mt-2 inline-block text-orange-600 text-xs font-medium hover:underline">
+              Haven't paid yet? Complete payment here →
+            </Link>
+          </>
+        )}
         {status === 'approved' && <p className="text-gray-600 text-sm">Your profile is live. Students can contact you now.</p>}
         {status === 'rejected' && (
           <>
@@ -103,14 +110,14 @@ const MentorDashboard = () => {
         )}
       </div>
 
-      {/* Persistent payment reminder (shown whenever payment is still pending) */}
-      {status === 'pending_payment' && (
+      {/* Persistent payment reminder (shown whenever payment is not yet confirmed by admin) */}
+      {(status === 'pending_payment' || status === 'pending_approval' || status === 'pending') && (
         <div className="bg-white rounded-xl shadow-sm border border-orange-200 p-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-9 h-9 rounded-full bg-orange-100 flex items-center justify-center text-lg flex-shrink-0">💳</div>
             <div className="min-w-0">
               <p className="text-sm font-semibold text-gray-900 leading-tight">Registration payment pending</p>
-              <p className="text-xs text-gray-400 mt-0.5">6 months subscription fee · ₹99 · Unlock your public profile</p>
+              <p className="text-xs text-gray-400 mt-0.5">{status === 'pending_payment' ? '6 months subscription fee · ₹99 · Unlock your public profile' : 'Payment submitted — not yet confirmed by admin. Scan again if you haven\'t paid.'}</p>
             </div>
           </div>
           <Link
