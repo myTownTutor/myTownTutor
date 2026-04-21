@@ -26,12 +26,19 @@ const BrowseMentors = () => {
 
   const fetchMentors = async () => {
     setLoading(true);
+    setError('');
     try {
       const params = { page: currentPage, per_page: 12, search: filters.search, city: filters.city, gender: filters.gender };
-      const response = await api.get('/mentors/approved', { params });
+      const response = await api.get('/mentors/approved', { params, timeout: 30000 });
       setMentors(response.data.mentors);
       setTotalPages(response.data.pages);
-    } catch (err) { setError('Failed to load mentors'); }
+    } catch (err) {
+      if (err.code === 'ECONNABORTED') {
+        setError('Request timed out. Please check your connection and try again.');
+      } else {
+        setError('Failed to load mentors. Please try again.');
+      }
+    }
     finally { setLoading(false); }
   };
 
@@ -53,7 +60,17 @@ const BrowseMentors = () => {
 
       {/* Tutor Grid */}
       <div>
-          {error && <div className="error-message">{error}</div>}
+          {error && (
+            <div className="error-message flex items-center justify-between gap-3">
+              <span>{error}</span>
+              <button
+                onClick={fetchMentors}
+                className="text-sm font-semibold underline whitespace-nowrap"
+              >
+                Retry
+              </button>
+            </div>
+          )}
 
           {loading ? (
             <div className="text-center py-10 text-gray-400 text-sm">Loading Tutors</div>
