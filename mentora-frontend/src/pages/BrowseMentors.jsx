@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useBrowseFilters } from '../context/BrowseFiltersContext';
@@ -8,7 +8,23 @@ import api from '../services/api';
 const BrowseMentors = () => {
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
-  const { filters, triggerSearch } = useBrowseFilters();
+  const { filters, triggerSearch, handleFilterChange, applyFilters, resetFilters } = useBrowseFilters();
+  const [filterOpen, setFilterOpen] = useState(false);
+  const filterRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (filterRef.current && !filterRef.current.contains(e.target)) {
+        setFilterOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, []);
   const [mentors, setMentors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -49,13 +65,78 @@ const BrowseMentors = () => {
         description="Find and connect with verified home tutors near you. Browse by subject, city, and expertise on myTown Tutor."
         url="/browse-mentors"
       />
-      {/* Header */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-xl font-bold text-gray-900">Browse Tutors</h1>
-          <p className="text-gray-500 text-sm">Find the right tutor for your goals</p>
+      {/* Header + Inline Filter */}
+      <div ref={filterRef} className="bg-white rounded-xl shadow-sm border border-gray-200 px-4 sm:px-6 py-4">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <h1 className="text-xl font-bold text-gray-900">Browse Tutors</h1>
+            <p className="text-gray-500 text-sm">Find the right tutor for your goals</p>
+          </div>
+          <button
+            onClick={() => setFilterOpen(o => !o)}
+            className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors flex-shrink-0"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z" />
+            </svg>
+            Filters
+            {(filters.search || filters.city || filters.gender) && (
+              <span className="w-2 h-2 rounded-full bg-primary"></span>
+            )}
+          </button>
         </div>
-       
+
+        {/* Collapsible filter panel */}
+        {filterOpen && (
+          <div className="mt-4 pt-4 border-t border-gray-100">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Search</label>
+                <input
+                  type="text" name="search"
+                  value={filters.search}
+                  onChange={handleFilterChange}
+                  placeholder="Name or expertise…"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-primary transition bg-gray-50"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">City</label>
+                <input
+                  type="text" name="city"
+                  value={filters.city}
+                  onChange={handleFilterChange}
+                  placeholder="e.g. Delhi, Mumbai"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-primary transition bg-gray-50"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Gender</label>
+                <select name="gender" value={filters.gender} onChange={handleFilterChange}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-primary transition bg-gray-50">
+                  <option value="">All</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex gap-2 mt-3">
+              <button
+                onClick={() => { applyFilters(); setFilterOpen(false); }}
+                className="flex-1 sm:flex-none sm:px-6 bg-primary text-white py-2 rounded-full text-sm font-semibold hover:bg-primary-dark transition-colors"
+              >
+                Apply
+              </button>
+              <button
+                onClick={() => { resetFilters(); setFilterOpen(false); }}
+                className="flex-1 sm:flex-none sm:px-6 border border-gray-200 text-gray-600 py-2 rounded-full text-sm font-medium hover:bg-gray-50 transition-colors"
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Tutor Grid */}

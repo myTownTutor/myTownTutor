@@ -222,7 +222,6 @@ const ManageUsers = () => {
                       <div className="space-y-1.5">
                         <DetailRow label="Expertise" value={profileData.mentor_profile.expertise} />
                         <DetailRow label="Experience" value={profileData.mentor_profile.experience_years ? `${profileData.mentor_profile.experience_years} years` : null} />
-                        <DetailRow label="Hourly Rate" value={profileData.mentor_profile.hourly_rate ? `₹${profileData.mentor_profile.hourly_rate}` : null} />
                         <DetailRow label="Monthly Rate" value={profileData.mentor_profile.monthly_rate ? `₹${profileData.mentor_profile.monthly_rate}` : null} />
                         <DetailRow label="City" value={profileData.mentor_profile.city} />
                         <DetailRow label="University" value={profileData.mentor_profile.university} />

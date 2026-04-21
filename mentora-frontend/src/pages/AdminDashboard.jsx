@@ -240,7 +240,6 @@ const AdminDashboard = () => {
               <div className="space-y-1.5">
                 <DetailRow label="Expertise" value={viewMentor.expertise} />
                 <DetailRow label="Experience" value={viewMentor.experience_years ? `${viewMentor.experience_years} years` : null} />
-                <DetailRow label="Hourly Rate" value={viewMentor.hourly_rate ? `₹${viewMentor.hourly_rate}` : null} />
                 <DetailRow label="Monthly Rate" value={viewMentor.monthly_rate ? `₹${viewMentor.monthly_rate}` : null} />
                 <DetailRow label="City" value={viewMentor.city} />
                 <DetailRow label="University" value={viewMentor.university} />

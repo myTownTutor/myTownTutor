@@ -3186,7 +3186,9 @@
 
 @media (max-width: 768px) {
   .hero-section {
-    min-height: 85vh;
+    min-height: auto !important;
+    height: auto;
+    overflow: visible;
   }
 
   .hero-overlay {
@@ -3207,10 +3209,18 @@
 
   .hero-title {
     font-size: 2rem;
+    white-space: normal;
+    animation: none;
+    border-right: none;
+    width: auto;
   }
 
   .hero-subtitle {
     font-size: 1rem;
+    white-space: normal;
+    animation: none;
+    border-right: none;
+    width: auto;
   }
 
   .hero-buttons {

@@ -142,7 +142,6 @@ const MentorDashboard = () => {
               ['Experience', profile.experience_years ? `${profile.experience_years}+ years` : null],
               ['City', profile.city],
               ['University', profile.university],
-              ['Hourly Rate', profile.hourly_rate ? `₹${profile.hourly_rate}` : null],
               ['Monthly Rate', profile.monthly_rate ? `₹${profile.monthly_rate}` : null],
             ].filter(([_, v]) => v).map(([label, value]) => (
               <div key={label} className="flex gap-2">

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useBrowseFilters } from '../context/BrowseFiltersContext';
 
 const Sidebar = ({ mobileOpen, onClose }) => {
   const { user, isAuthenticated } = useAuth();
@@ -17,10 +16,6 @@ const Sidebar = ({ mobileOpen, onClose }) => {
     }`;
 
   const hasRole = (role) => user?.role === role;
-  const browseFilters = useBrowseFilters();
-  const onBrowsePage = location.pathname === '/browse-mentors';
-
-  const inputCls = 'w-full px-3 py-2 border border-gray-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-green-100 focus:border-primary transition bg-gray-50';
 
   return (
     <>
@@ -124,56 +119,6 @@ const Sidebar = ({ mobileOpen, onClose }) => {
             </>
           )}
         </nav>
-
-        {/* Browse Mentors — Filter Panel */}
-        {onBrowsePage && browseFilters && (
-          <div className="p-4 border-t border-gray-100 space-y-3">
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Filter Tutors</p>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Search</label>
-              <input
-                type="text" name="search"
-                value={browseFilters.filters.search}
-                onChange={browseFilters.handleFilterChange}
-                placeholder="Name or expertise…"
-                className={inputCls}
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">City</label>
-              <input
-                type="text" name="city"
-                value={browseFilters.filters.city}
-                onChange={browseFilters.handleFilterChange}
-                placeholder="e.g. Delhi, Mumbai"
-                className={inputCls}
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Gender</label>
-              <select name="gender" value={browseFilters.filters.gender} onChange={browseFilters.handleFilterChange} className={inputCls}>
-                <option value="">All</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            <div className="flex gap-2">
-              <button
-                onClick={browseFilters.applyFilters}
-                className="flex-1 bg-primary text-white py-1.5 rounded-full text-xs font-semibold hover:bg-primary-dark transition-colors"
-              >
-                Apply
-              </button>
-              <button
-                onClick={browseFilters.resetFilters}
-                className="flex-1 border border-gray-200 text-gray-600 py-1.5 rounded-full text-xs font-medium hover:bg-gray-50 transition-colors"
-              >
-                Reset
-              </button>
-            </div>
-          </div>
-        )}
 
       </aside>
     </>

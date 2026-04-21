@@ -147,22 +147,14 @@ const MentorProfile = () => {
             <h2 className="text-sm font-semibold text-gray-900 mb-1">Get in touch</h2>
             <p className="text-xs text-gray-400 mb-4">Send an enquiry directly to this tutor.</p>
             
-            {(mentor.hourly_rate || mentor.monthly_rate) && (
+            {mentor.monthly_rate && (
               <>
                 <Divider />
                 <div className="space-y-2">
-                  {mentor.hourly_rate && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs text-gray-400">Hourly</span>
-                      <span className="text-sm font-semibold text-gray-800">₹{mentor.hourly_rate}</span>
-                    </div>
-                  )}
-                  {mentor.monthly_rate && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs text-gray-400">Monthly</span>
-                      <span className="text-sm font-semibold text-gray-800">₹{mentor.monthly_rate}</span>
-                    </div>
-                  )}
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-gray-400">Monthly</span>
+                    <span className="text-sm font-semibold text-gray-800">₹{mentor.monthly_rate}</span>
+                  </div>
                 </div>
               </>
             )}

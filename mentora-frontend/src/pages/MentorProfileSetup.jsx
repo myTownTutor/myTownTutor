@@ -20,7 +20,7 @@ const MentorProfileSetup = () => {
   const [formData, setFormData] = useState({
     age: '', gender: '', city: '', bio: '',
     university: '', education: '',
-    expertise: '', experience_years: '', hourly_rate: '', monthly_rate: '',
+    expertise: '', experience_years: '', monthly_rate: '',
     instagram_url: '', facebook_url: '', profile_photo_url: '', resume_url: '',
   });
 
@@ -179,10 +179,6 @@ const MentorProfileSetup = () => {
       <div>
         <label className={labelCls}>Years of Experience</label>
         <input type="number" name="experience_years" value={formData.experience_years} onChange={handleChange} min="0" placeholder="5" className={inputCls} />
-      </div>
-      <div>
-        <label className={labelCls}>Hourly Rate (₹)</label>
-        <input type="number" name="hourly_rate" value={formData.hourly_rate} onChange={handleChange} min="0" placeholder="500" className={inputCls} />
       </div>
       <div>
         <label className={labelCls}>Monthly Rate (₹)</label>
