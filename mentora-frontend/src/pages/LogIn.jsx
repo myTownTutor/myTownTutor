@@ -22,10 +22,7 @@ const LogIn = () => {
     setLoading(true);
     try {
       const user = await login(formData.email, formData.password);
-      if (user.role === 'student') navigate('/student-dashboard');
-      else if (user.role === 'mentor') navigate('/mentor-dashboard');
-      else if (user.role === 'super_admin') navigate('/admin-dashboard');
-      else navigate('/');
+      navigate('/');
     } catch (err) {
       if (!err.response) {
         setError('Cannot connect to server. Make sure the backend is running on port 8000.');
