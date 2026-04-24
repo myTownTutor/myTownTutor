@@ -11,7 +11,11 @@ const api = axios.create({
 // Attach JWT access token to every request
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  } else {
+    delete config.headers.Authorization;
+  }
   return config;
 });
 
@@ -35,7 +39,8 @@ api.interceptors.response.use(
       error.response?.status === 401 &&
       !original._retry &&
       !original.url?.includes('/auth/refresh') &&
-      !original.url?.includes('/auth/login')
+      !original.url?.includes('/auth/login') &&
+      !original.url?.includes('/auth/logout')
     ) {
       const refreshToken = localStorage.getItem('refresh_token');
       if (!refreshToken) {

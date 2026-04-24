@@ -6,23 +6,13 @@ const Navbar = ({ onToggleSidebar }) => {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [loggingOut, setLoggingOut] = useState(false);
   const dropdownRef = useRef(null);
 
   const handleLogout = () => {
     setDropdownOpen(false);
-    setLoggingOut(true);
+    navigate('/');
     logout();
   };
-
-  // Navigate to home only after isAuthenticated is confirmed false,
-  // avoiding race conditions with React's async state batching.
-  useEffect(() => {
-    if (loggingOut && !isAuthenticated) {
-      setLoggingOut(false);
-      navigate('/');
-    }
-  }, [loggingOut, isAuthenticated]);
 
   const getDashboardPath = () => {
     if (user?.role === 'mentor') return '/mentor-dashboard';
