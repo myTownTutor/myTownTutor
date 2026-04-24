@@ -62,10 +62,8 @@ const VerifyEmail = () => {
 
     setLoading(true);
     try {
-      const user = await verifyEmail(email, code);
-      if (user.role === 'mentor') navigate('/mentor-profile-setup');
-      else if (user.role === 'student') navigate('/student-dashboard');
-      else navigate('/');
+      await verifyEmail(email, code);
+      navigate('/');
     } catch (err) {
       setError(err.response?.data?.error || 'Verification failed');
     } finally {
