@@ -108,11 +108,11 @@ class BrowseMentorsView(APIView):
         qs = qs.filter(Q(hourly_rate__lte=max_rate) | Q(hourly_rate__isnull=True))
 
         if sort_by == 'price_high':
-            qs = qs.order_by('-hourly_rate')
+            qs = qs.order_by('-hourly_rate', 'id')
         elif sort_by == 'price_low':
-            qs = qs.order_by('hourly_rate')
+            qs = qs.order_by('hourly_rate', 'id')
         else:
-            qs = qs.order_by('-created_at')
+            qs = qs.order_by('-created_at', 'id')
 
         items, total, pages = paginate(qs, page, per_page)
 

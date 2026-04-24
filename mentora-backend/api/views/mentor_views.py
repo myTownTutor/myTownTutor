@@ -73,7 +73,7 @@ class ApprovedMentorsView(APIView):
         city = request.query_params.get('city', '')
         gender = request.query_params.get('gender', '')
 
-        qs = Mentor.objects.filter(approval_status='approved', user__is_deleted=False, user__is_active=True).select_related('user')
+        qs = Mentor.objects.filter(approval_status='approved', user__is_deleted=False, user__is_active=True).select_related('user').order_by('-created_at', 'id')
 
         if search:
             from django.db.models import Q
