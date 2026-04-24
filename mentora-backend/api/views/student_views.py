@@ -81,12 +81,15 @@ class BrowseMentorsView(APIView):
         if user.role != 'student':
             return Response({'error': 'Unauthorized'}, status=status.HTTP_403_FORBIDDEN)
 
-        page = int(request.query_params.get('page', 1))
-        per_page = int(request.query_params.get('per_page', 10))
+        try:
+            page = int(request.query_params.get('page', 1))
+            per_page = int(request.query_params.get('per_page', 10))
+            min_exp = int(request.query_params.get('min_exp', 0))
+            max_rate = float(request.query_params.get('max_rate', 10000))
+        except (ValueError, TypeError):
+            return Response({'error': 'Invalid query parameter value'}, status=status.HTTP_400_BAD_REQUEST)
         search = request.query_params.get('search', '')
         expertise = request.query_params.get('expertise', '')
-        min_exp = int(request.query_params.get('min_exp', 0))
-        max_rate = float(request.query_params.get('max_rate', 10000))
         sort_by = request.query_params.get('sort_by', 'latest')
 
         qs = Mentor.objects.filter(approval_status='approved', user__is_deleted=False, user__is_active=True).select_related('user')
@@ -102,7 +105,7 @@ class BrowseMentorsView(APIView):
         if min_exp > 0:
             qs = qs.filter(experience_years__gte=min_exp)
 
-        qs = qs.filter(hourly_rate__lte=max_rate)
+        qs = qs.filter(Q(hourly_rate__lte=max_rate) | Q(hourly_rate__isnull=True))
 
         if sort_by == 'price_high':
             qs = qs.order_by('-hourly_rate')
@@ -183,7 +186,10 @@ class ContactMentorView(APIView):
 
         try:
             mentor = Mentor.objects.select_related('user').get(
-                pk=data['mentor_id'], approval_status='approved'
+                pk=data['mentor_id'],
+                approval_status='approved',
+                user__is_deleted=False,
+                user__is_active=True,
             )
         except Mentor.DoesNotExist:
             return Response({'error': 'Mentor not found'}, status=status.HTTP_404_NOT_FOUND)

@@ -184,11 +184,9 @@ class RegisterView(APIView):
                 last_name=last_name,
                 role=data['role'],
                 password=data['password'],
+                email_otp=otp,
+                email_otp_expires_at=otp_expires_at,
             )
-            user.email_otp = otp
-            user.email_otp_expires_at = otp_expires_at
-            user.is_email_verified = False
-            user.save()
 
             if data['role'] == 'mentor':
                 Mentor.objects.create(user=user, approval_status='pending_payment')

@@ -64,8 +64,11 @@ class ApprovedMentorsView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        page = int(request.query_params.get('page', 1))
-        per_page = int(request.query_params.get('per_page', 10))
+        try:
+            page = int(request.query_params.get('page', 1))
+            per_page = int(request.query_params.get('per_page', 10))
+        except (ValueError, TypeError):
+            return Response({'error': 'Invalid query parameter value'}, status=status.HTTP_400_BAD_REQUEST)
         search = request.query_params.get('search', '')
         city = request.query_params.get('city', '')
         gender = request.query_params.get('gender', '')
